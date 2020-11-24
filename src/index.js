@@ -41,7 +41,7 @@
         //判断该属性是否在json中的key存在
         JsonHasKey(json, key) {
             if (typeof json != 'object' || typeof key != 'string') return false;
-            return Object.keys(json).some(k => k === key || utils.JsonHasKey(json[k], key));
+            return Object.keys(json).some(k => k === key || this.JsonHasKey(json[k], key));
         },
         //判断对象为空
         isEmptyObj(obj) {
@@ -388,6 +388,15 @@
                 }
             }
             return obj;
+        },
+        //获取url参数
+        getUrlParams(str){
+            var reg1=/(?<==).*?(?=(&|$))/ig;
+            var reg2=/(?<=&).*?(?=(=|$))/ig;
+            return {
+                key:str.match(reg1),
+                value:str.match(reg2)
+            }
         }
     };
 

@@ -1,0 +1,18 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": [
+            "ie > 8",
+            "last 2 versions"
+          ]
+        },
+        "modules": false,
+        "useBuiltIns": true
+      }
+    ]
+  ],
+  "plugins": []
+}
