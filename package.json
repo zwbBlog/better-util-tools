@@ -1,0 +1,23 @@
+{
+  "name": "better-util-tools",
+  "private": false,
+  "version": "1.0.0",
+  "description": "一个简单的工具集",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "homepage": "https://github.com/ustbhuangyi/better-scroll",
+  "keywords": [
+    "better-util-tools",
+    "better-util",
+    "better-tools",
+    "util-tools",
+    "tools",
+    "util",
+    "utils"
+  ],
+  "author": "zlgb",
+  "email": "zlgbmail@163.com",
+  "license": "ISC"
+}
