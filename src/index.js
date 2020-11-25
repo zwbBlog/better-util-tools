@@ -62,13 +62,13 @@
         },
         // 为元素添加class
         addClass(ele, cls) {
-            if (!utils.hasClass(ele, cls)) {
+            if (!this.hasClass(ele, cls)) {
                 ele.className += ' ' + cls;
             }
         },
         //为元素移除class
         removeClass(ele, cls) {
-            if (utils.hasClass(ele, cls)) {
+            if (this.hasClass(ele, cls)) {
                 let reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
                 ele.className = ele.className.replace(reg, ' ');
             }
