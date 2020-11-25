@@ -382,7 +382,7 @@
             return name.replace(/([A-Z])/g, '_$1').toLowerCase();
         },
         // 图片上传转base64
-        imgChange(img) {
+        imgChange(file) {
             // 生成一个文件读取的对象
             var reader = new FileReader();
             reader.onload = function (ev) {
@@ -391,7 +391,7 @@
                 document.querySelector('img').src = imgFile;
             };
             //发起异步读取文件请求，读取结果为data:url的字符串形式，
-            reader.readAsDataURL(img.files[0]);
+            reader.readAsDataURL(file.files[0]);
         },
         // 深克隆
         deepCopy(obj, copyObj) {

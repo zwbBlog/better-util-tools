@@ -64,7 +64,7 @@
 * 驼峰转换下划线
   toLine(name) {},
 * 图片上传转base64
-  imgChange(img) {},
+  imgChange(file) {},
 * 深克隆
   deepCopy(obj, copyObj) {}
 ```
