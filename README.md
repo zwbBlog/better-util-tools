@@ -1,5 +1,5 @@
 # better-util-tools
-一个简单的方法合集   
+# 一个简单的方法合集
 ```
 * 判断两个数组是否相等
   arrayEqual(arr1, arr2) {},
@@ -48,9 +48,13 @@
 * 时间格式化
   formatDateTime({timestamp, type}) {},
 * 调用支付宝验证银行卡接口
-  async isBankCard(bankCard) {},
+  isBankCard(bankCard) {},
 * url参数转换
   getParamsForUrl(url) {},
+* 获取url参数
+  getUrlParams(str){}
+*对象参数转字符串
+  queryString(obj) {},
 * 节流函数--规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。
   throttle(fun, delay) {},
 * 防抖函数--在事件被触发n秒后再执行回调，如果在这n秒内又被触发，则重新计时 */
@@ -62,7 +66,7 @@
 * 图片上传转base64
   imgChange(img) {},
 * 深克隆
-  deepCopy(obj, copyObj) {} 
+  deepCopy(obj, copyObj) {}
 * 获取url参数
   getUrlParams(str){}
 ```

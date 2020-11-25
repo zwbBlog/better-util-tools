@@ -1,20 +1,21 @@
 {
   "name": "better-util-tools",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "一个简单的工具集",
   "main": "dist/index.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "gulp"
   },
-  "homepage": "https://github.com/ustbhuangyi/better-scroll",
+  "homepage": "https://github.com/zwbBlog/better-util-tools",
   "keywords": [
     "better-util-tools",
     "better-util",
     "better-tools",
     "util-tools",
     "tools",
+    "tool",
     "util",
     "utils"
   ],
@@ -30,5 +31,8 @@
     "gulp-clean": "^0.4.0",
     "gulp-rename": "^2.0.0",
     "gulp-uglify": "^3.0.2"
+  },
+  "dependencies": {
+    "axios": "^0.21.0"
   }
 }

@@ -304,10 +304,17 @@
             }
         },
         //调用支付宝验证银行卡接口
-        async isBankCard(bankCard) {
+        isBankCard(bankCard,cb) {
             var url = `https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?_input_charset=utf-8&cardNo=${bankCard}&cardBinCheck=true`;
-            var data = await axios.get(url);
-            return data;
+            if (axios) {
+                axios.get(url).then(({data}) => {
+                    cb && cb(data);
+                }).catch(err => {
+                    cb('验证失败');
+                });
+            } else {
+                reject('需要axios依赖');
+            }
         },
         // url参数转换
         getParamsForUrl(url) {
@@ -318,7 +325,24 @@
             }
             return obj;
         },
-        /** * 节流函数--规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。 */
+        //获取url参数
+        getUrlParams(str) {
+            var reg1 = /(?<==).*?(?=(&|$))/ig;
+            var reg2 = /(?<=&).*?(?=(=|$))/ig;
+            return {
+                key: str.match(reg1),
+                value: str.match(reg2)
+            };
+        },
+        //对象参数转字符串
+        queryString(obj) {
+            let str = '';
+            for (let k in obj) {
+                str += `${k}=${obj[k]}`;
+            }
+            return str;
+        },
+        //节流函数--规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。
         throttle(fun, delay) {
             let last, deferTimer;
             return function (args) {
@@ -337,7 +361,7 @@
                 }
             };
         },
-        /** * 防抖函数--在事件被触发n秒后再执行回调，如果在这n秒内又被触发，则重新计时 */
+        // 防抖函数--在事件被触发n秒后再执行回调，如果在这n秒内又被触发，则重新计时
         debounce(fun, delay) {
             return function (args) {
                 let that = this;
@@ -389,15 +413,6 @@
             }
             return obj;
         },
-        //获取url参数
-        getUrlParams(str){
-            var reg1=/(?<==).*?(?=(&|$))/ig;
-            var reg2=/(?<=&).*?(?=(=|$))/ig;
-            return {
-                key:str.match(reg1),
-                value:str.match(reg2)
-            }
-        }
     };
 
     return BetterUtilTools;
