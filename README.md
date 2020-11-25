@@ -1,5 +1,14 @@
 # better-util-tools
-# 一个简单的方法合集
+## 一个简单的方法合集
+### *使用方法*
+- *npm i better-util-tools*
+- *or*
+- *yarn add better-util-tools*
+- import BetterUtilTools from "better-util-tools"
+- const _ = new BetterUtilTools()
+- _.random(2,10) `//8`
+
+#### 方法集合如下：
 ```
 * 判断两个数组是否相等
   arrayEqual(arr1, arr2) {},
