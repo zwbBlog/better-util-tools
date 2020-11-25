@@ -53,6 +53,8 @@
   getParamsForUrl(url) {},
 * 获取url参数
   getUrlParams(str){}
+* 对象参数转字符串
+  queryString(obj) {},
 *对象参数转字符串
   queryString(obj) {},
 * 节流函数--规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。
@@ -67,6 +69,4 @@
   imgChange(img) {},
 * 深克隆
   deepCopy(obj, copyObj) {}
-* 获取url参数
-  getUrlParams(str){}
 ```
