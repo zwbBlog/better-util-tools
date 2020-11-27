@@ -14,16 +14,17 @@
     } else {
         // 将模块的执行结果挂在window变量中，在浏览器中this指向window对象
         this[name] = definition();
+        this.BetterUtilTools = definition();
+        if(window)window.BetterUtilTools = definition();
     }
 })('better-util-tools', function () {
     var BetterUtilTools = function (options) {
         options = options || {};
-        this._init(options);
     };
 
     BetterUtilTools.prototype = {
-        _init: function (options) {
-            console.log('better-util-tools is created');
+        _init: function () {
+            console.log('better-util-tools is ok');
         },
         //判断两个数组是否相等
         arrayEqual(arr1, arr2) {
@@ -304,7 +305,7 @@
             }
         },
         //调用支付宝验证银行卡接口
-        isBankCard(bankCard,cb) {
+        isBankCard(bankCard, cb) {
             var url = `https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?_input_charset=utf-8&cardNo=${bankCard}&cardBinCheck=true`;
             if (axios) {
                 axios.get(url).then(({data}) => {
@@ -414,6 +415,5 @@
             return obj;
         },
     };
-
     return BetterUtilTools;
 });
