@@ -67,6 +67,8 @@ _.random(2,10) `//8`
   getStyle(elem, style) {},
 * 时间格式化
   formatDateTime({timestamp, type}) {},
+* 获取相对时间
+  getAbsoluteDay,
 * 调用支付宝验证银行卡接口
   isBankCard(bankCard) {},
 * url参数转换
