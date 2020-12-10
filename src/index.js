@@ -4,20 +4,18 @@
  *  修改人      修改日期                 修改目的
  *  zlgb        2020-11-24               创建
  **/
-(function (name, definition) {
-    if (typeof define === 'function') {
+(function (global, definition) {
+    if (typeof define === 'function' && define.amd) {
         // AMD环境或CMD环境
         define(definition);
     } else if (typeof module !== 'undefined' && module.exports) {
         // 定义为普通Node模块
         module.exports = definition();
     } else {
-        // 将模块的执行结果挂在window变量中，在浏览器中this指向window对象
-        this[name] = definition();
-        this.BetterUtilTools = definition();
-        if(window)window.BetterUtilTools = definition();
+        // 将模块的执行结果挂在全局变量中，在浏览器中指向window对象
+        global.BetterUtilTools = definition();
     }
-})('better-util-tools', function () {
+})(this, function () {
     var BetterUtilTools = function (options) {
         options = options || {};
     };
