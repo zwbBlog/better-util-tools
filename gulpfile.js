@@ -16,7 +16,7 @@ gulp.task('clean', function () {
     const source = 'src/*.js';
     const dest = 'dist/';
     return src(source)
-        .pipe(deleted({src: source, dest, patterns: ['*', '!need.txt']}));
+        .pipe(deleted({src: source, dest, patterns: ['*', '!need.txt','!*.css']}));
 });
 
 gulp.task('build', async function () {
