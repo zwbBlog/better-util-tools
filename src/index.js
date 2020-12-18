@@ -34,10 +34,6 @@
             }
             return true;
         },
-        //判断是否为对象
-        isObject(obj) {
-            return Object.prototype.toString.call(obj) === '[object Object]';
-        },
         //判断该属性是否在json中的key存在
         JsonHasKey(json, key) {
             if (typeof json != 'object' || typeof key != 'string') return false;
@@ -194,29 +190,12 @@
         //现金额转大写
         digitUppercase(n) {
             let fraction = ['角', '分'];
-            let digit = [
-                '零',
-                '壹',
-                '贰',
-                '叁',
-                '肆',
-                '伍',
-                '陆',
-                '柒',
-                '捌',
-                '玖'
-            ];
+            let digit = ['零', '壹','贰','叁','肆','伍','陆','柒','捌','玖'];
             let unit = [
-                [
-                    '元', '万', '亿'
-                ],
-                [
-                    '', '拾', '佰', '仟'
-                ]
+                ['元', '万', '亿'],
+                ['', '拾', '佰', '仟']
             ];
-            let head = n < 0
-                ? '欠'
-                : '';
+            let head = n < 0? '欠': '';
             n = Math.abs(n);
             let s = '';
             for (let i = 0; i < fraction.length; i++) {
@@ -314,7 +293,7 @@
             return tYear+"-"+tMonth+"-"+tDate;
         },
         //调用支付宝验证银行卡接口
-        isBankCard(bankCard, cb) {
+        isBankCard(axios,bankCard, cb) {
             var url = `https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?_input_charset=utf-8&cardNo=${bankCard}&cardBinCheck=true`;
             if (axios) {
                 axios.get(url).then(({data}) => {
@@ -323,7 +302,7 @@
                     cb('验证失败');
                 });
             } else {
-                reject('需要axios依赖');
+                cb('需要axios依赖');
             }
         },
         // url参数转换
@@ -413,9 +392,9 @@
                         // 引用类型
                         // 判断是否是数组
                         obj[k] = Array.isArray(copyObj[k]) ? [] : {};
-
-                        deepCopy(obj[k], copyObj[k]); //函数调用
-                    } else {
+                        this.deepCopy(obj[k], copyObj[k]); //函数调用
+                    }
+                    else {
                         // 值类型
                         obj[k] = copyObj[k];
                     }

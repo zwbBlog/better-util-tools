@@ -23,8 +23,6 @@ _.random(2,10) `//8`
 ```
 * 判断两个数组是否相等
   arrayEqual(arr1, arr2) {},
-* 判断是否为对象
-  isObject(obj) {},
 * 判断该属性是否在json中的key存在
   JsonHasKey(json, key) {},
 * 判断对象为空
@@ -70,7 +68,7 @@ _.random(2,10) `//8`
 * 获取相对时间
   getAbsoluteDay,
 * 调用支付宝验证银行卡接口
-  isBankCard(bankCard) {},
+  isBankCard(axios,bankCard, cb) {},
 * url参数转换
   getParamsForUrl(url) {},
 * 获取url参数
