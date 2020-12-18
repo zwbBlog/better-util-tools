@@ -29,8 +29,6 @@ _.random(2,10) `//8`
   JsonHasKey(json, key) {},
 * 判断对象为空
   isEmptyObj(obj) {},
-* 判断是否为数组
-  isArray(obj) {},
 *判断类型
   typeIs(instance){},
 * 判断是否为Promise

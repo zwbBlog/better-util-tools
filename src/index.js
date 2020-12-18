@@ -47,11 +47,6 @@
         isEmptyObj(obj) {
             return JSON.stringify(obj) === '{}' || Object.keys(obj).length === 0;
         },
-        //判断是否为数组
-        isArray(obj) {
-            if (Array.isArray) return Array.isArray(obj);
-            return Object.prototype.toString.call(obj) === '[object Array]';
-        },
         //判断类型
         typeIs(instance){
             return  Object.prototype.toString.call(instance).slice(8,-1).toLowerCase()  //array object boolean number...
@@ -291,21 +286,13 @@
             minute = minute < 10 ? ('0' + minute) : minute;
             var second = Time.getSeconds();
             second = second < 10 ? ('0' + second) : second;
-            if (!type) return year + '-' + month + '-' + date + ' ' + hour + ':' + minute + ':' + second;
-            switch (type) {
-                case 'yyyy-MM-dd':
-                    return year + '-' + month + '-' + date;
-                    break;
-                case 'MM-dd':
-                    return month + '-' + date;
-                    break;
-                case 'yyyy-MM-DD HH:mm':
-                    return year + '-' + month + '-' + date + ' ' + hour + ':' + minute;
-                    break;
-                case 'yyyy-MM-DD HH:mm:ss':
-                    return year + '-' + month + '-' + date + ' ' + hour + ':' + minute + ':' + second;
-                    break;
-            }
+            if (!type) return year + '/' + month + '/' + date + ' ' + hour + ':' + minute + ':' + second;
+            return type.replace(/YYYY/i,year)
+                    .replace(/MM/,month)
+                    .replace(/DD/i,date)
+                    .replace(/hh/i,hour)
+                    .replace(/mm/,minute)
+                    .replace(/ss/i,second)
         },
         //获取相对时间
         getAbsoluteDay(day){
