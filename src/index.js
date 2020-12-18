@@ -13,6 +13,7 @@
         module.exports = definition();
     } else {
         // 将模块的执行结果挂在全局变量中，在浏览器中指向window对象
+        global = typeof globalThis !== 'undefined'? globalThis:global;
         global.BetterUtilTools = definition();
     }
 })(this, function () {
@@ -50,6 +51,10 @@
         isArray(obj) {
             if (Array.isArray) return Array.isArray(obj);
             return Object.prototype.toString.call(obj) === '[object Array]';
+        },
+        //判断类型
+        typeIs(instance){
+            return  Object.prototype.toString.call(instance).slice(8,-1).toLowerCase()  //array object boolean number...
         },
         //判断是否为Promise
         isPromise(obj) {
