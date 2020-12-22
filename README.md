@@ -87,6 +87,8 @@ _.random(2,10) `//8`
   imgChange(file) {},
 * 深克隆
   deepCopy(obj, copyObj) {}
+* 数组合并
+  unique(arr) {}
 * 合并对象 第一个参数为true代表深度合并（可选参数）
   extend([boolean],obj1,obj2,...objN) {}
 ```
