@@ -13,7 +13,7 @@
         module.exports = definition();
     } else {
         // 将模块的执行结果挂在全局变量中，在浏览器中指向window对象
-        global = typeof globalThis !== 'undefined'? globalThis:global;
+        global = typeof globalThis !== 'undefined' ? globalThis : global;
         global.BetterUtilTools = definition();
     }
 })(this, function () {
@@ -44,8 +44,8 @@
             return JSON.stringify(obj) === '{}' || Object.keys(obj).length === 0;
         },
         //判断类型
-        typeIs(instance){
-            return  Object.prototype.toString.call(instance).slice(8,-1).toLowerCase()  //array object boolean number...
+        typeIs(instance) {
+            return Object.prototype.toString.call(instance).slice(8, -1).toLowerCase();  //array object boolean number...
         },
         //判断是否为Promise
         isPromise(obj) {
@@ -190,12 +190,12 @@
         //现金额转大写
         digitUppercase(n) {
             let fraction = ['角', '分'];
-            let digit = ['零', '壹','贰','叁','肆','伍','陆','柒','捌','玖'];
+            let digit = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
             let unit = [
                 ['元', '万', '亿'],
                 ['', '拾', '佰', '仟']
             ];
-            let head = n < 0? '欠': '';
+            let head = n < 0 ? '欠' : '';
             n = Math.abs(n);
             let s = '';
             for (let i = 0; i < fraction.length; i++) {
@@ -266,34 +266,34 @@
             var second = Time.getSeconds();
             second = second < 10 ? ('0' + second) : second;
             if (!type) return year + '/' + month + '/' + date + ' ' + hour + ':' + minute + ':' + second;
-            return type.replace(/YYYY/i,year)
-                    .replace(/MM/,month)
-                    .replace(/DD/i,date)
-                    .replace(/hh/i,hour)
-                    .replace(/mm/,minute)
-                    .replace(/ss/i,second)
+            return type.replace(/YYYY/i, year)
+                .replace(/MM/, month)
+                .replace(/DD/i, date)
+                .replace(/hh/i, hour)
+                .replace(/mm/, minute)
+                .replace(/ss/i, second);
         },
         //获取相对时间
-        getAbsoluteDay(day){
-            const doHandleMonth = (month) =>{
+        getAbsoluteDay(day) {
+            const doHandleMonth = (month) => {
                 var m = month;
-                if(month.toString().length == 1){
-                    m = "0" + month;
+                if (month.toString().length == 1) {
+                    m = '0' + month;
                 }
                 return m;
-            }
+            };
             var today = new Date();
-            var targetday_milliseconds=today.getTime() + 1000*60*60*24*day;
+            var targetday_milliseconds = today.getTime() + 1000 * 60 * 60 * 24 * day;
             today.setTime(targetday_milliseconds); //注意，这行是关键代码
             var tYear = today.getFullYear();
             var tMonth = today.getMonth();
             var tDate = today.getDate();
             tMonth = doHandleMonth(tMonth + 1);
             tDate = doHandleMonth(tDate);
-            return tYear+"-"+tMonth+"-"+tDate;
+            return tYear + '-' + tMonth + '-' + tDate;
         },
         //调用支付宝验证银行卡接口
-        isBankCard(axios,bankCard, cb) {
+        isBankCard(axios, bankCard, cb) {
             var url = `https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?_input_charset=utf-8&cardNo=${bankCard}&cardBinCheck=true`;
             if (axios) {
                 axios.get(url).then(({data}) => {
@@ -393,8 +393,7 @@
                         // 判断是否是数组
                         obj[k] = Array.isArray(copyObj[k]) ? [] : {};
                         this.deepCopy(obj[k], copyObj[k]); //函数调用
-                    }
-                    else {
+                    } else {
                         // 值类型
                         obj[k] = copyObj[k];
                     }
@@ -402,6 +401,35 @@
             }
             return obj;
         },
+        extend() {
+            var extended = {};
+            var deep = false;
+            var i = 0;
+            // 判断是否为深拷贝
+            if (this.typeIs(arguments[0]) === 'boolean') {
+                deep = arguments[0];
+                //如果为深拷贝则初始的i为1或者为0
+                i++;
+            }
+            // 将对象属性合并到已存在的对象中
+            var merge = function (obj) {
+                for (var prop in obj) {
+                    if (obj.hasOwnProperty(prop)) {
+                        // 如果属性为对象并且需要深拷贝时则使用函数递归、反之则将当前的属性替换现有的属性
+                        if (deep && this.typeIs(obj[prop]) === 'object') {
+                            extended[prop] = this.extend(extended[prop], obj[prop]);
+                        } else {
+                            extended[prop] = obj[prop];
+                        }
+                    }
+                }
+            }.bind(this);
+            // 遍历所有对象属性
+            for (; i < arguments.length; i++) {
+                merge(arguments[i]);
+            }
+            return extended;
+        }
     };
     return BetterUtilTools;
 });

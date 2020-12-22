@@ -17,6 +17,11 @@
         console.log(_.getOS());
         console.log(_.randomColor());
         console.log(_.getAbsoluteDay(0));
+        const o1={a:1,c:11},o2={a:2},o3={a:3,b:6,d:{e:6}}
+        const o = _.extend(true,o1,o2,o3);
+        o.d.e=88
+        console.log(o);
+        console.log(o3);
     }catch(err){
         console.warn(err)
     }
