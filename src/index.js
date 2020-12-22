@@ -401,6 +401,27 @@
             }
             return obj;
         },
+        // 数组合并
+        unique(arr) {
+            var array = arr;
+            var len = array.length;
+            array.sort(function (a, b) {
+                return a - b;
+            });
+
+            function loop(index) {
+                if (index >= 1) {
+                    if (array[index] === array[index - 1]) {
+                        array.splice(index, 1);
+                    }
+                    loop(index - 1); //递归loop，然后数组去重
+                }
+            }
+
+            loop(len - 1);
+            return array;
+        },
+        // 合并对象
         extend() {
             var extended = {};
             var deep = false;
