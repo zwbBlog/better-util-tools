@@ -22,7 +22,7 @@
     };
 
     BetterUtilTools.prototype = {
-        _init: function () {
+        _init () {
             console.log('better-util-tools is ok');
         },
         //判断两个数组是否相等
@@ -236,10 +236,7 @@
         },
         // 获取元素属性值
         getStyle(elem, style) {
-            let view = elem.ownerDocument.defaultView;
-            if (!view || !view.opener) {
-                view = window;
-            }
+            let view = elem.ownerDocument ? elem.ownerDocument.defaultView : window;
             if (typeof style == 'string') {
                 return view.getComputedStyle(elem)[style];
             } else if (typeof style === 'undefined') {
@@ -251,6 +248,7 @@
                 }
                 return styles;
             }
+
         },
         //时间格式化
         formatDateTime({timestamp, type}) {
