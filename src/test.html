@@ -25,6 +25,18 @@
         console.log(_.digitUppercase(120800));
         console.log(_.toThousands(120800));
         console.log(_.getStyle(document.querySelector('html'),['width','height']));
+        var obj = {
+            a:6,
+            b:[1,2,3],
+            c:{
+                d:4
+            },
+            e:new Date()
+        }
+        var obj2 = _.deepCopy({},obj)
+        obj2.c.d = 666
+        console.log(obj)
+        console.log(obj2)
     }catch(err){
         console.warn(err);
     }

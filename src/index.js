@@ -22,7 +22,7 @@
     };
 
     BetterUtilTools.prototype = {
-        _init () {
+        _init() {
             console.log('better-util-tools is ok');
         },
         //判断两个数组是否相等
@@ -76,18 +76,18 @@
             (s = ua.match(/rv:([\d.]+)\) like gecko/))
                 ? sys.ie = s[1]
                 : (s = ua.match(/msie ([\d\.]+)/))
-                ? sys.ie = s[1]
-                : (s = ua.match(/edge\/([\d\.]+)/))
-                    ? sys.edge = s[1]
-                    : (s = ua.match(/firefox\/([\d\.]+)/))
-                        ? sys.firefox = s[1]
-                        : (s = ua.match(/(?:opera|opr).([\d\.]+)/))
-                            ? sys.opera = s[1]
-                            : (s = ua.match(/chrome\/([\d\.]+)/))
-                                ? sys.chrome = s[1]
-                                : (s = ua.match(/version\/([\d\.]+).*safari/))
-                                    ? sys.safari = s[1]
-                                    : 0;
+                    ? sys.ie = s[1]
+                    : (s = ua.match(/edge\/([\d\.]+)/))
+                        ? sys.edge = s[1]
+                        : (s = ua.match(/firefox\/([\d\.]+)/))
+                            ? sys.firefox = s[1]
+                            : (s = ua.match(/(?:opera|opr).([\d\.]+)/))
+                                ? sys.opera = s[1]
+                                : (s = ua.match(/chrome\/([\d\.]+)/))
+                                    ? sys.chrome = s[1]
+                                    : (s = ua.match(/version\/([\d\.]+).*safari/))
+                                        ? sys.safari = s[1]
+                                        : 0;
             // 根据关系进行判断
             if (sys.ie) {
                 return ('IE: ' + sys.ie);
@@ -143,7 +143,7 @@
         randomColor() {
             return '#' + (
                 '00000' + (
-                Math.random() * 0x1000000 << 0).toString(16)).slice(-6);
+                    Math.random() * 0x1000000 << 0).toString(16)).slice(-6);
         },
         // 范围内随机数
         random(low, high) {
@@ -251,7 +251,7 @@
 
         },
         //时间格式化
-        formatDateTime({timestamp, type}) {
+        formatDateTime({ timestamp, type }) {
             var Time = timestamp ? new Date(timestamp) : new Date();
             var year = Time.getFullYear();
             var month = Time.getMonth() + 1;
@@ -294,7 +294,7 @@
         isBankCard(axios, bankCard, cb) {
             var url = `https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?_input_charset=utf-8&cardNo=${bankCard}&cardBinCheck=true`;
             if (axios) {
-                axios.get(url).then(({data}) => {
+                axios.get(url).then(({ data }) => {
                     cb && cb(data);
                 }).catch(err => {
                     cb('验证失败');
@@ -330,33 +330,35 @@
             return str;
         },
         //节流函数--规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。
-        throttle(fun, delay) {
-            let last, deferTimer;
-            return function (args) {
-                let that = this;
-                let _args = argumentslet;
-                var now = +new Date();
-                if (last && now < last + delay) {
-                    clearTimeout(deferTimer);
-                    deferTimer = setTimeout(function () {
-                        last = now;
-                        fun.apply(that, _args);
-                    }, delay);
-                } else {
-                    last = now;
-                    fun.apply(that, _args);
+        throttle(fn, wait = 50) {
+            // 上一次执行 fn 的时间
+            let previous = 0;
+            // 将 throttle 处理结果当作函数返回
+            return function (...args) {
+                // 获取当前时间，转换成时间戳，单位毫秒
+                let now = Number(new Date());
+                // 将当前时间和上一次执行函数的时间进行对比
+                // 大于等待时间就把 previous 设置为当前时间并执行函数 fn
+                if (now - previous > wait) {
+                    previous = now;
+                    fn.apply(this, args);
                 }
             };
         },
         // 防抖函数--在事件被触发n秒后再执行回调，如果在这n秒内又被触发，则重新计时
-        debounce(fun, delay) {
-            return function (args) {
-                let that = this;
-                clearTimeout(fun.id);
-                fun.id = setTimeout(function () {
-                    fun.call(that, args);
-                }, delay);
-            };
+        debounce(fn, wait = 50) {
+            // 通过闭包缓存一个定时器 id
+            let timer = null
+            // 将 debounce 处理结果当作函数返回
+            // 触发事件回调时执行这个返回函数
+            return function(...args) {
+                  // 如果已经设定过定时器就清空上一次的定时器
+                if (timer) clearTimeout(timer)
+                  // 开始设定一个新的定时器，定时器结束后执行传入的函数 fn
+                timer = setTimeout(() => {
+                    fn.apply(this, args)
+                }, wait)
+            }
         },
         // 下划线转换驼峰
         toHump(name) {
@@ -389,7 +391,13 @@
                     if (typeof copyObj[k] == 'object') {
                         // 引用类型
                         // 判断是否是数组
-                        obj[k] = Array.isArray(copyObj[k]) ? [] : {};
+                        if (this.typeIs(copyObj[k]) === 'array') {
+                            obj[k] = []
+                        } else if (this.typeIs(copyObj[k]) === 'object') {
+                            obj[k] = {}
+                        } else {
+                            obj[k] = copyObj[k]
+                        }
                         this.deepCopy(obj[k], copyObj[k]); //函数调用
                     } else {
                         // 值类型
