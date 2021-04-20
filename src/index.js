@@ -351,10 +351,10 @@
             let timer = null
             // 将 debounce 处理结果当作函数返回
             // 触发事件回调时执行这个返回函数
-            return function(...args) {
-                  // 如果已经设定过定时器就清空上一次的定时器
+            return function (...args) {
+                // 如果已经设定过定时器就清空上一次的定时器
                 if (timer) clearTimeout(timer)
-                  // 开始设定一个新的定时器，定时器结束后执行传入的函数 fn
+                // 开始设定一个新的定时器，定时器结束后执行传入的函数 fn
                 timer = setTimeout(() => {
                     fn.apply(this, args)
                 }, wait)
@@ -456,6 +456,26 @@
                 merge(arguments[i]);
             }
             return extended;
+        },
+        // 千分位逗号格式化
+        formatDecimals(n) {
+            let num = n.toString();
+            let decimals = ''
+            // 判断是否有小数
+            num.indexOf('.') > -1 ? decimals = num.split('.')[1] : decimals
+            let len = num.length
+            if (len <= 3 || num<1000) {
+                return num
+            } else {
+                let temp = ''
+                let remainder = len % 3
+                decimals ? temp = '.' + decimals : temp
+                if (remainder > 0) { // 不是3的整数倍
+                    return num.slice(0, remainder) + ',' + num.slice(remainder, len).match(/\d{3}/g).join(',') + temp
+                } else { // 是3的整数倍
+                    return num.slice(0, len).match(/\d{3}/g).join(',') + temp
+                }
+            }
         }
     };
     return BetterUtilTools;
