@@ -1,51 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="index.js"></script>
 </head>
+
 <body>
 
 </body>
 <script>
-    try{
+    try {
         const _ = new BetterUtilTools();
         console.log('better-util-tools is ok!')
-        console.log(_.formatDateTime({type: 'YYYY/MM/DD hh:mm'}));
+        console.log(_.formatDateTime({ type: 'YYYY/MM/DD hh:mm' }));
         console.log(_.getExplore());
         console.log(_.getOS());
         console.log(_.randomColor());
         console.log(_.getAbsoluteDay(0));
-        const o1={a:1,c:11},o2={a:2,d:{e:6,d:[123]}},o3={a:3,b:6,d:{e:6,d:[6,7,8]}}
-        const o = _.extend(true,o1,o2,o3);
-        o.d.e=88
+        const o1 = { a: 1, c: 11 }, o2 = { a: 2, d: { e: 6, d: [123] } }, o3 = { a: 3, b: 6, d: { e: 6, d: [6, 7, 8] } }
+        const o = _.extend(true, o1, o2, o3);
+        o.d.e = 88
         console.log(o);
         console.log(o3);
         console.log(_.digitUppercase(120800));
-        console.log(_.getStyle(document.querySelector('html'),['width','height']));
+        console.log(_.getStyle(document.querySelector('html'), ['width', 'height']));
         var obj = {
-            a:6,
-            b:[1,2,3],
-            c:{
-                d:4
+            a: 6,
+            b: [1, 2, 3],
+            c: {
+                d: 4
             },
-            e:new Date()
+            e: new Date()
         }
-        var obj2 = _.deepCopy({},obj)
+        var obj2 = _.deepCopy({}, obj)
         obj2.c.d = 666
         console.log(obj)
         console.log(obj2)
         console.log('_.JsonHasKey(obj,c)')
-        console.log(_.JsonHasKey(obj,'d'))
+        console.log(_.JsonHasKey(obj, 'd'))
         console.log(_.formatDecimals(-1295.638))
         console.log(_.formatDecimals(36897265945.638))
         console.log(_.formatDecimals(0))
         console.log(_.formatDecimals('123385.668'))
-        console.log(_.unique([1,2,3,1,2,3,6,8,4,2]))
+        console.log(_.unique([1, 2, 3, 1, 2, 3, 6, 8, 4, 2]))
 
-    }catch(err){
+    } catch (err) {
         console.warn(err);
     }
 </script>
+
 </html>
