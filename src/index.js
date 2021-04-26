@@ -72,7 +72,7 @@
         getExplore() {
             let sys = {};
             let ua = navigator.userAgent.toLowerCase();
-            let s = '';
+            let s;
             (s = ua.match(/rv:([\d.]+)\) like gecko/))
                 ? sys.ie = s[1]
                 : (s = ua.match(/msie ([\d\.]+)/))
@@ -213,9 +213,14 @@
             }
             return head + s.replace(/(零.)*零元/, '元').replace(/(零.)+/g, '零').replace(/^整$/, '零元整');
         },
-        // 数字格式化为","
-        toThousands(num) {
-            return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+        // 千分位逗号格式化
+        formatDecimals(num) {
+            if (this.typeIs(num) === 'number' || this.typeIs(num * 1) === 'number') {
+                var source = String(num).split(".");//按小数点分成2部分
+                source[0] = source[0].replace(new RegExp('(\\d)(?=(\\d{3})+$)', 'ig'), "$1,");//只将整数部分进行都好分割
+                return source.join(".");//再将小数部分合并进来
+            }
+            return num
         },
         //倒计时
         formatRemainTime(endTime) {
@@ -407,14 +412,13 @@
             }
             return obj;
         },
-        // 数组合并
+        // 数组去重合并
         unique(arr) {
             var array = arr;
             var len = array.length;
             array.sort(function (a, b) {
                 return a - b;
             });
-
             function loop(index) {
                 if (index >= 1) {
                     if (array[index] === array[index - 1]) {
@@ -423,7 +427,6 @@
                     loop(index - 1); //递归loop，然后数组去重
                 }
             }
-
             loop(len - 1);
             return array;
         },
@@ -457,15 +460,6 @@
             }
             return extended;
         },
-        // 千分位逗号格式化
-        formatDecimals(num) {
-            if (this.typeIs(num) === 'number' || this.typeIs(num * 1) === 'number') {
-                var source = String(num).split(".");//按小数点分成2部分
-                source[0] = source[0].replace(new RegExp('(\\d)(?=(\\d{3})+$)', 'ig'), "$1,");//只将整数部分进行都好分割
-                return source.join(".");//再将小数部分合并进来
-            }
-            return num
-        }
     };
     return BetterUtilTools;
 });

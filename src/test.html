@@ -23,7 +23,6 @@
         console.log(o);
         console.log(o3);
         console.log(_.digitUppercase(120800));
-        console.log(_.toThousands(120800));
         console.log(_.getStyle(document.querySelector('html'),['width','height']));
         var obj = {
             a:6,
@@ -37,10 +36,14 @@
         obj2.c.d = 666
         console.log(obj)
         console.log(obj2)
+        console.log('_.JsonHasKey(obj,c)')
+        console.log(_.JsonHasKey(obj,'d'))
         console.log(_.formatDecimals(-1295.638))
         console.log(_.formatDecimals(36897265945.638))
         console.log(_.formatDecimals(0))
         console.log(_.formatDecimals('123385.668'))
+        console.log(_.unique([1,2,3,1,2,3,6,8,4,2]))
+
     }catch(err){
         console.warn(err);
     }

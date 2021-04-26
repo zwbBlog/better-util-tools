@@ -22,75 +22,82 @@ _.random(2,10) `//8`
 ##### 方法集合如下：
 ```
 * 判断两个数组是否相等
-  arrayEqual(arr1, arr2) {},
+  arrayEqual(arr1, arr2),
 * 判断该属性是否在json中的key存在
-  JsonHasKey(json, key) {},
+  JsonHasKey(json, key),
 * 判断对象为空
-  isEmptyObj(obj) {},
+  isEmptyObj(obj),
 * 判断类型
-  typeIs(instance){},
+  typeIs(instance),
 * 判断是否为Promise
-  isPromise(obj) {},
+  isPromise(obj),
 * 判断元素是否有某个class
-  hasClass(ele, cls) {},
+  hasClass(ele, cls),
 * 为元素添加class
-  addClass(ele, cls) {},
+  addClass(ele, cls),
 * 为元素移除class
-  removeClass(ele, cls) {},
+  removeClass(ele, cls),
 * 获取浏览器类型和版本
-  getExplore() {},
+  getExplore(),
 * 获取操作系统类型
-  getOS() {},
+  getOS(),
 * 随机生成颜色
-  randomColor() {},
+  randomColor(),
 * 范围内随机数
-  random(low, high) {},
+  random(low, high),
 * 范围内随机字符串
-  randomName(randomFlag, min, max) {},
+  randomName(randomFlag=true, min=8, max=20),
 * 判断是否为身份证号
-  isIdCard(str) {},
+  isIdCard(str),
 * 判断是否为手机号
-  isPhoneNum(str) {},
+  isPhoneNum(str),
 * 判断是否为URL
-  isUrl(str) {},
+  isUrl(str),
 * 判断是否为Email
-  isEmail(str) {},
+  isEmail(str),
 * 判断是否含有中文
-  isChineseName(str) {},
+  isChineseName(str),
 * 现金额转大写
-  digitUppercase(n) {},
+  digitUppercase(n),
 * 倒计时
-  formatRemainTime(endTime) {},
+  formatRemainTime(endTime),
 * 获取元素属性值
-  getStyle(elem, style) {},
+  getStyle(elem, style),
 * 时间格式化
-  formatDateTime({timestamp, type}) {},
+  timestamp:new Date()
+  type:YYYY MM DD hh mm ss任意组合
+  formatDateTime({timestamp, type}),
 * 获取相对时间
-  getAbsoluteDay,
+  getAbsoluteDay(day=1),
 * 调用支付宝验证银行卡接口
-  isBankCard(axios,bankCard, cb) {},
+  isBankCard(axios,bankCard, cb),
 * url参数转换
-  getParamsForUrl(url) {},
+  getParamsForUrl(url),
 * 获取url参数
-  getUrlParams(str){}
+  getUrlParams(str),
 * 对象参数转字符串
-  queryString(obj) {},
+  queryString(obj),
 * 节流函数--规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。
-  throttle(fun, delay) {},
-* 防抖函数--在事件被触发n秒后再执行回调，如果在这n秒内又被触发，则重新计时 */
-  debounce(fun, delay) {},
+  const throttleFn = _.throttle(() =>{}, 250);
+  throttleFn();
+  throttle(fun, delay),
+* 防抖函数--在事件被触发n秒后再执行回调，如果在这n秒内又被触发，则重新计时
+  const betterFn = _.debounce(() =>{}, 250);
+  betterFn();
+  debounce(fun, delay),
 * 下划线转换驼峰
-  toHump(name) {},
+  toHump(name),
 * 驼峰转换下划线
-  toLine(name) {},
+  toLine(name),
 * 图片上传转base64
-  imgChange(file) {},
+  imgChange(file),
 * 深克隆
-  deepCopy(obj, copyObj) {}
+  deepCopy(obj, copyObj)
 * 数组合并
-  unique(arr) {}
+  _.unique([1,2,3,1,2,3,6,8,4,2])
+  unique(arr)
 * 合并对象 第一个参数为true代表深度合并（可选参数）
-  extend([boolean],obj1,obj2,...objN) {}
+  extend([boolean],obj1,obj2,...objN)
 * 千分位逗号格式化
-  formatDecimals(num) {} 
+  formatDecimals(num) 
 ```
