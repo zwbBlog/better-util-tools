@@ -34,11 +34,6 @@
             }
             return true;
         },
-        //判断该属性是否在json中的key存在
-        JsonHasKey(json, key) {
-            if (typeof json != 'object' || typeof key != 'string') return false;
-            return Object.keys(json).some(k => k === key || this.JsonHasKey(json[k], key));
-        },
         //判断对象为空
         isEmptyObj(obj) {
             return JSON.stringify(obj) === '{}' || Object.keys(obj).length === 0;
@@ -145,6 +140,25 @@
                 '00000' + (
                     Math.random() * 0x1000000 << 0).toString(16)).slice(-6);
         },
+        //16进制颜色转RGBRGBA字符串
+        colorToRGB(val, opa) {
+            var pattern = /^(#?)[a-fA-F0-9]{6}$/; //16进制颜色值校验规则
+            var isOpa = typeof opa == 'number'; //判断是否有设置不透明度
+            if (!pattern.test(val)) { //如果值不符合规则返回空字符
+                return '';
+            }
+            var v = val.replace(/#/, ''); //如果有#号先去除#号
+            var rgbArr = [];
+            var rgbStr = '';
+            for (var i = 0; i < 3; i++) {
+                var item = v.substring(i * 2, i * 2 + 2);
+                var num = parseInt(item, 16);
+                rgbArr.push(num);
+            }
+            rgbStr = rgbArr.join();
+            rgbStr = 'rgb' + (isOpa ? 'a' : '') + '(' + rgbStr + (isOpa ? ',' + opa : '') + ')';
+            return rgbStr;
+        },
         // 范围内随机数
         random(low, high) {
             var a = high - low + 1;
@@ -187,6 +201,140 @@
             // return /^([\u4E00-\u9FFF]|\w){2,11}$/.test(str);
             return /^([\u4E00-\u9FFF]|\w)$/.test(str);
         },
+        //根据url地址下载
+        download(url) {
+            var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+            var isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
+            if (isChrome || isSafari) {
+                var link = document.createElement('a');
+                link.href = url;
+                if (link.download !== undefined) {
+                    var fileName = url.substring(url.lastIndexOf('/') + 1, url.length);
+                    link.download = fileName;
+                }
+                if (document.createEvent) {
+                    var e = document.createEvent('MouseEvents');
+                    e.initEvent('click', true, true);
+                    link.dispatchEvent(e);
+                    return true;
+                }
+            }
+            if (url.indexOf('?') === -1) {
+                url += '?download';
+            }
+            window.open(url, '_self');
+            return true;
+        },
+        //el是否在视口范围内
+        elementIsVisibleInViewport(el, partiallyVisible = false) {
+            const { top, left, bottom, right } = el.getBoundingClientRect();
+            const { innerHeight, innerWidth } = window;
+            return partiallyVisible
+                ? ((top > 0 && top < innerHeight) || (bottom > 0 && bottom < innerHeight)) &&
+                ((left > 0 && left < innerWidth) || (right > 0 && right < innerWidth))
+                : top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth;
+        },
+        //去除html标签
+        removeHtmlTag(str) {
+            return str.replace(/<[^>]+>/g, '')
+        },
+        //动态引入js
+        injectScript(src) {
+            const s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = src;
+            const t = document.getElementsByTagName('script')[0];
+            t.parentNode.insertBefore(s, t);
+        },
+        //劫持粘贴板
+        copyTextToClipboard(value) {
+            var textArea = document.createElement("textarea");
+            textArea.style.background = 'transparent';
+            textArea.value = value;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                var successful = document.execCommand('copy');
+            } catch (err) {
+                console.log('Oops, unable to copy');
+            }
+            document.body.removeChild(textArea);
+        },
+        //数字转大写中文
+        numberToChinese(num) {
+            var AA = new Array("零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十");
+            var BB = new Array("", "十", "百", "仟", "萬", "億", "点", "");
+            var a = ("" + num).replace(/(^0*)/g, "").split("."),
+                k = 0,
+                re = "";
+            for (var i = a[0].length - 1; i >= 0; i--) {
+                switch (k) {
+                    case 0:
+                        re = BB[7] + re;
+                        break;
+                    case 4:
+                        if (!new RegExp("0{4}//d{" + (a[0].length - i - 1) + "}$")
+                            .test(a[0]))
+                            re = BB[4] + re;
+                        break;
+                    case 8:
+                        re = BB[5] + re;
+                        BB[7] = BB[5];
+                        k = 0;
+                        break;
+                }
+                if (k % 4 == 2 && a[0].charAt(i + 2) != 0 && a[0].charAt(i + 1) == 0)
+                    re = AA[0] + re;
+                if (a[0].charAt(i) != 0)
+                    re = AA[a[0].charAt(i)] + BB[k % 4] + re;
+                k++;
+            }
+            if (a.length > 1) // 加上小数部分(如果有小数部分)
+            {
+                re += BB[6];
+                for (var i = 0; i < a[1].length; i++)
+                    re += AA[a[1].charAt(i)];
+            }
+            if (re == '一十')
+                re = "十";
+            if (re.match(/^一/) && re.length == 3)
+                re = re.replace("一", "");
+            return re;
+        },
+        //加
+        add(arg1, arg2) {
+            var r1, r2, m;
+            try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
+            try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
+            m = Math.pow(10, Math.max(r1, r2))
+            return (arg1 * m + arg2 * m) / m
+        },
+        //减
+        cut(arg1, arg2) {
+            var r1, r2, m, n;
+            try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
+            try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
+            m = Math.pow(10, Math.max(r1, r2));
+            n = (r1 >= r2) ? r1 : r2;
+            return ((arg1 * m - arg2 * m) / m).toFixed(n);
+        },
+        //乘
+        mul(arg1, arg2) {
+            var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
+            try { m += s1.split(".")[1].length } catch (e) { }
+            try { m += s2.split(".")[1].length } catch (e) { }
+            return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
+        },
+        //除
+        div(arg1, arg2) {
+            var t1 = 0, t2 = 0, r1, r2;
+            try { t1 = arg1.toString().split(".")[1].length } catch (e) { }
+            try { t2 = arg2.toString().split(".")[1].length } catch (e) { }
+            r1 = Number(arg1.toString().replace(".", ""))
+            r2 = Number(arg2.toString().replace(".", ""))
+            return (r1 / r2) * Math.pow(10, t2 - t1);
+        },
         //现金额转大写
         digitUppercase(n) {
             let fraction = ['角', '分'];
@@ -199,7 +347,7 @@
             n = Math.abs(n);
             let s = '';
             for (let i = 0; i < fraction.length; i++) {
-                s += (digit[Math.floor(n * 10 * Math.pow(10, i)) % 10] + fraction[i]).replace(/零./, '');
+                s += (digit[Math.floor(this.mul(n, 10 * Math.pow(10, i))) % 10] + fraction[i]).replace(/零./, '');
             }
             s = s || '整';
             n = Math.floor(n);
@@ -376,13 +524,13 @@
             return name.replace(/([A-Z])/g, '_$1').toLowerCase();
         },
         // 图片上传转base64
-        imgChange(file) {
+        imgChange(file, cb) {
             // 生成一个文件读取的对象
             var reader = new FileReader();
             reader.onload = function (ev) {
                 // base64码
                 var imgFile = ev.target.result;//或e.target都是一样的
-                document.querySelector('img').src = imgFile;
+                if (cb) cb(imgFile)
             };
             //发起异步读取文件请求，读取结果为data:url的字符串形式，
             reader.readAsDataURL(file.files[0]);
@@ -412,6 +560,11 @@
             }
             return obj;
         },
+        //判断该属性是否在json中的key存在
+        jsonHasKey(json, key) {
+            if (typeof json != 'object' || typeof key != 'string') return false;
+            return Object.keys(json).some(k => k === key || this.jsonHasKey(json[k], key));
+        },
         // 数组去重合并
         unique(arr) {
             var array = arr;
@@ -429,6 +582,29 @@
             }
             loop(len - 1);
             return array;
+        },
+        //判断一个元素是否在数组中
+        contains(arr, val) {
+            return arr.indexOf(val) != -1 ? true : false;
+        },
+        //求两个集合的并集
+        union(a, b) {
+            var newArr = a.concat(b);
+            return this.unique(newArr);
+        },
+        //求两个集合的交集
+        intersect(a, b) {
+            var _this = this;
+            a = this.unique(a);
+            const newArr = a.map(function (o) {
+                return _this.contains(b, o) ? o : null;
+            })
+            for (var i = 0, len = newArr.length; i < len; i++) {
+                if (newArr[i] === null) {
+                    newArr.splice(i, 1)
+                }
+            }
+            return newArr;
         },
         // 合并对象
         extend() {

@@ -4,11 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="lib/jquery.min.js"></script>
     <script src="index.js"></script>
+    <style>
+        .t {
+            height: 5000px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
 
 <body>
-
+    <div class="t">
+        <button class="back">回到顶部</button>
+    </div>
 </body>
 <script>
     try {
@@ -44,7 +56,16 @@
         console.log(_.formatDecimals(36897265945.638))
         console.log(_.formatDecimals(0))
         console.log(_.formatDecimals('123385.668'))
-        console.log(_.unique([1, 2, 3, 1, 2, 3, 6, 8, 4, 2]))
+        console.log(_.unique([1, 2, 3, 1, 2, 3, 6, 8, 4]))
+        console.log(_.intersect([1, 2], [4, 5, 1, 6, 8]))
+        console.log(_.union([1, 2], [4, 5, 1]))
+        console.log(_.digitUppercase(1268754.38))
+        console.log(_.div(2000, 0.128))
+        console.log(_.numberToChinese(213805.128))
+        console.log(_.removeHtmlTag(`<span>123</span><img src="https://www.baidu.com" />666`))
+        $(window).scroll(function () {
+            console.log(_.elementIsVisibleInViewport($('.back')[0], true))
+        })
 
     } catch (err) {
         console.warn(err);

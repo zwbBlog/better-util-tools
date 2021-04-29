@@ -9,23 +9,31 @@ const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 var deleted = require('gulp-deleted');
-const {src, dest} = gulp;
+const { src, dest } = gulp;
 
 
 gulp.task('clean', function () {
     const source = 'src/*.js';
     const dest = 'dist/';
     return src(source)
-        .pipe(deleted({src: source, dest, patterns: ['*', '!need.txt','!*.css']}));
+        .pipe(deleted({ src: source, dest, patterns: ['*', '!lib/**/*', '!need.txt', '!*.css'] }));
+});
+
+gulp.task('copy', async function () {
+    return src('src/lib/**/*')
+        // .pipe(babel())
+        // .pipe(uglify())
+        .pipe(dest('dist/lib'));
 });
 
 gulp.task('build', async function () {
     return src('src/*.js')
         .pipe(babel())
         .pipe(uglify())
-        .pipe(rename({extname: `.min.js`}))
+        .pipe(rename({ extname: `.min.js` }))
         .pipe(dest('dist/'));
 });
 
-gulp.task('version', gulp.series('clean', 'build'));
+
+gulp.task('version', gulp.series('clean','build'));
 

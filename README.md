@@ -24,7 +24,7 @@ _.random(2,10) `//8`
 * 判断两个数组是否相等
   arrayEqual(arr1, arr2),
 * 判断该属性是否在json中的key存在
-  JsonHasKey(json, key),
+  jsonHasKey(json, key),
 * 判断对象为空
   isEmptyObj(obj),
 * 判断类型
@@ -43,6 +43,8 @@ _.random(2,10) `//8`
   getOS(),
 * 随机生成颜色
   randomColor(),
+* 16进制颜色转RGBRGBA字符串
+  colorToRGB(val, opa)  
 * 范围内随机数
   random(low, high),
 * 范围内随机字符串
@@ -90,7 +92,7 @@ _.random(2,10) `//8`
 * 驼峰转换下划线
   toLine(name),
 * 图片上传转base64
-  imgChange(file),
+  imgChange(file,cb),
 * 深克隆
   deepCopy(obj, copyObj)
 * 数组合并
@@ -100,4 +102,28 @@ _.random(2,10) `//8`
   extend([boolean],obj1,obj2,...objN)
 * 千分位逗号格式化
   formatDecimals(num) 
+* 求两个集合的交集
+  intersect(a, b)
+* 求两个集合的并集
+  union(a, b) 
+* 判断一个元素是否在数组中
+  contains(a, b)   
+* 加
+  add(a, b) 
+* 减
+  div(a, b) 
+* 乘
+  div(a, b)       
+* 除
+  div(a, b)   
+* 劫持粘贴板
+  copyTextToClipboard(value)   
+* 动态引入js
+  injectScript(src)   
+* 去除html标签
+  removeHtmlTag(str)
+* el是否在视口范围内
+  elementIsVisibleInViewport(el, partiallyVisible = false)  
+* 根据url地址下载
+  download(url)
 ```
