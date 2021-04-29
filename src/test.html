@@ -66,6 +66,9 @@
         $(window).scroll(function () {
             console.log(_.elementIsVisibleInViewport($('.back')[0], true))
         })
+        $('.back').click(function () {
+           _.copyTextToClipboard('测试')
+        })
 
     } catch (err) {
         console.warn(err);
