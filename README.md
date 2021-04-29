@@ -96,7 +96,7 @@ _.random(2,10) `//8`
 * 深克隆
   deepCopy(obj, copyObj)
 * 数组合并
-  _.unique([1,2,3,1,2,3,6,8,4,2])
+  unique([1,2,3,1,2,3,6,8,4,2])
   unique(arr)
 * 合并对象 第一个参数为true代表深度合并（可选参数）
   extend([boolean],obj1,obj2,...objN)
