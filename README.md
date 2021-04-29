@@ -111,9 +111,9 @@ _.random(2,10) `//8`
 * 加
   add(a, b) 
 * 减
-  div(a, b) 
+  cut(a, b) 
 * 乘
-  div(a, b)       
+  mul(a, b)       
 * 除
   div(a, b)   
 * 劫持粘贴板
