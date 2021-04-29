@@ -478,9 +478,9 @@
         queryString(obj) {
             let str = '';
             for (let k in obj) {
-                str += `${k}=${obj[k]}`;
+                str += `${k}=${obj[k]}&`;
             }
-            return str;
+            return str.substr(0, str.length - 1);
         },
         //节流函数--规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。
         throttle(fn, wait = 50) {
