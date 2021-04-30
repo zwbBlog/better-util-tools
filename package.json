@@ -3,7 +3,7 @@
   "private": false,
   "version": "0.0.11",
   "description": "一个简单的工具集",
-  "main": "dist/index.min.js",
+  "main": "dist/better-util-tools.min.js",
   "scripts": {
     "test": "node ./src/test.js",
     "build": "gulp version"

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="lib/jquery.min.js"></script>
-    <script src="index.js"></script>
+    <script src="better-util-tools.js"></script>
     <style>
         .t {
             height: 5000px;
@@ -67,8 +67,10 @@
         $(window).scroll(function () {
             console.log(_.elementIsVisibleInViewport($('.back')[0], true))
         })
+        _.injectScript('lib/injectScript.js')
         $('.back').click(function () {
            _.copyTextToClipboard('测试')
+
         })
 
     } catch (err) {
