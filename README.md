@@ -107,7 +107,7 @@ _.random(2,10) `//8`
 * 求两个集合的并集
   union(a, b) 
 * 判断一个元素是否在数组中
-  contains(a, b)   
+  contains(arr, val)   
 * 加
   add(a, b) 
 * 减

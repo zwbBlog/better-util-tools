@@ -621,9 +621,13 @@
             var merge = function (obj) {
                 for (var prop in obj) {
                     if (obj.hasOwnProperty(prop)) {
-                        // 如果属性为对象并且需要深拷贝时则使用函数递归、反之则将当前的属性替换现有的属性
-                        if (deep && this.typeIs(obj[prop]) === 'object') {
-                            extended[prop] = this.extend(extended[prop], obj[prop]);
+                        if (deep) {
+                            // 如果属性为对象并且需要深拷贝时则使用函数递归、反之则将当前的属性替换现有的属性
+                            if (this.typeIs(obj[prop]) === 'object') {
+                                extended[prop] = this.extend(extended[prop], obj[prop]);
+                            } else {
+                                extended[prop] = obj[prop];
+                            }
                         } else {
                             extended[prop] = obj[prop];
                         }
