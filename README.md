@@ -66,9 +66,9 @@ _.random(2,10) `//8`
 * 获取元素属性值
   getStyle(elem, style),
 * 时间格式化
-  timestamp:new Date()
+  date:new Date()
   type:YYYY MM DD hh mm ss任意组合
-  formatDateTime({timestamp, type}),
+  formatDateTime({date, type}),
 * 获取相对时间
   getAbsoluteDay(day=1),
 * 调用支付宝验证银行卡接口

@@ -404,25 +404,26 @@
 
         },
         //时间格式化
-        formatDateTime({ timestamp, type }) {
-            var Time = timestamp ? new Date(timestamp) : new Date();
-            var year = Time.getFullYear();
-            var month = Time.getMonth() + 1;
-            month = month < 10 ? ('0' + month) : month;
-            var date = Time.getDate();
-            date = date < 10 ? ('0' + date) : date;
-            var hour = Time.getHours();
-            var minute = Time.getMinutes();
-            minute = minute < 10 ? ('0' + minute) : minute;
-            var second = Time.getSeconds();
-            second = second < 10 ? ('0' + second) : second;
-            if (!type) return year + '/' + month + '/' + date + ' ' + hour + ':' + minute + ':' + second;
-            return type.replace(/YYYY/i, year)
-                .replace(/MM/, month)
-                .replace(/DD/i, date)
-                .replace(/hh/i, hour)
-                .replace(/mm/, minute)
-                .replace(/ss/i, second);
+        formatDateTime({ date = new Date(), type }) {
+            let o = {
+                "Y+": date.getFullYear(),       // 年份
+                "M+": date.getMonth() + 1,      // 月份 
+                "D+": date.getDate(),           // 日 
+                "h+": date.getHours(),          // 小时 
+                "m+": date.getMinutes(),        // 分 
+                "s+": date.getSeconds(),        // 秒 
+                "q+": ((date.getMonth() + 3) / 3) | 0, // 季度 
+                "S": date.getMilliseconds()     // 毫秒 
+            }
+            for (let k in o) {
+                if (new RegExp("(" + k + ")").test(type)) {
+                    type = type.replace(RegExp.$1, (a, b) => {
+                        if (b !== 0 && String(o[k]).length < 2 && a.length === 2) return `0${o[k]}`
+                        return o[k]
+                    })
+                }
+            }
+            return type
         },
         //获取相对时间
         getAbsoluteDay(day) {
