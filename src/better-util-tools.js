@@ -128,9 +128,9 @@
                 return 'windowsPhone';
             }
             if ((userAgent.match(/MicroMessenger/i) === 'micromessenger') && (userAgent.match(/wxwork/i) === 'wxwork')) {
-                return '企业微信客户端';
+                return 'enterprise';
             } else if (userAgent.match(/micromessenger/i) === 'micromessenger') {
-                return '微信客户端';
+                return 'wechat';
             }
 
         },
