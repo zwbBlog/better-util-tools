@@ -31,8 +31,12 @@
         console.log(_.getOS());
         console.log(_.randomColor());
         console.log(_.getAbsoluteDay(0));
+        console.log(_.getUrlParams('https://www.baidu.com#test?a=6&b=8'));
+        var qStr = _.queryString({ a: 666, b: { c: 8 }, d: true })
+        console.log(qStr);
+        console.log(_.getUrlParams(`https://www.baidu.com#test?${qStr}`));
         const o1 = { a: 1, c: 11 }, o2 = { a: 2, d: { e: 6, d: [123] } }, o3 = { a: 3, b: 6, d: { e: 6, d: [6, 7, 8] } }
-        const o = _.extend(true,o1, o2, o3);
+        const o = _.extend(true, o1, o2, o3);
         o.d.e = 88
         o.d.d = []
         console.log('extend');
@@ -64,14 +68,15 @@
         console.log(_.digitUppercase(1268754.38))
         console.log(_.div(2000, 0.128))
         console.log(_.numberToChinese(213805.128))
-        console.log(_.queryString({a:1,b:2}))
+        console.log(_.queryString({ a: 1, b: 2 }))
         console.log(_.removeHtmlTag(`<span>123</span><img src="https://www.baidu.com" />666`))
+        console.log(_.typeIs(new Promise((resolve, reject) => { })))
         $(window).scroll(function () {
             console.log(_.elementIsVisibleInViewport($('.back')[0], true))
         })
         _.injectScript('lib/injectScript.js')
         $('.back').click(function () {
-           _.copyTextToClipboard('测试')
+            _.copyTextToClipboard('测试')
 
         })
 

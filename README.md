@@ -29,8 +29,6 @@ _.random(2,10) `//8`
   isEmptyObj(obj),
 * 判断类型
   typeIs(instance),
-* 判断是否为Promise
-  isPromise(obj),
 * 判断元素是否有某个class
   hasClass(ele, cls),
 * 为元素添加class
@@ -43,7 +41,7 @@ _.random(2,10) `//8`
   getOS(),
 * 随机生成颜色
   randomColor(),
-* 16进制颜色转RGBRGBA字符串
+* 16进制颜色转RGB/RGBA字符串
   colorToRGB(val, opa)  
 * 范围内随机数
   random(low, high),
@@ -73,10 +71,8 @@ _.random(2,10) `//8`
   getAbsoluteDay(day=1),
 * 调用支付宝验证银行卡接口
   isBankCard(axios,bankCard, cb),
-* url参数转换
-  getParamsForUrl(url),
 * 获取url参数
-  getUrlParams(str),
+  getUrlParams(url),
 * 对象参数转字符串
   queryString(obj),
 * 节流函数--规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。

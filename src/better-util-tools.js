@@ -42,10 +42,6 @@
         typeIs(instance) {
             return Object.prototype.toString.call(instance).slice(8, -1).toLowerCase();  //array object boolean number...
         },
-        //判断是否为Promise
-        isPromise(obj) {
-            return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
-        },
         //判断元素是否有某个class
         hasClass(ele, cls) {
             return (new RegExp('(\\s|^)' + cls + '(\\s|$)')).test(ele.className);
@@ -457,29 +453,41 @@
                 cb('需要axios依赖');
             }
         },
-        // url参数转换
-        getParamsForUrl(url) {
-            url = url || 'http://www.gaodun6.com/api/stockMarket/getPcByPage?token=50a591d1db72491b9b39c7be3fd4f4d5&pageNo=1&pageSize=10&userId=53';
-            var reg = /(\w)+=(\w+)/g, paramsArr = url.match(reg), obj = {};
-            for (var i = 0, len = paramsArr.length; i < len; i++) {
-                obj[paramsArr[i].split('=')[0]] = paramsArr[i].split('=')[1];
-            }
-            return obj;
-        },
-        //获取url参数
-        getUrlParams(str) {
+        // 获取url参数
+        getUrlParams(url) {
             var reg1 = /(?<==).*?(?=(&|$))/ig;
             var reg2 = /(?<=&).*?(?=(=|$))/ig;
-            return {
-                key: str.match(reg1),
-                value: str.match(reg2)
-            };
+            if (this.isUrl(url)) {
+                var u1 = url.split('?')[0]
+                var u2 = url.split('?')[1]
+                if (u2.substring(0, 1) != '&') {
+                    url = u1 + '&' + u2
+                }
+                var ValueArr = url.match(reg1)
+                var keyArr = url.match(reg2)
+                var obj = {}
+                for (var i = 0, len = keyArr.length; i < len; i++) {
+                    obj[keyArr[i]] = ValueArr[i]
+                }
+                return this.extend(obj, {
+                    value: url.match(reg1),
+                    key: url.match(reg2)
+                });
+            } else {
+                return {}
+            }
+
         },
         //对象参数转字符串
         queryString(obj) {
             let str = '';
             for (let k in obj) {
-                str += `${k}=${obj[k]}&`;
+                const transformType = ['string', 'number', 'boolean']
+                if (transformType.includes(this.typeIs(obj[k]))) {
+                    str += `${k}=${obj[k]}&`;
+                } else {
+                    str += `${k}=${JSON.stringify(obj[k])}&`;
+                }
             }
             return str.substr(0, str.length - 1);
         },
