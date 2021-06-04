@@ -1,1 +1,1 @@
-alert('injectScript test')
+console.log('injectScript test')

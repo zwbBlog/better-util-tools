@@ -67,7 +67,13 @@ _.random(2,10) `//8`
   date:new Date()
   type:YYYY MM DD hh mm ss任意组合
   formatDateTime({date, type}),
-* 获取相对时间
+* 根据年月日得知星期几  
+  getWeek(year, month, day),
+* 获取指定年月的日历  
+  getMonthData(year, month),  
+* 获取指定年月的最大日  
+  getMonthMaxDay(year, month),
+* 获取相对时间 day:天
   getAbsoluteDay(day=1),
 * 调用支付宝验证银行卡接口
   isBankCard(axios,bankCard, cb),

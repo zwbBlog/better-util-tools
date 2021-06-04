@@ -421,6 +421,33 @@
             }
             return type
         },
+        // 当前月最大日
+        getMonthMaxDay(year, month) {
+            return new Date(year, month, 0).getDate()
+        },
+        // 根据年月日得知星期几
+        getWeek(year, month, day) {
+            return new Date(year + '/' + month + '/' + day).getDay()
+        },
+        // 获取指定年月日历
+        getMonthData(year, month) {
+            if (year > 0 && month >= 1 && month <= 12) {
+                let start = 1,
+                    end = new Date(year, month, 0).getDate()
+                const data = []
+                for (; start < end + 1; start++) {
+                    data.push({
+                        year,
+                        month,
+                        day: start,
+                        week: this.getWeek(year, month, start),
+                    })
+                }
+                return data
+            } else {
+                return []
+            }
+        },
         //获取相对时间
         getAbsoluteDay(day) {
             const doHandleMonth = (month) => {
