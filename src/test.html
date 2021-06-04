@@ -19,7 +19,9 @@
 
 <body>
     <div class="t">
-        <button class="back">回到顶部</button>
+        <button class="throttleFn">throttleFn</button>
+        <button class="debounceFn">debounceFn</button>
+        <button class="copyTextToClipboard">copyTextToClipboard</button>
     </div>
 </body>
 <script>
@@ -72,13 +74,17 @@
         console.log(_.queryString({ a: 1, b: 2 }))
         console.log(_.removeHtmlTag(`<span>123</span><img src="https://www.baidu.com" />666`))
         console.log(_.typeIs(new Promise((resolve, reject) => { })))
-        $(window).scroll(function () {
-            console.log(_.elementIsVisibleInViewport($('.back')[0], true))
-        })
+        var debounceFn = _.debounce(() => {
+            console.log(_.elementIsVisibleInViewport($('.copyTextToClipboard')[0], true))
+            console.log('debounceFn')
+        }, 1000)
+        var throttleFn = _.throttle(() => console.log('throttleFn函数执行了'+_.formatDateTime({ type: 'hh:mm:ss' })), 1000)
+        $(window).scroll(debounceFn)
         _.injectScript('lib/injectScript.js')
-        $('.back').click(function () {
-            _.copyTextToClipboard('测试')
-
+        setInterval(throttleFn, 10)
+        $('.debounceFn').click(debounceFn)
+        $('.copyTextToClipboard').click(() => {
+            _.copyTextToClipboard('copyTextToClipboard')
         })
 
     } catch (err) {

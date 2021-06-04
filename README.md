@@ -82,12 +82,12 @@ _.random(2,10) `//8`
 * 对象参数转字符串
   queryString(obj),
 * 节流函数--规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。
-  const throttleFn = _.throttle(() =>{}, 250);
-  throttleFn();
+  var throttleFn = _.throttle(() => console.log('throttleFn函数执行了'+_.formatDateTime({ type: 'hh:mm:ss' })), 1000)
+  setInterval(throttleFn, 10)
   throttle(fun, delay),
 * 防抖函数--在事件被触发n秒后再执行回调，如果在这n秒内又被触发，则重新计时
-  const betterFn = _.debounce(() =>{}, 250);
-  betterFn();
+  const debounceFn = _.debounce(() =>{}, 1000);
+  document.addEventListener('scroll', debounceFn)
   debounce(fun, delay),
 * 下划线转换驼峰
   toHump(name),
