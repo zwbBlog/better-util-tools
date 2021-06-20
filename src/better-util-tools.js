@@ -331,6 +331,15 @@
             r2 = Number(arg2.toString().replace(".", ""))
             return (r1 / r2) * Math.pow(10, t2 - t1);
         },
+        //指定小数点位数取值,非四舍五入
+        toFixed(n, fixed) {
+            const type = this.typeIs(n)
+            if (type === 'number' || (type === 'string' && !window.isNaN(n * 1))) {
+                n = n + ''
+                return n.substr(0, n.indexOf('.') + fixed + 1)
+            }
+            return n
+        },
         //现金额转大写
         digitUppercase(n) {
             let fraction = ['角', '分'];

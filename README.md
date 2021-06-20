@@ -118,6 +118,8 @@ _.random(2,10) `//8`
   mul(a, b)       
 * 除
   div(a, b)   
+* 指定小数点位数取值,非四舍五入
+  toFixed(n=12.681, fixed=2)   
 * 劫持粘贴板
   copyTextToClipboard(value)   
 * 动态引入js
