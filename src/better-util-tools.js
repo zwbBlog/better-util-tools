@@ -367,6 +367,22 @@
             }
             return head + s.replace(/(零.)*零元/, '元').replace(/(零.)+/g, '零').replace(/^整$/, '零元整');
         },
+        // 获取元素属性值
+        getStyle(elem, style) {
+            let view = elem.ownerDocument ? elem.ownerDocument.defaultView : window;
+            if (typeof style == 'string') {
+                return view.getComputedStyle(elem)[style];
+            } else if (typeof style === 'undefined') {
+                return view.getComputedStyle(elem);
+            } else if (style instanceof Array) {
+                let styles = {};
+                for (let i of style) {
+                    styles[i] = view.getComputedStyle(elem)[i];
+                }
+                return styles;
+            }
+
+        },
         // 千分位逗号格式化
         formatDecimals(num) {
             if (this.typeIs(num) === 'number' || this.typeIs(num * 1) === 'number') {
@@ -393,26 +409,9 @@
             }
             return d + '天 ' + h + '小时 ' + m + '分钟 ' + s + '秒';
         },
-        // 获取元素属性值
-        getStyle(elem, style) {
-            let view = elem.ownerDocument ? elem.ownerDocument.defaultView : window;
-            if (typeof style == 'string') {
-                return view.getComputedStyle(elem)[style];
-            } else if (typeof style === 'undefined') {
-                return view.getComputedStyle(elem);
-            } else if (style instanceof Array) {
-                let styles = {};
-                for (let i of style) {
-                    styles[i] = view.getComputedStyle(elem)[i];
-                }
-                return styles;
-            }
-
-        },
         //时间格式化
         formatDateTime({ date, type = 'YYYY/MM/DD hh:mm:ss' }) {
             date = date && this.typeIs(new Date(date)) === 'date' ? new Date(date) : new Date()
-            console.log(date)
             let o = {
                 "Y+": date.getFullYear(),       // 年份
                 "M+": date.getMonth() + 1,      // 月份 
