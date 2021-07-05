@@ -381,7 +381,6 @@
                 }
                 return styles;
             }
-
         },
         // 千分位逗号格式化
         formatDecimals(num) {
