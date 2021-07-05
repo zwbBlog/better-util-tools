@@ -89,7 +89,9 @@
         setInterval(throttleFn, 10)
         $('.debounceFn').click(debounceFn)
         $('.copyTextToClipboard').click(() => {
-            _.copyTextToClipboard('copyTextToClipboard')
+            _.copyTextToClipboard('copyTextToClipboard',()=>{
+                alert('复制成功')
+            })
         })
 
     } catch (err) {

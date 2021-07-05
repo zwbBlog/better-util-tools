@@ -244,7 +244,7 @@
             t.parentNode.insertBefore(s, t);
         },
         //劫持粘贴板
-        copyTextToClipboard(value) {
+        copyTextToClipboard(value, cb) {
             var textArea = document.createElement("textarea");
             textArea.style.background = 'transparent';
             textArea.value = value;
@@ -252,6 +252,7 @@
             textArea.select();
             try {
                 var successful = document.execCommand('copy');
+                if (successful) cb && cb()
             } catch (err) {
                 console.log('Oops, unable to copy');
             }
