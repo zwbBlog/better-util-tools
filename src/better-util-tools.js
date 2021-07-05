@@ -409,7 +409,9 @@
 
         },
         //时间格式化
-        formatDateTime({ date = new Date(), type }) {
+        formatDateTime({ date, type = 'YYYY/MM/DD hh:mm:ss' }) {
+            date = date && this.typeIs(new Date(date)) === 'date' ? new Date(date) : new Date()
+            console.log(date)
             let o = {
                 "Y+": date.getFullYear(),       // 年份
                 "M+": date.getMonth() + 1,      // 月份 
