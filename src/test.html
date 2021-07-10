@@ -34,7 +34,9 @@
         console.log(_.getMonthMaxDay(2021, '02'));
         console.log(_.getExplore());
         console.log(_.getOS());
-        console.log(_.randomColor());
+        const color = _.randomColor()
+        console.log(color);
+        console.log(_.colorToRGB(color,0.8));
         console.log(_.getUrlParams('https://www.baidu.com#test?a=6&b=8'));
         var qStr = _.queryString({ a: 666, b: { c: 8 }, d: true })
         console.log(qStr);
