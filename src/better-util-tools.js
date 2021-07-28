@@ -545,7 +545,7 @@
             };
         },
         // 防抖函数--在事件被触发n秒后再执行回调，如果在这n秒内又被触发，则重新计时
-        debounce(fn, wait = 50, immediate = false) {
+        debounce(fn, wait = 50) {
             // 通过闭包缓存一个定时器 id
             let timer = null
             // 将 debounce 处理结果当作函数返回
@@ -553,10 +553,6 @@
             return function (...args) {
                 // 如果已经设定过定时器就清空上一次的定时器
                 if (timer) clearTimeout(timer)
-                // 添加 第一次触发立即执行 的判断
-                if (immediate && !timer) {
-                    fn.apply(this, args);
-                }
                 // 开始设定一个新的定时器，定时器结束后执行传入的函数 fn
                 timer = setTimeout(() => {
                     fn.apply(this, args)
