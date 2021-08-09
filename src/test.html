@@ -27,6 +27,7 @@
 <script>
     try {
         const _ = new BetterUtilTools();
+        console.log(_.getClient())
         console.log(_.typeIs(new Date()));
         console.log(_.formatDateTime({ type: 'hh:mm:ss:S YYYY/MM/DD' }));
         console.log(_.getAbsoluteDay(-5));

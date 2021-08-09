@@ -37,8 +37,14 @@ _.random(2,10) `//8`
   removeClass(ele, cls),
 * 获取浏览器类型和版本
   getExplore(),
-* 获取操作系统类型
+* 获取操作系统类型 MacOSX|windows|linux
   getOS(),
+* 获取移动端运行系统 ios|android|windowsPhone
+  getMobileSys(),
+* 获取微信环境 enterprise:企业微信 wechat:微信
+  getWechatEnv(), 
+* 判断终端 pc|mobile
+  getClient(),      
 * 随机生成颜色
   randomColor(),
 * 16进制颜色转RGB/RGBA字符串

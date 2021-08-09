@@ -59,7 +59,7 @@
                 ele.className = ele.className.replace(reg, ' ');
             }
         },
-        //获取浏览器类型和版本
+        // 获取浏览器类型和版本
         getExplore() {
             let sys = {};
             let ua = navigator.userAgent.toLowerCase();
@@ -114,6 +114,10 @@
             if (/linux/i.test(appVersion)) {
                 return 'linux';
             }
+        },
+        //获取移动端运行系统
+        getMobileSys(){
+            const userAgent = 'navigator' in window && 'userAgent' in navigator && navigator.userAgent.toLowerCase() || '';
             if (/iphone/i.test(userAgent) || /ipad/i.test(userAgent) || /ipod/i.test(userAgent)) {
                 return 'ios';
             }
@@ -123,12 +127,22 @@
             if (/win/i.test(appVersion) && /phone/i.test(userAgent)) {
                 return 'windowsPhone';
             }
+        },
+        //获取微信环境
+        getWechatEnv(){
+            const userAgent = 'navigator' in window && 'userAgent' in navigator && navigator.userAgent.toLowerCase() || '';
             if ((userAgent.match(/MicroMessenger/i) === 'micromessenger') && (userAgent.match(/wxwork/i) === 'wxwork')) {
                 return 'enterprise';
-            } else if (userAgent.match(/micromessenger/i) === 'micromessenger') {
+            }else  if (userAgent.match(/micromessenger/i) === 'micromessenger') {
                 return 'wechat';
             }
-
+        },
+        // 判断终端（pc/mobile）
+        getClient(){
+            if((navigator.userAgent.match(/(iPhone|iPod|Android|ios|iOS|iPad|Backerry|WebOS|Symbian|Windows Phone|Phone)/i))){
+                return 'mobile'
+            }
+            return 'pc'
         },
         // 随机生成颜色
         randomColor() {
