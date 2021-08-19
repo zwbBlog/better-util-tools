@@ -37,7 +37,7 @@
         console.log(_.getOS());
         const color = _.randomColor()
         console.log(color);
-        console.log(_.colorToRGB(color,0.8));
+        console.log(_.colorToRGB(color, 0.8));
         console.log(_.getUrlParams('https://www.baidu.com#test?a=6&b=8'));
         var qStr = _.queryString({ a: 666, b: { c: 8 }, d: true })
         console.log(qStr);
@@ -50,10 +50,10 @@
         console.log(o);
         console.log(o3);
         console.log(_.digitUppercase(120800));
-        console.log(_.toFixed(120800.668796,3));
-        console.log(_.toFixed(120800.668796,6));
-        console.log(_.toFixed('120800',6));
-        console.log(_.toFixed('120800xx3w3r',2));
+        console.log(_.toFixed(120800.668796, 3));
+        console.log(_.toFixed(120800.668796, 6));
+        console.log(_.toFixed('120800', 6));
+        console.log(_.toFixed('120800xx3w3r', 2));
         console.log(_.getStyle(document.querySelector('html'), ['width', 'height']));
         var obj = {
             a: 6,
@@ -73,7 +73,17 @@
         console.log(_.formatDecimals(36897265945.638))
         console.log(_.formatDecimals(0))
         console.log(_.formatDecimals('123385.668'))
-        console.log(_.unique([1, 2, 3, 1, 2, 3, 6, 8, 4]))
+        console.log(_.unique([
+            "15e18b888ff2469b966017e175e8df37",
+            "9433feeb9c194ce4906fff2049d255ab",
+            "efa9ace7e0584d309dee8c04897d474b",
+            "8fbf737fbdad4efbb4665bc347159cc5",
+            "799f357b966c4ff4b0d4909c3366daed",
+            "a8500e9b464c424ba64874067c0eb0e9",
+            "15e18b888ff2469b966017e175e8df37",
+            "799f357b966c4ff4b0d4909c3366daed",
+            "9433feeb9c194ce4906fff2049d255ab"
+        ]))
         console.log(_.intersect([1, 2], [4, 5, 1, 6, 8]))
         console.log(_.union([1, 2], [4, 5, 1]))
         console.log(_.digitUppercase(1268754.38))
@@ -86,13 +96,13 @@
             console.log(_.elementIsVisibleInViewport($('.copyTextToClipboard')[0], true))
             console.log('debounceFn')
         }, 1000)
-        var throttleFn = _.throttle(() => console.log('throttleFn函数执行了'+_.formatDateTime({ type: 'hh:mm:ss' })), 1000)
+        var throttleFn = _.throttle(() => console.log('throttleFn函数执行了' + _.formatDateTime({ type: 'hh:mm:ss' })), 1000)
         $(window).scroll(debounceFn)
         _.injectScript('lib/injectScript.js')
-        setInterval(throttleFn, 10)
+        // setInterval(throttleFn, 10)
         $('.debounceFn').click(debounceFn)
         $('.copyTextToClipboard').click(() => {
-            _.copyTextToClipboard('copyTextToClipboard',()=>{
+            _.copyTextToClipboard('copyTextToClipboard', () => {
                 alert('复制成功')
             })
         })

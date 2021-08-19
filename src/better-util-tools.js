@@ -116,7 +116,7 @@
             }
         },
         //获取移动端运行系统
-        getMobileSys(){
+        getMobileSys() {
             const userAgent = 'navigator' in window && 'userAgent' in navigator && navigator.userAgent.toLowerCase() || '';
             if (/iphone/i.test(userAgent) || /ipad/i.test(userAgent) || /ipod/i.test(userAgent)) {
                 return 'ios';
@@ -129,17 +129,17 @@
             }
         },
         //获取微信环境
-        getWechatEnv(){
+        getWechatEnv() {
             const userAgent = 'navigator' in window && 'userAgent' in navigator && navigator.userAgent.toLowerCase() || '';
             if ((userAgent.match(/MicroMessenger/i) === 'micromessenger') && (userAgent.match(/wxwork/i) === 'wxwork')) {
                 return 'enterprise';
-            }else  if (userAgent.match(/micromessenger/i) === 'micromessenger') {
+            } else if (userAgent.match(/micromessenger/i) === 'micromessenger') {
                 return 'wechat';
             }
         },
         // 判断终端（pc/mobile）
-        getClient(){
-            if((navigator.userAgent.match(/(iPhone|iPod|Android|ios|iOS|iPad|Backerry|WebOS|Symbian|Windows Phone|Phone)/i))){
+        getClient() {
+            if ((navigator.userAgent.match(/(iPhone|iPod|Android|ios|iOS|iPad|Backerry|WebOS|Symbian|Windows Phone|Phone)/i))) {
                 return 'mobile'
             }
             return 'pc'
@@ -626,22 +626,24 @@
             return Object.keys(json).some(k => k === key || this.jsonHasKey(json[k], key));
         },
         // 数组去重合并
-        unique(arr) {
-            var array = arr;
-            var len = array.length;
-            array.sort(function (a, b) {
-                return a - b;
-            });
-            function loop(index) {
-                if (index >= 1) {
-                    if (array[index] === array[index - 1]) {
-                        array.splice(index, 1);
+        unique(originArray, objectArray = false, objectKey = '') {
+            const tempArr = [];
+            if (!objectArray) {
+                for (let i = 0; i < originArray.length; i++) {
+                    const cur = originArray[i];
+                    if (tempArr.indexOf(cur) === -1) {
+                        tempArr.push(cur);
                     }
-                    loop(index - 1); //递归loop，然后数组去重
+                }
+            } else {
+                for (let i = 0; i < originArray.length; i++) {
+                    const cur = originArray[i];
+                    if (tempArr.filter(t => t[objectKey] === cur[objectKey]).length === 0) {
+                        tempArr.push(cur);
+                    }
                 }
             }
-            loop(len - 1);
-            return array;
+            return tempArr;
         },
         //判断一个元素是否在数组中
         contains(arr, val) {
