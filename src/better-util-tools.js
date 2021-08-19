@@ -506,8 +506,8 @@
         },
         // 获取url参数
         getUrlParams(url) {
-            var reg1 = /(?<==).*?(?=(&|$))/ig;
-            var reg2 = /(?<=&).*?(?=(=|$))/ig;
+            var reg1 = new RegExp('(?<==).*?(?=(&|$))','ig');
+            var reg2 = new RegExp('(?<=&).*?(?=(=|$))','ig');
             if (this.isUrl(url)) {
                 var u1 = url.split('?')[0]
                 var u2 = url.split('?')[1]
