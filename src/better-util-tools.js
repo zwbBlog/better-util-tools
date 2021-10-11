@@ -235,6 +235,48 @@
             window.open(url, '_self');
             return true;
         },
+        //文件操作
+        fileUtil: {
+            //file转base64
+            fileToBase64: file => {
+                let reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function (e) {
+                    return e.target.result
+                }
+            },
+            //blob转file
+            blobToFile: (blob, fileName) => {
+                blob.lastModifiedDate = new Date();
+                blob.name = fileName;
+                return blob;
+            },
+            //base64转file
+            base64ToFile: (base64, filename) => {
+                let arr = base64.split(',');
+                let mime = arr[0].match(/:(.*?);/)[1];
+                let suffix = mime.split('/')[1];
+                let bstr = atob(arr[1]);
+                let n = bstr.length;
+                let u8arr = new Uint8Array(n);
+                while (n--) {
+                    u8arr[n] = bstr.charCodeAt(n)
+                }
+                return new File([u8arr], `${filename}.${suffix}`, { type: mime })
+            },
+            //base64转blob
+            base64ToBlob: base64 => {
+                let arr = base64.split(','),
+                    mime = arr[0].match(/:(.*?);/)[1],
+                    bstr = atob(arr[1]),
+                    n = bstr.length,
+                    u8arr = new Uint8Array(n);
+                while (n--) {
+                    u8arr[n] = bstr.charCodeAt(n);
+                }
+                return new Blob([u8arr], { type: mime });
+            }
+        },
         //el是否在视口范围内
         elementIsVisibleInViewport(el, partiallyVisible = false) {
             const { top, left, bottom, right } = el.getBoundingClientRect();
@@ -506,8 +548,8 @@
         },
         // 获取url参数
         getUrlParams(url) {
-            var reg1 = new RegExp('(?<==).*?(?=(&|$))','ig');
-            var reg2 = new RegExp('(?<=&).*?(?=(=|$))','ig');
+            var reg1 = new RegExp('(?<==).*?(?=(&|$))', 'ig');
+            var reg2 = new RegExp('(?<=&).*?(?=(=|$))', 'ig');
             if (this.isUrl(url)) {
                 var u1 = url.split('?')[0]
                 var u2 = url.split('?')[1]
@@ -628,20 +670,18 @@
         // 数组去重合并
         unique(originArray, objectArray = false, objectKey = '') {
             const tempArr = [];
-            if (!objectArray) {
-                for (let i = 0; i < originArray.length; i++) {
-                    const cur = originArray[i];
+            for (let i = 0; i < originArray.length; i++) {
+                const cur = originArray[i];
+                if (!objectArray) {
                     if (tempArr.indexOf(cur) === -1) {
                         tempArr.push(cur);
                     }
-                }
-            } else {
-                for (let i = 0; i < originArray.length; i++) {
-                    const cur = originArray[i];
+                } else {
                     if (tempArr.filter(t => t[objectKey] === cur[objectKey]).length === 0) {
                         tempArr.push(cur);
                     }
                 }
+
             }
             return tempArr;
         },
