@@ -393,7 +393,8 @@
             const type = this.typeIs(n)
             if (type === 'number' || (type === 'string' && !window.isNaN(n * 1))) {
                 n = n + ''
-                return n.substr(0, n.indexOf('.') + fixed + 1)
+                const fixedNum = n.indexOf('.') > -1 ? n.indexOf('.') + fixed + 1 : n.length
+                return n.substr(0, fixedNum)
             }
             return n
         },
