@@ -4,7 +4,7 @@
  *  修改人      修改日期                 修改目的
  *  zlgb        2020-11-24               创建
  **/
-(function (global, definition) {
+ (function (global, definition) {
     if (typeof define === 'function' && define.amd) {
         // AMD环境或CMD环境
         define(definition);
@@ -370,7 +370,7 @@
             try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
             m = Math.pow(10, Math.max(r1, r2));
             n = (r1 >= r2) ? r1 : r2;
-            return ((arg1 * m - arg2 * m) / m).toFixed(n);
+            return ((arg1 * m - arg2 * m) / m).toFixed(n)*1;
         },
         //乘
         mul(arg1, arg2) {
@@ -394,9 +394,9 @@
             if (type === 'number' || (type === 'string' && !window.isNaN(n * 1))) {
                 n = n + ''
                 const fixedNum = n.indexOf('.') > -1 ? n.indexOf('.') + fixed + 1 : n.length
-                return n.substr(0, fixedNum)
+                return n.substr(0, fixedNum)*1
             }
-            return n
+            return n*1
         },
         //现金额转大写
         digitUppercase(n) {
