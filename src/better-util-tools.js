@@ -467,7 +467,7 @@
         },
         //时间格式化
         formatDateTime({ date, type = 'YYYY/MM/DD hh:mm:ss' }) {
-            date = date && this.typeIs(new Date(date)) === 'date' ? new Date(date.replace(/-/g,'/')) : new Date()
+            date = date && this.typeIs(new Date(date)) === 'date'? new Date(date):new Date()
             let o = {
                 "Y+": date.getFullYear(),       // 年份
                 "M+": date.getMonth() + 1,      // 月份 
