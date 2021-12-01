@@ -396,7 +396,7 @@
                 const fixedNum = n.indexOf('.') > -1 ? n.indexOf('.') + fixed + 1 : n.length
                 return n.substr(0, fixedNum)*1
             }
-            return n*1
+            return new Error(n + '不是合法的')
         },
         //现金额转大写
         digitUppercase(n) {

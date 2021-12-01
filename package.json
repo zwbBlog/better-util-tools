@@ -1,7 +1,7 @@
 {
   "name": "better-util-tools",
   "private": false,
-  "version": "0.0.15-beta.8",
+  "version": "0.0.15-beta.9",
   "description": "一个简单的工具集",
   "main": "dist/better-util-tools.min.js",
   "scripts": {
