@@ -4,9 +4,9 @@
 
 ### _使用方法_
 
-- _npm i better-util-tools_
-- _or_
-- _yarn add better-util-tools_
+- npm i better-util-tools
+- or
+- yarn add better-util-tools
 
 #### way1：
 
@@ -25,8 +25,8 @@ or
 - 具体使用
 
 ```
-const _ = new BetterUtilTools()
-_.random(2,10) `//8`
+const UtilTools = new BetterUtilTools()
+UtilTools.random(2,10)  //8
 ```
 
 ##### 方法集合如下：
@@ -154,4 +154,28 @@ _.random(2,10) `//8`
     base64ToFile(base64, filename),
     base64ToBlob(base64),
   }
+* 订阅观察者模式
+  EventEmitter:{
+    //订阅事件的方法
+    on(eventName, cb)
+    //触发订阅事件
+    emit(eventName, args)
+    //移除订阅事件
+    removeListener(eventName, cb)
+    //只执行一次订阅
+    once(eventName, cb)
+  }
+  example:let em = UtilTools.EventEmitter;
+          let w = 0;
+          let timer = setInterval(() => {
+              em.emit('work', { a: Date.now() });
+              if (w == 5) {
+                  console.log('w>=5');
+                  clearInterval(timer)
+              }
+              w++;
+          }, 20);
+          em.on('work', (args) => {
+              console.log(args)
+          });  
 ```

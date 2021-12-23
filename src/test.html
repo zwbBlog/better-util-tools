@@ -26,26 +26,26 @@
 </body>
 <script>
     try {
-        const _ = new BetterUtilTools();
-        console.log(_.getClient())
-        console.log(_.typeIs(new Date()));
-        console.log(_.formatDateTime({
+        const UtilTools = new BetterUtilTools();
+        console.log(UtilTools.getClient())
+        console.log(UtilTools.typeIs(new Date()));
+        console.log(UtilTools.formatDateTime({
             type: 'hh:mm:ss:S YYYY/MM/DD'
         }));
-        console.log(_.formatDateTime({
-            date:'2021-12-12 08:00:08',
+        console.log(UtilTools.formatDateTime({
+            date: '2021-12-12 08:00:08',
             type: 'YYYY/MM/DD hh:mm:ss'
         }));
-        console.log(_.getAbsoluteDay(-5));
-        console.log(_.getMonthData(-1, 3));
-        console.log(_.getMonthMaxDay(2021, '02'));
-        console.log(_.getExplore());
-        console.log(_.getOS());
-        const color = _.randomColor()
+        console.log(UtilTools.getAbsoluteDay(-5));
+        console.log(UtilTools.getMonthData(-1, 3));
+        console.log(UtilTools.getMonthMaxDay(2021, '02'));
+        console.log(UtilTools.getExplore());
+        console.log(UtilTools.getOS());
+        const color = UtilTools.randomColor()
         console.log(color);
-        console.log(_.colorToRGB(color, 0.8));
-        console.log(_.getUrlParams('https://www.baidu.com#test?a=6&b=8'));
-        var qStr = _.queryString({
+        console.log(UtilTools.colorToRGB(color, 0.8));
+        console.log(UtilTools.getUrlParams('https://www.baidu.com#test?a=6&b=8'));
+        var qStr = UtilTools.queryString({
             a: 666,
             b: {
                 c: 8
@@ -53,11 +53,11 @@
             d: true
         })
         console.log(qStr);
-        console.log(_.getUrlParams(`https://www.baidu.com#test?${qStr}`));
+        console.log(UtilTools.getUrlParams(`https://www.baidu.com#test?${qStr}`));
         const o1 = {
-                a: 1,
-                c: 11
-            },
+            a: 1,
+            c: 11
+        },
             o2 = {
                 a: 2,
                 d: {
@@ -73,20 +73,20 @@
                     d: [6, 7, 8]
                 }
             }
-        const o = _.extend(true, o1, o2, o3);
+        const o = UtilTools.extend(true, o1, o2, o3);
         o.d.e = 88
         o.d.d = []
         console.log('extend');
         console.log(o);
         console.log(o3);
-        console.log(_.digitUppercase(120800));
-        console.log(_.toFixed(120800.668796, 3));
-        console.log(_.toFixed(120800.668796, 6));
-        console.log(_.toFixed('120800', 6));
-        console.log(_.toFixed('120800xx3w3r', 2));
-        console.log('_.toFixed(120800, 2)');
-        console.log(_.toFixed(120800, 2));
-        console.log(_.getStyle(document.querySelector('html'), ['width', 'height']));
+        console.log(UtilTools.digitUppercase(120800));
+        console.log(UtilTools.toFixed(120800.668796, 3));
+        console.log(UtilTools.toFixed(120800.668796, 6));
+        console.log(UtilTools.toFixed('120800', 6));
+        console.log(UtilTools.toFixed('120800xx3w3r', 2));
+        console.log('UtilTools.toFixed(120800, 2)');
+        console.log(UtilTools.toFixed(120800, 2));
+        console.log(UtilTools.getStyle(document.querySelector('html'), ['width', 'height']));
         var obj = {
             a: 6,
             b: [1, 2, 3],
@@ -95,17 +95,17 @@
             },
             e: new Date()
         }
-        var obj2 = _.deepCopy({}, obj)
+        var obj2 = UtilTools.deepCopy({}, obj)
         obj2.c.d = 666
         console.log(obj)
         console.log(obj2)
-        console.log('_.jsonHasKey(obj,c)')
-        console.log(_.jsonHasKey(obj, 'd'))
-        console.log(_.formatDecimals(-1295.638))
-        console.log(_.formatDecimals(36897265945.638))
-        console.log(_.formatDecimals(0))
-        console.log(_.formatDecimals('123385.668'))
-        console.log(_.unique([
+        console.log('UtilTools.jsonHasKey(obj,c)')
+        console.log(UtilTools.jsonHasKey(obj, 'd'))
+        console.log(UtilTools.formatDecimals(-1295.638))
+        console.log(UtilTools.formatDecimals(36897265945.638))
+        console.log(UtilTools.formatDecimals(0))
+        console.log(UtilTools.formatDecimals('123385.668'))
+        console.log(UtilTools.unique([
             "15e18b888ff2469b966017e175e8df37",
             "9433feeb9c194ce4906fff2049d255ab",
             "efa9ace7e0584d309dee8c04897d474b",
@@ -116,48 +116,61 @@
             "799f357b966c4ff4b0d4909c3366daed",
             "9433feeb9c194ce4906fff2049d255ab"
         ]))
-        console.log(_.unique([{
-                name: '1',
-                age: 666
-            },
-            {
-                name: '2'
-            },
-            {
-                name: '3'
-            },
-            {
-                name: '1'
-            },
+        console.log(UtilTools.unique([{
+            name: '1',
+            age: 666
+        },
+        {
+            name: '2'
+        },
+        {
+            name: '3'
+        },
+        {
+            name: '1'
+        },
         ], true, 'name'))
-        console.log(_.intersect([1, 2], [4, 5, 1, 6, 8]))
-        console.log(_.union([1, 2], [4, 5, 1]))
+        console.log(UtilTools.intersect([1, 2], [4, 5, 1, 6, 8]))
+        console.log(UtilTools.union([1, 2], [4, 5, 1]))
         console.log('~~~~~');
-        console.log(_.digitUppercase(1268754.38))
-        console.log(_.div(2000, 0.128))
-        console.log(_.numberToChinese(213805.128))
-        console.log(_.queryString({
+        console.log(UtilTools.digitUppercase(1268754.38))
+        console.log(UtilTools.div(2000, 0.128))
+        console.log(UtilTools.numberToChinese(213805.128))
+        console.log(UtilTools.queryString({
             a: 1,
             b: 2
         }))
-        console.log(_.removeHtmlTag(`<span>123</span><img src="https://www.baidu.com" />666`))
-        console.log(_.typeIs(new Promise((resolve, reject) => {})))
-        var debounceFn = _.debounce(() => {
-            console.log(_.elementIsVisibleInViewport($('.copyTextToClipboard')[0], true))
+        console.log(UtilTools.removeHtmlTag(`<span>123</span><img src="https://www.baidu.com" />666`))
+        console.log(UtilTools.typeIs(new Promise((resolve, reject) => { })))
+        var debounceFn = UtilTools.debounce(() => {
+            console.log(UtilTools.elementIsVisibleInViewport($('.copyTextToClipboard')[0], true))
             console.log('debounceFn')
         }, 1000)
-        var throttleFn = _.throttle(() => console.log('throttleFn函数执行了' + _.formatDateTime({
+        var throttleFn = UtilTools.throttle(() => console.log('throttleFn函数执行了' + UtilTools.formatDateTime({
             type: 'hh:mm:ss'
         })), 1000)
         $(window).scroll(debounceFn)
-        _.injectScript('lib/injectScript.js')
+        UtilTools.injectScript('lib/injectScript.js')
         // setInterval(throttleFn, 10)
         $('.debounceFn').click(debounceFn)
         $('.copyTextToClipboard').click(() => {
-            _.copyTextToClipboard('copyTextToClipboard', () => {
+            UtilTools.copyTextToClipboard('copyTextToClipboard', () => {
                 alert('复制成功')
             })
         })
+        let em = UtilTools.EventEmitter;
+        let w = 0;
+        let timer = setInterval(() => {
+            em.emit('work', { a: Date.now() });
+            if (w == 5) {
+                console.log('w>=5');
+                clearInterval(timer)
+            }
+            w++;
+        }, 20);
+        em.on('work', (args) => {
+            console.log(args)
+        });
 
     } catch (err) {
         console.warn(err);
