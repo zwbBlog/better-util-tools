@@ -12,6 +12,8 @@
 
 ```
 import BetterUtilTools from "better-util-tools"
+or
+const BetterUtilTools = require('better-util-tools')
 ```
 
 #### way2：
@@ -114,7 +116,7 @@ UtilTools.random(2,10)  //8
   imgChange(file,cb),
 * 深克隆
   deepCopy(obj, copyObj)
-* 数组合并
+* 数组去重合并
   unique([1,2,3,1,2,3,6,8,4,2])
   unique(originArray,objectArray=false,objectKey='')
 * 合并对象 第一个参数为true代表深度合并（可选参数）
