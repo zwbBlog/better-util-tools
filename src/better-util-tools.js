@@ -324,13 +324,31 @@
             return str.replace(/<[^>]+>/g, '')
         },
         //动态引入js
-        injectScript(src) {
+        injectScript(src,insertType='after') {
+            const insertAfter = (newElement,targetElement) => {
+                var parent = targetElement.parentNode;
+                if (parent.lastChild == targetElement) {
+                    // 如果最后的节点是目标元素，则直接添加。因为默认是最后
+                    parent.appendChild(newElement);
+                } else {
+                    //如果不是，则插入在目标元素的下一个兄弟节点的前面。也就是目标元素的后面。
+                    parent.insertBefore(newElement,targetElement.nextSibling);
+                 }
+            }
+            const insertBefore = (newElement,targetElement) => {
+                targetElement.parentNode.insertBefore(newElement, targetElement);
+            }
             const s = document.createElement('script');
             s.type = 'text/javascript';
             s.async = true;
             s.src = src;
-            const t = document.getElementsByTagName('script')[0];
-            t.parentNode.insertBefore(s, t);
+            const origin = document.getElementsByTagName('head')[0].children;
+            const t = origin[origin.length - 1];
+            if (insertType === 'before') {
+                insertBefore(s, t);  
+            } else {
+                insertAfter(s,t)
+            }
         },
         //劫持粘贴板
         copyTextToClipboard(value, cb) {

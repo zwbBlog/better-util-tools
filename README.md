@@ -142,7 +142,7 @@ UtilTools.random(2,10)  //8
 * 劫持粘贴板
   copyTextToClipboard(value,cb)
 * 动态引入js
-  injectScript(src)
+  injectScript(src,insertType='after || before')
 * 去除html标签
   removeHtmlTag(str)
 * el是否在视口范围内
