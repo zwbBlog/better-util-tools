@@ -516,9 +516,27 @@
             }
             return d + '天 ' + h + '小时 ' + m + '分钟 ' + s + '秒';
         },
+        //获取北京时间
+        getBJDate (date) {
+            //获得当前运行环境时间
+            let d = date && this.typeIs(new Date(date)) === 'date'? new Date(date):new Date(), currentDate = new Date(), tmpHours = currentDate.getHours();
+            //算得时区
+            let time_zone = -d.getTimezoneOffset() / 60;
+            //少于0的是西区 西区应该用时区绝对值加京八区 重新设置时间（西区时间比东区时间早 所以加时区间隔）
+            if (time_zone < 0) {
+                time_zone = Math.abs(time_zone) + 8; currentDate.setHours(tmpHours + time_zone);
+            } else {
+                //大于0的是东区  东区时间直接跟京八区相减
+                time_zone -= 8; currentDate.setHours(tmpHours - time_zone);
+            }
+            return currentDate;
+        },
         //时间格式化
-        formatDateTime({ date, type = 'YYYY/MM/DD hh:mm:ss' }) {
-            date = date && this.typeIs(new Date(date)) === 'date'? new Date(date):new Date()
+        formatDateTime({ date, type = 'YYYY/MM/DD hh:mm:ss',timeZoneBJ = true }) {
+            date = date && this.typeIs(new Date(date)) === 'date' ? new Date(date) : new Date();
+            if (timeZoneBJ) {
+                date = this.getBJDate(date)
+            }
             let o = {
                 "Y+": date.getFullYear(),       // 年份
                 "M+": date.getMonth() + 1,      // 月份 

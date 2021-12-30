@@ -82,10 +82,14 @@ UtilTools.random(2,10)  //8
   formatRemainTime(endTime),
 * 获取元素属性值
   getStyle(elem, style),
+* 转换成北京时间
+  date:new Date();
+  getBJDate(date),
 * 时间格式化
   date:new Date()
   type:YYYY MM DD hh mm ss任意组合
-  formatDateTime({date, type}),
+  timeZoneBJ(是否限定为北京时间):Boolean
+  formatDateTime({date, type,timeZoneBJ=true}),
 * 根据年月日得知星期几
   getWeek(year, month, day),
 * 获取指定年月的日历
@@ -179,5 +183,5 @@ UtilTools.random(2,10)  //8
           }, 20);
           em.on('work', (args) => {
               console.log(args)
-          });  
+          });
 ```
