@@ -519,7 +519,9 @@
         //获取北京时间
         getBJDate (date) {
             //获得当前运行环境时间
-            let d = date && this.typeIs(new Date(date)) === 'date'? new Date(date):new Date(), currentDate = new Date(), tmpHours = currentDate.getHours();
+            let d = date && this.typeIs(new Date(date)) === 'date' ? new Date(date) : new Date(),
+                currentDate = date && this.typeIs(new Date(date)) === 'date' ? new Date(date) : new Date(), 
+                tmpHours = currentDate.getHours();
             //算得时区
             let time_zone = -d.getTimezoneOffset() / 60;
             //少于0的是西区 西区应该用时区绝对值加京八区 重新设置时间（西区时间比东区时间早 所以加时区间隔）
