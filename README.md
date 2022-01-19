@@ -134,13 +134,16 @@ UtilTools.random(2,10)  //8
 * 判断一个元素是否在数组中
   contains(arr, val)
 * 加
-  add(a, b)
+  a:数据a
+  b:数据b
+  fixed:Number 小数点省略到几位(>=0) 
+  add(a, b,fixed)
 * 减
-  cut(a, b)
+  cut(a, b,fixed)
 * 乘
-  mul(a, b)
+  mul(a, b,fixed)
 * 除
-  div(a, b)
+  div(a, b,fixed)
 * 指定小数点位数取值,非四舍五入
   toFixed(n=12.681, fixed=2)
 * 劫持粘贴板
