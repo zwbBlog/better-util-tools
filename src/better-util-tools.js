@@ -560,7 +560,7 @@
             for (let k in o) {
                 if (new RegExp("(" + k + ")").test(type)) {
                     type = type.replace(RegExp.$1, (a, b) => {
-                        if (b !== 0 && String(o[k]).length < 2 && a.length === 2) return `0${o[k]}`
+                        if ( (b !== 0  || b< 10) && String(o[k]).length < 2 && a.length === 2) return `0${o[k]}`
                         return o[k]
                     })
                 }

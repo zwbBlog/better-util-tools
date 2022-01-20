@@ -39,8 +39,8 @@
         }));
 
         console.log(UtilTools.formatDateTime({
-            date: '2021-12-12 08:00:08',
-            type: 'YYYY/MM/DD hh:mm:ss'
+            date: '2022-01-08 01:07:01',
+            type: 'hh'
         }));
         console.log(UtilTools.getAbsoluteDay(-5));
         console.log(UtilTools.getMonthData(-1, 3));
@@ -140,7 +140,8 @@
         console.log(UtilTools.union([1, 2], [4, 5, 1]))
         console.log('~~~~~');
         console.log(UtilTools.digitUppercase(1268754.38))
-        console.log(UtilTools.div(2000, 0.128))
+        console.log('UtilTools.div(2000, 0.128,3)')
+        console.log(UtilTools.div(2000, 0.128456,3))
         console.log(UtilTools.numberToChinese(213805.128))
         console.log(UtilTools.queryString({
             a: 1,
