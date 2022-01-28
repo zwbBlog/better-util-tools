@@ -657,9 +657,9 @@
             for (let k in obj) {
                 const transformType = ['string', 'number', 'boolean']
                 if (transformType.includes(this.typeIs(obj[k]))) {
-                    str += `${k}=${obj[k]}&`;
+                    str += `${k}=${encodeURIComponent(obj[k])}&`;
                 } else {
-                    str += `${k}=${JSON.stringify(obj[k])}&`;
+                    str += `${k}=${encodeURIComponent(JSON.stringify(obj[k]))}&`;
                 }
             }
             return str.substr(0, str.length - 1);
