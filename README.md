@@ -85,6 +85,10 @@ UtilTools.random(2,10)  //8
 * 转换成北京时间
   date:new Date();
   getBJDate(date),
+* 时区转换
+  date:new Date()
+  timezone:8
+  transformTimeZone({date,timezone=8}),  
 * 时间格式化
   date:new Date()
   type:YYYY MM DD hh mm ss任意组合

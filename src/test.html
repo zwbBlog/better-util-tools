@@ -37,10 +37,13 @@
             date:Date.now()-7*24*60*60*1000,
             type: 'YYYY/MM/DD hh:mm:ss:S',
         }));
-
         console.log(UtilTools.formatDateTime({
             date: '2022-01-08 01:07:01',
-            type: 'hh'
+            timezone: 'hh'
+        }));
+        console.log(UtilTools.transformTimeZone({
+            date: '2022-01-08 01:07:01',
+            timezone: 5.5
         }));
         console.log(UtilTools.getAbsoluteDay(-5));
         console.log(UtilTools.getMonthData(-1, 3));

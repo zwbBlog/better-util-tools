@@ -541,6 +541,14 @@
             }
             return currentDate;
         },
+        //时间时区转换
+        transformTimeZone({ timezone = 8, date }) {
+            // 本地时间和格林威治的时间差，单位为分钟
+            let offsetGMT = new Date(date).getTimezoneOffset(); 
+            // 本地时间距 1970 年 1 月 1 日午夜（GMT 时间）之间的毫秒数
+            let nowDate = new Date(date).getTime(); 
+            return new Date(nowDate + offsetGMT * 60 * 1000 + timezone * 60 * 60 * 1000);
+        },
         //时间格式化
         formatDateTime({ date, type = 'YYYY/MM/DD hh:mm:ss',timeZoneBJ = true }) {
             date = date && this.typeIs(new Date(date)) === 'date' ? new Date(date) : new Date();
