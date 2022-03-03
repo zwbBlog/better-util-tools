@@ -160,8 +160,9 @@
             type: 'hh:mm:ss'
         })), 1000)
         $(window).scroll(debounceFn)
-        UtilTools.injectScript('lib/injectScript.js')
-        UtilTools.injectScript('lib/injectScript2.js')
+        UtilTools.loadResources(['lib/index.css','lib/injectScript.js','lib/injectScript2.js'],()=>{
+            console.log('所有资源引入成功')
+        })
         // setInterval(throttleFn, 10)
         $('.debounceFn').click(debounceFn)
         $('.copyTextToClipboard').click(() => {

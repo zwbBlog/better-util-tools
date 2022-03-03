@@ -152,8 +152,8 @@ UtilTools.random(2,10)  //8
   toFixed(n=12.681, fixed=2)
 * 劫持粘贴板
   copyTextToClipboard(value,cb)
-* 动态引入js
-  injectScript(src,insertType='after || before')
+* 动态引入资源文件
+  loadResources(['/script/element-ui/index.css','/script/vue.js','/script/element-ui/index.js'],()=>{引入所有资源后回调})
 * 去除html标签
   removeHtmlTag(str)
 * el是否在视口范围内
