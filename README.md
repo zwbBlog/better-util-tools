@@ -140,7 +140,7 @@ UtilTools.random(2,10)  //8
 * 加
   a:数据a
   b:数据b
-  fixed:Number 小数点省略到几位(>=0) 
+  fixed:Number 小数点省略到几位(>=0) 可选
   add(a, b,fixed)
 * 减
   cut(a, b,fixed)
@@ -148,6 +148,14 @@ UtilTools.random(2,10)  //8
   mul(a, b,fixed)
 * 除
   div(a, b,fixed)
+* 连续加
+  continuityAdd(numbers=[1,2,3],fixed)
+* 连续减
+  continuityCut(numbers,fixed)
+* 连续乘
+  continuityMul(numbers,fixed)
+* 连续除
+  continuityDiv(numbers,fixed) 
 * 指定小数点位数取值,非四舍五入
   toFixed(n=12.681, fixed=2)
 * 劫持粘贴板

@@ -500,6 +500,66 @@
             if (fixed>=0) return this.toFixed(tempNum,fixed)
             return tempNum;
         },
+        //连续加
+        continuityAdd(numbers=[], fixed) {
+            let rs = 0;
+            numbers.forEach(n => {
+                try {
+                    rs =this.add(rs,n,fixed)
+                } catch (e) {
+                    new Error(n + '不是合法的')
+                }
+            })
+            return rs
+        },
+        //连续减
+        continuityCut(numbers=[], fixed) {
+            let rs = 0;
+            numbers.forEach((n,i) => {
+                try {
+                    if (i === 0) {
+                        rs = n;
+                    } else {
+                        rs =this.cut(rs,n,fixed)
+                    }
+                } catch (e) {
+                    new Error(n + '不是合法的')
+                }
+            })
+            return rs
+        },
+        //连续乘
+        continuityMul(numbers=[], fixed) {
+            let rs = 0;
+            numbers.forEach((n,i) => {
+                try {
+                    if (i === 0) {
+                        rs = n;
+                    } else {
+                        rs =this.mul(rs,n,fixed)
+                    }
+                } catch (e) {
+                    new Error(n + '不是合法的')
+                }
+            })
+            return rs
+        },
+        //连续除
+        continuityDiv(numbers=[], fixed) {
+            let rs = 0;
+            numbers.forEach((n,i) => {
+                try {
+                    if (i === 0) {
+                        rs = n;
+                    } else {
+                        rs =this.div(rs,n,fixed)
+                    }
+                } catch (e) {
+                    new Error(n + '不是合法的')
+                }
+            })
+            return rs
+        },
         //指定小数点位数取值,非四舍五入
         toFixed(n, fixed) {
             const type = this.typeIs(n)
