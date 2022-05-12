@@ -749,27 +749,23 @@
         },
         // 获取url参数
         getUrlParams(url) {
-            var reg1 = new RegExp('(?<==).*?(?=(&|$))', 'ig');
-            var reg2 = new RegExp('(?<=&).*?(?=(=|$))', 'ig');
+            let querys = {}, keys = [], values = [];
             if (this.isUrl(url)) {
-                var u1 = url.split('?')[0]
-                var u2 = url.split('?')[1]
-                if (u2.substring(0, 1) != '&') {
-                    url = u1 + '&' + u2
+                if (url.indexOf('?') !== -1) {
+                    let queryString = url.substr(url.indexOf('?')+1);
+                    const query = queryString.split('&');
+                    for (let i = 0; i < query.length; i++) {
+                        const key = query[i].split('=')[0];
+                        const value = unescape(query[i].split('=')[1])
+                        querys[key] = value;
+                        keys.push(key)
+                        values.push(value)
+                    }
+                    querys['$#key'] = keys
+                    querys['$#value'] = values
                 }
-                var ValueArr = url.match(reg1)
-                var keyArr = url.match(reg2)
-                var obj = {}
-                for (var i = 0, len = keyArr.length; i < len; i++) {
-                    obj[keyArr[i]] = ValueArr[i]
-                }
-                return this.extend(obj, {
-                    value: url.match(reg1),
-                    key: url.match(reg2)
-                });
-            } else {
-                return {}
             }
+            return querys; 
         },
         //对象参数转字符串
         queryString(obj) {
