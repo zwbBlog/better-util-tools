@@ -27,12 +27,23 @@
 <script>
     try {
         const UtilTools = new BetterUtilTools();
+        console.log(UtilTools.formatDateTime({
+            date: 1654012800000,
+            type: 'YYYY/MM/DD',
+        }));
+        console.log(UtilTools.formatDateTime({
+            date: 1656518400000,
+            type: 'YYYY/MM/DD',
+        }));
         console.log(UtilTools.getClient())
         console.log(UtilTools.typeIs(new Date()));
         console.log(UtilTools.formatDateTime({
             type: 'hh:mm:ss:S YYYY/MM/DD',
         }));
-
+        console.log(UtilTools.formatDateTime({
+            date: '2022-05-21',
+            type: 'YYYY/MM/DD',
+        }));
         console.log(UtilTools.formatDateTime({
             date: Date.now() - 7 * 24 * 60 * 60 * 1000,
             type: 'YYYY/MM/DD hh:mm:ss:S',
@@ -109,10 +120,17 @@
             },
             e: new Date()
         }
-        var obj2 = UtilTools.deepCopy({}, obj)
+        console.log('deepCopy!!!!!!!!!!!');
+        var obj2 = UtilTools.deepCopy(obj)
         obj2.c.d = 666
+        obj2.b.push(666)
         console.log(obj)
         console.log(obj2)
+        var a = '6'
+        var copyA = UtilTools.deepCopy(a)
+        copyA = { a: 666 }
+        console.log(copyA)
+        console.log(a)
         console.log('UtilTools.jsonHasKey(obj,c)')
         console.log(UtilTools.jsonHasKey(obj, 'd'))
         console.log(UtilTools.formatDecimals(-1295.638))
@@ -152,6 +170,8 @@
         console.log(UtilTools.digitUppercase(1268754.38))
         console.log('UtilTools.div(2000, 0.128,3)')
         console.log(UtilTools.div(2000, 0.128456, 3))
+        console.log(UtilTools.div('29', 50, 4))
+        console.log(UtilTools.div(-20, '80', 4))
         console.log(UtilTools.numberToChinese(213805.128))
         console.log(UtilTools.queryString({
             a: 1,
@@ -190,11 +210,11 @@
         em.on('work', (args) => {
             console.log(args)
         });
-        console.log(UtilTools.add(298.9,81.7129))
-        console.log(UtilTools.continuityAdd([298.9,81.7129,889,1.2345]))
-        console.log(UtilTools.continuityCut([298.9,81.7129,1.2345,889.74298]))
-        console.log(UtilTools.continuityMul([1,2,3,2.5,6.876,1.2345]))
-        console.log(UtilTools.continuityDiv([1,2,3,2.5,6.876,1.2345]))
+        console.log(UtilTools.add(298.9, 81.7129))
+        console.log(UtilTools.continuityAdd([298.9, 81.7129, 889, 1.2345]))
+        console.log(UtilTools.continuityCut([298.9, 81.7129, 1.2345, 889.74298]))
+        console.log(UtilTools.continuityMul([1, 2, 3, 2.5, 6.876, 1.2345]))
+        console.log(UtilTools.continuityDiv([1, 2, 3, 2.5, 6.876, 1.2345]))
     } catch (err) {
         console.warn(err);
     }

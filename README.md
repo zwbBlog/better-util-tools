@@ -123,7 +123,7 @@ UtilTools.random(2,10)  //8
 * 图片上传转base64
   imgChange(file,cb),
 * 深克隆
-  deepCopy(obj, copyObj)
+  deepCopy(copyObj)
 * 数组去重合并
   unique([1,2,3,1,2,3,6,8,4,2])
   unique(originArray,objectArray=false,objectKey='')
@@ -200,3 +200,7 @@ UtilTools.random(2,10)  //8
               console.log(args)
           });
 ```
+## 程序更新日志 ##
+
+> ### 0.0.15-beta.18 更新时间：2022-7-8 ###
+1. deepCopy方法传入参数由两个(空值,克隆对象)改为一个(克隆对象),方法自动推导

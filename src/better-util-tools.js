@@ -834,29 +834,32 @@
             reader.readAsDataURL(file.files[0]);
         },
         // 深克隆
-        deepCopy(obj, copyObj) {
-            obj = obj || {};
-            for (var k in copyObj) {
-                // 只拷贝实例属性
-                if (copyObj.hasOwnProperty(k)) {
-                    if (typeof copyObj[k] == 'object') {
-                        // 引用类型
-                        // 判断是否是数组
-                        if (this.typeIs(copyObj[k]) === 'array') {
-                            obj[k] = []
-                        } else if (this.typeIs(copyObj[k]) === 'object') {
-                            obj[k] = {}
+        deepCopy(obj) {
+            const clone = this.typeIs(obj) === 'array' ? [] : {};
+            const types = ['array', 'object'];
+            if (!types.includes(this.typeIs(obj) )){
+                return obj
+            }
+            const copy = objClone => {
+                for (var k in objClone) {
+                    // 只拷贝实例属性
+                    if (objClone.hasOwnProperty(k)) {
+                        if (typeof objClone[k] === 'object') {
+                            // 引用类型,数组和对象
+                            if (types.includes(this.typeIs(objClone[k]))) {
+                                clone[k] = this.deepCopy(objClone[k])
+                            }  else {
+                                clone[k] = objClone[k]
+                            }
                         } else {
-                            obj[k] = copyObj[k]
+                            // 值类型
+                            clone[k] = objClone[k];
                         }
-                        this.deepCopy(obj[k], copyObj[k]); //函数调用
-                    } else {
-                        // 值类型
-                        obj[k] = copyObj[k];
                     }
                 }
             }
-            return obj;
+            copy(obj)
+            return clone;
         },
         //判断该属性是否在json中的key存在
         jsonHasKey(json, key) {
