@@ -215,6 +215,15 @@
         console.log(UtilTools.continuityCut([298.9, 81.7129, 1.2345, 889.74298]))
         console.log(UtilTools.continuityMul([1, 2, 3, 2.5, 6.876, 1.2345]))
         console.log(UtilTools.continuityDiv([1, 2, 3, 2.5, 6.876, 1.2345]))
+        var t1 = UtilTools.cut(312534.92, 56217.09)
+        var t2 = UtilTools.cut(t1, 119.7)
+        var t3 = UtilTools.cut(t2, 549.16)
+        var t4 = UtilTools.cut(t3, 0)
+        var t5 = UtilTools.cut(t4, 255643.97)
+        var t6 = UtilTools.cut(t5, 5)
+        console.log(t6)
+        console.log(UtilTools.continuityCut([312534.92,56217.09,119.7,549.16,0,255643.97,5]))
+        console.log(312534.92-56217.09-119.7-549.16-0-255643.97-5)
     } catch (err) {
         console.warn(err);
     }

@@ -21,7 +21,7 @@
   ],
   "author": "zlgb",
   "email": "zlgbmail@163.com",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.12.8",
     "babel-core": "^6.26.3",
