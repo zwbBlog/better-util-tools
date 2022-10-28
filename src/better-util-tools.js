@@ -326,12 +326,23 @@
         },
         /*加载一批文件，_files:文件路径数组,可包括js,css,less文件,successCb:加载成功回调函数*/
         loadResources(_files, successCb) {
-            const that = this;
-            that.$resources = []
+            var SourceMap = new Map();
             var FileArray = [];
-             /*加载JS文件,url:文件路径,success:加载成功回调函数*/
-             function loadFile(url, success) {
-                if (!FileIsExt(that.$resources, url)) {
+            const type = this.typeIs(_files)
+            /*获取文件类型,后缀名，小写*/
+            function GetFileType(url) {
+                if (url != null && url.length > 0) {
+                    return url.substr(url.lastIndexOf(".")).toLowerCase();
+                }
+                return "";
+            }
+            /*文件是否已加载*/
+            function FileIsExt(_url) {
+                return SourceMap.get('zlgb'+_url ) === _url
+            }
+            /*加载JS文件,url:文件路径,success:加载成功回调函数*/
+            function loadFile(url, success) {
+                if (!FileIsExt(url)) {
                     var ThisType = GetFileType(url);
                     var fileObj = null;
                     if (ThisType == ".js") {
@@ -351,7 +362,7 @@
                     success = success || function () {};
                     fileObj.onload = fileObj.onreadystatechange = function () {
                         if (!this.readyState || 'loaded' === this.readyState || 'complete' === this.readyState) {
-                            that.$resources.push(url)
+                            SourceMap.set('zlgb'+url ,url)
                             success();
                         }
                     }
@@ -360,45 +371,21 @@
                     success();
                 }
             }
-            /*获取文件类型,后缀名，小写*/
-            function GetFileType(url) {
-                if (url != null && url.length > 0) {
-                    return url.substr(url.lastIndexOf(".")).toLowerCase();
-                }
-                return "";
-            }
-            /*文件是否已加载*/
-            function FileIsExt(FileArray, _url) {
-                if (FileArray != null && FileArray.length > 0) {
-                    var len = FileArray.length;
-                    for (var i = 0; i < len; i++) {
-                        if (FileArray[i] == _url) {
-                            return true;
-                        }
-                    }
-                }
-                return false;
-            }
-            if (typeof _files === "object") {
-                FileArray = _files;
-            }
-            else {
-                /*如果文件列表是字符串，则用,切分成数组*/
-                if (typeof _files === "string") {
-                    FileArray = _files.split(",");
-                }
-            }
-            if (FileArray != null && FileArray.length > 0) {
+            if (['string', 'array'].includes(type)) {
+                if (type === 'string') { FileArray = _files.split(",") };
+                if (type === 'array') { FileArray = this.deepCopy(_files) };
                 var LoadedCount = 0;
                 for (var i = 0; i < FileArray.length; i++) {
                     loadFile(FileArray[i], function () {
                         LoadedCount++;
-                        if (LoadedCount == FileArray.length) {
-                            delete that.$resources
+                        if (LoadedCount === FileArray.length) {
+                            SourceMap.clear()
                             successCb()
                         }
                     })
                 }
+            } else {
+                console.error('loadResources方法传入文件应为数组或者以逗号分隔的字符串!')  
             }
         },
         //劫持粘贴板
@@ -412,7 +399,7 @@
                 var successful = document.execCommand('copy');
                 if (successful) cb && cb()
             } catch (err) {
-                console.log('Oops, unable to copy');
+                console.warn('Oops, unable to copy');
             }
             document.body.removeChild(textArea);
         },
