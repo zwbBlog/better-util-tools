@@ -245,6 +245,11 @@
             // return /^([\u4E00-\u9FFF]|\w){2,11}$/.test(str);
             return /^([\u4E00-\u9FFF]|\w)$/.test(str);
         },
+        //是否为时间
+        isDate(date) {
+            const now = new Date(date);
+            return now instanceof Date && !isNaN(now.getTime())
+        },
         //根据url地址下载
         download(url) {
             var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
@@ -637,7 +642,7 @@
                 time_zone = Math.abs(time_zone) + 8; currentDate.setHours(tmpHours + time_zone);
             } else {
                 //大于0的是东区  东区时间直接跟京八区相减
-                time_zone -= 8; currentDate.setHours(tmpHours - time_zone);
+                time_zone -= 8;currentDate.setHours(tmpHours - time_zone);
             }
             return currentDate;
         },
@@ -650,20 +655,26 @@
             return new Date(nowDate + offsetGMT * 60 * 1000 + timezone * 60 * 60 * 1000);
         },
         //时间格式化
-        formatDateTime({ date, type = 'YYYY/MM/DD hh:mm:ss',timeZoneBJ = true }) {
-            date = date && this.typeIs(new Date(date)) === 'date' ? new Date(date) : new Date();
+        formatDateTime({ date, type = 'YYYY/MM/DD hh:mm:ss', timeZoneBJ = true,log=true }) {
+            let now = new Date(date || Date.now())
+            const debug = date!==undefined && !Boolean(date);
+            const isDate = this.isDate(now) && this.typeIs(now) === 'date'
+            if (debug || !isDate) {
+                if (log) { console.error(`Invalid Date ${date} system uses the default time`) }
+                now = new Date()
+            }
             if (timeZoneBJ) {
-                date = this.getBJDate(date)
+                now = this.getBJDate(now)
             }
             let o = {
-                "Y+": date.getFullYear(),       // 年份
-                "M+": date.getMonth() + 1,      // 月份 
-                "D+": date.getDate(),           // 日 
-                "h+": date.getHours(),          // 小时 
-                "m+": date.getMinutes(),        // 分 
-                "s+": date.getSeconds(),        // 秒 
-                "q+": ((date.getMonth() + 3) / 3) | 0, // 季度 
-                "S": date.getMilliseconds()     // 毫秒 
+                "Y+": now.getFullYear(),       // 年份
+                "M+": now.getMonth() + 1,      // 月份 
+                "D+": now.getDate(),           // 日 
+                "h+": now.getHours(),          // 小时 
+                "m+": now.getMinutes(),        // 分 
+                "s+": now.getSeconds(),        // 秒 
+                "q+": ((now.getMonth() + 3) / 3) | 0, // 季度 
+                "S": now.getMilliseconds()     // 毫秒 
             }
             for (let k in o) {
                 if (new RegExp("(" + k + ")").test(type)) {

@@ -66,6 +66,8 @@ UtilTools.random(2,10)  //8
   random(low, high),
 * 范围内随机字符串
   randomName(randomFlag=true, min=8, max=20),
+* 判断为有效时间
+  isDate(date),
 * 判断是否为身份证号
   isIdCard(str),
 * 判断是否为手机号
@@ -88,12 +90,12 @@ UtilTools.random(2,10)  //8
 * 时区转换
   date:new Date()
   timezone:8
-  transformTimeZone({date,timezone=8}),  
+  transformTimeZone({date,timezone=8}),
 * 时间格式化
   date:new Date()
   type:YYYY MM DD hh mm ss任意组合
   timeZoneBJ(是否限定为北京时间):Boolean
-  formatDateTime({date, type,timeZoneBJ=true}),
+  formatDateTime({date, type,timeZoneBJ=true,log=true}),
 * 根据年月日得知星期几
   getWeek(year, month, day),
 * 获取指定年月的日历
@@ -155,7 +157,7 @@ UtilTools.random(2,10)  //8
 * 连续乘
   continuityMul(numbers,fixed)
 * 连续除
-  continuityDiv(numbers,fixed) 
+  continuityDiv(numbers,fixed)
 * 指定小数点位数取值,非四舍五入
   toFixed(n=12.681, fixed=2)
 * 劫持粘贴板
@@ -200,7 +202,14 @@ UtilTools.random(2,10)  //8
               console.log(args)
           });
 ```
-## 程序更新日志 ##
 
-> ### 0.0.15-beta.18 更新时间：2022-7-8 ###
-1. deepCopy方法传入参数由两个(空值,克隆对象)改为一个(克隆对象),方法自动推导
+## 程序更新日志
+
+> ### 0.0.15-beta.18 更新时间：2022-07-08
+
+1. deepCopy 方法传入参数由两个(空值,克隆对象)改为一个(克隆对象),方法自动推导
+
+> ### 0.0.15-beta.19 更新时间：2022-11-12
+
+1. formatDateTime 方法修改,date 传入值检测，无效时间默认使用系统当前时间，抛出错误提示(log 参数可关闭提示)
+2. 新增 isDate 方法判断是否为有效时间
