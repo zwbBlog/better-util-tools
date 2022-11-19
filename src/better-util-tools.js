@@ -897,7 +897,7 @@
             a = this.unique(a);
             const newArr = a.map(function (o) {
                 return _this.contains(b, o) ? o : null;
-            })
+            }).filter(f=>f)
             for (var i = 0, len = newArr.length; i < len; i++) {
                 if (newArr[i] === null) {
                     newArr.splice(i, 1)
