@@ -462,12 +462,11 @@
         },
         //减
         cut(arg1, arg2,fixed) {
-            var r1, r2, m, n;
+            var r1, r2, m;
             try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
             try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
             const digit = Math.max(r1, r2)
             m = Math.pow(10, digit);
-            n = (r1 >= r2) ? r1 : r2;
             const tempNum = ((arg1 * m - arg2 * m) / m).toFixed(digit)*1
             if (fixed>=0) return this.toFixed(tempNum,fixed)
             return tempNum;
