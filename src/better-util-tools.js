@@ -314,6 +314,68 @@
                     u8arr[n] = bstr.charCodeAt(n);
                 }
                 return new Blob([u8arr], { type: mime });
+            },
+            //根据文件生成url
+            getObjectURL:(file)=> {
+                if (window.URL) {
+                    return window.URL.createObjectURL(file);
+                }
+                if (window.webkitURL) {
+                    return window.webkitURL.createObjectURL(file);
+                }
+            },
+            /**
+             * res:原始response对象
+             * preview:是否预览
+             * success:成功回调
+             * fail:失败回调
+             */
+            //文件流下载
+            streamToFile: ({ res={}, preview = false, success, fail }) => {
+                if (this.isEmptyObj(res)) {
+                    throw new Error('请传入正确的response参数')
+                }
+                const { msg = '文件下载失败,请检查response参数是否正确',down=false } = res.headers || {};
+                if (down) {
+                    return window.open(decodeURIComponent(down),'_blank');
+                }
+                if (headers['content-disposition']) {
+                    let fileName;
+                    const contentDisposition = headers['content-disposition'];
+                    const contentType = headers['content-type'];
+                    if (contentDisposition) {
+                        if (contentDisposition.indexOf('filename*=UTF-8\'\'') > -1) {
+                        fileName = contentDisposition
+                            .split(';')[1]
+                            .split('filename*=UTF-8\'\'')[1]
+                            .replace(/"/g, '');
+                        } else if (contentDisposition.indexOf('filename=') > -1) {
+                        fileName = contentDisposition
+                            .split(';')[1]
+                            .split('filename=')[1]
+                            .replace(/"/g, '');
+                        }
+                    }
+                    fileName = decodeURIComponent(fileName);
+                    const blob = new Blob([res.data], { 'type': contentType });
+                    if (window.navigator.msSaveOrOpenBlob) {
+                        navigator.msSaveBlob(blob, fileName);
+                    } else {
+                        const a = document.createElement('a');
+                        if (preview) {
+                            a.target = '_blank';
+                        } else {
+                            a.download = fileName;
+                        }
+                        a.href = this.fileUtil.getObjectURL(blob);
+                        document.body.append(a);
+                        a.click();
+                        document.body.removeChild(a);
+                    }
+                    if (success){ success(); }
+                } else if (fail) {
+                    fail(decodeURIComponent(msg));
+                }
             }
         },
         //el是否在视口范围内

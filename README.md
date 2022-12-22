@@ -176,6 +176,10 @@ UtilTools.random(2,10)  //8
     blobToFile(blob, fileName),
     base64ToFile(base64, filename),
     base64ToBlob(base64),
+    *根据文件file创建url
+    getObjectURL:(file),
+    *文件流下载 res:原始response对象(含有res.headers) preview:是否新开窗口预览(非必传) success:成功回调(非必传) fail:失败回调(非必传)
+    streamToFile: ({ res={}, preview = false, success, fail })
   }
 * 订阅观察者模式
   EventEmitter:{
@@ -217,3 +221,8 @@ UtilTools.random(2,10)  //8
 > ### 0.0.15-beta.20 更新时间：2022-11-19
 
 1. 修复 intersect 交集方法没有交集时返回[null],改为返回[]
+
+> ### 0.0.15-beta.20 更新时间：2022-12-22
+
+1. 文件操作新增根据文件 file 创建 url 方法：getObjectURL
+2. 文件操作新增文件流下载方法：streamToFile
