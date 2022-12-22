@@ -222,7 +222,7 @@ UtilTools.random(2,10)  //8
 
 1. 修复 intersect 交集方法没有交集时返回[null],改为返回[]
 
-> ### 0.0.15-beta.20 更新时间：2022-12-22
+> ### 0.0.15-beta.21 更新时间：2022-12-22
 
 1. 文件操作新增根据文件 file 创建 url 方法：getObjectURL
 2. 文件操作新增文件流下载方法：streamToFile
