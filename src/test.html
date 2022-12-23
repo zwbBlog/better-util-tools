@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js" integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="better-util-tools.js"></script>
     <style>
         .t {
@@ -18,6 +19,7 @@
 </head>
 
 <body>
+    <button id="fileDown">下载文件</button>
     <div class="t">
         <button class="throttleFn">throttleFn</button>
         <button class="debounceFn">debounceFn</button>
@@ -245,6 +247,17 @@
         console.log(t6)
         console.log(UtilTools.continuityCut(['312534.92',56217.09,119.7,549.16,0,'255643.97',5]))
         console.log(312534.92-56217.09-119.7-549.16-0-255643.97-5)
+        $('#fileDown').click(()=>{
+            axios({
+                'responseType': 'blob',
+                'method': 'POST',
+                data:{test:123},
+                url:'http://localhost:8080/api/api/web/upload/download2',
+            }).then(res=>{
+                UtilTools.file.streamToFile({res,preview:true})
+            })
+        })
+       
     } catch (err) {
         console.warn(err);
     }

@@ -53,8 +53,6 @@
     var BetterUtilTools = function (options) {
         options = options || {};
      };
-
-
     BetterUtilTools.prototype = {
         _init() {
             console.log('better-util-tools is ok');
@@ -275,9 +273,9 @@
             return true;
         },
         //文件操作
-        fileUtil: {
+        file: {
             //file转base64
-            fileToBase64: file => {
+            fileToBase64(file){
                 let reader = new FileReader();
                 reader.readAsDataURL(file);
                 reader.onload = function (e) {
@@ -285,13 +283,13 @@
                 }
             },
             //blob转file
-            blobToFile: (blob, fileName) => {
+            blobToFile(blob, fileName) {
                 blob.lastModifiedDate = new Date();
                 blob.name = fileName;
                 return blob;
             },
             //base64转file
-            base64ToFile: (base64, filename) => {
+            base64ToFile(base64, filename){
                 let arr = base64.split(',');
                 let mime = arr[0].match(/:(.*?);/)[1];
                 let suffix = mime.split('/')[1];
@@ -304,7 +302,7 @@
                 return new File([u8arr], `${filename}.${suffix}`, { type: mime })
             },
             //base64转blob
-            base64ToBlob: base64 => {
+            base64ToBlob(base64){
                 let arr = base64.split(','),
                     mime = arr[0].match(/:(.*?);/)[1],
                     bstr = atob(arr[1]),
@@ -316,7 +314,7 @@
                 return new Blob([u8arr], { type: mime });
             },
             //根据文件生成url
-            getObjectURL:(file)=> {
+            getObjectURL(file){
                 if (window.URL) {
                     return window.URL.createObjectURL(file);
                 }
@@ -331,11 +329,12 @@
              * fail:失败回调
              */
             //文件流下载
-            streamToFile: ({ res={}, preview = false, success, fail }) => {
-                if (this.isEmptyObj(res)) {
+            streamToFile({ res = {}, preview = false, success, fail }) {
+                if (BetterUtilTools.prototype.isEmptyObj(res)) {
                     throw new Error('请传入正确的response参数')
                 }
-                const { msg = '文件下载失败,请检查response参数是否正确',down=false } = res.headers || {};
+                const { headers = {} } = res;
+                const { msg = '文件下载失败,请检查response参数是否正确',down=false } = headers;
                 if (down) {
                     return window.open(decodeURIComponent(down),'_blank');
                 }
@@ -358,6 +357,7 @@
                     }
                     fileName = decodeURIComponent(fileName);
                     const blob = new Blob([res.data], { 'type': contentType });
+                    const ObjectURL = this.getObjectURL(blob);
                     if (window.navigator.msSaveOrOpenBlob) {
                         navigator.msSaveBlob(blob, fileName);
                     } else {
@@ -367,10 +367,11 @@
                         } else {
                             a.download = fileName;
                         }
-                        a.href = this.fileUtil.getObjectURL(blob);
+                        a.href = ObjectURL;
                         document.body.append(a);
                         a.click();
                         document.body.removeChild(a);
+                        window.URL.revokeObjectURL(ObjectURL)
                     }
                     if (success){ success(); }
                 } else if (fail) {

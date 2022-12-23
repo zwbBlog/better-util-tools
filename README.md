@@ -179,6 +179,13 @@ UtilTools.random(2,10)  //8
     *根据文件file创建url
     getObjectURL:(file),
     *文件流下载 res:原始response对象(含有res.headers) preview:是否新开窗口预览(非必传) success:成功回调(非必传) fail:失败回调(非必传)
+    res:{
+      data:Blob,
+      headers:{
+        'content-type':'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'content-disposition':'attachment; filename=excel.xlsx'
+      }
+    }
     streamToFile: ({ res={}, preview = false, success, fail })
   }
 * 订阅观察者模式
@@ -226,3 +233,7 @@ UtilTools.random(2,10)  //8
 
 1. 文件操作新增根据文件 file 创建 url 方法：getObjectURL
 2. 文件操作新增文件流下载方法：streamToFile
+
+> ### 0.0.15-beta.22 更新时间：2022-12-23
+
+1. streamToFile 方法调用报错修复
