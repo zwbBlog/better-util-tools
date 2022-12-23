@@ -171,7 +171,7 @@ UtilTools.random(2,10)  //8
 * 根据url地址下载
   download(url)
 * 文件操作
-  fileUtil:{
+  file:{
     fileToBase64(file),
     blobToFile(blob, fileName),
     base64ToFile(base64, filename),
