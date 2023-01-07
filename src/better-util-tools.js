@@ -717,12 +717,13 @@
             return new Date(nowDate + offsetGMT * 60 * 1000 + timezone * 60 * 60 * 1000);
         },
         //时间格式化
-        formatDateTime({ date, type = 'YYYY/MM/DD hh:mm:ss', timeZoneBJ = true,log=true }) {
+        formatDateTime({ date, type = 'YYYY/MM/DD hh:mm:ss', timeZoneBJ = true, log = true }) {
+            if(date && this.typeIs(date)==='string'){date = date.replace(/-/g,'/')}
             let now = new Date(date || Date.now())
             const debug = date!==undefined && !Boolean(date);
             const isDate = this.isDate(now) && this.typeIs(now) === 'date'
             if (debug || !isDate) {
-                if (log) { console.error(`Invalid Date ${date} system uses the default time`) }
+                if (log) { console.error(`Invalid Date ${date}, system uses the default time`) }
                 now = new Date()
             }
             if (timeZoneBJ) {
