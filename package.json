@@ -1,15 +1,15 @@
 {
   "name": "better-util-tools",
-  "private": false,
-  "version": "0.0.15-beta.22",
+  "version": "0.0.15-beta.23",
   "description": "一个简单的工具集",
   "main": "dist/better-util-tools.min.js",
   "files": [
     "dist/better-util-tools.min.js"
   ],
   "scripts": {
-    "test": "node ./src/test.js",
-    "build": "gulp version"
+    "dev": "rollup -c -w",
+    "build": "rollup -c",
+    "clean": "rimraf ./node_modules"
   },
   "homepage": "https://github.com/zwbBlog/better-util-tools",
   "keywords": [
@@ -26,14 +26,21 @@
   "email": "zlgbmail@163.com",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.12.8",
-    "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.7.0",
-    "gulp": "^4.0.2",
-    "gulp-babel": "7",
-    "gulp-deleted": "^1.0.0",
-    "gulp-rename": "^2.0.0",
-    "gulp-uglify": "^3.0.2"
-  },
-  "dependencies": {}
+    "@babel/core": "^7.19.3",
+    "@babel/preset-env": "^7.19.4",
+    "@rollup/plugin-babel": "^6.0.0",
+    "@rollup/plugin-commonjs": "^23.0.0",
+    "@rollup/plugin-eslint": "^9.0.0",
+    "@rollup/plugin-typescript": "^9.0.1",
+    "@types/node": "^18.11.0",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/parser": "^5.40.0",
+    "eslint": "^8.25.0",
+    "rollup": "^3.1.0",
+    "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-uglify": "^6.0.4",
+    "tslib": "^2.4.0",
+    "typescript": "^4.8.4"
+  }
 }

@@ -212,6 +212,21 @@ UtilTools.random(2,10)  //8
           em.on('work', (args) => {
               console.log(args)
           });
+* 获取图片信息
+  izExif:{
+    解析图片  url地址/base64/blob
+    getImageData(src)
+    获取图片信息
+    getFloatLocationByExif(res.exif)
+  }
+  example:let izExif = UtilTools.izExif;
+          izExif.getImageData(src).then(res=>{
+            console.log(res)
+            console.log(izExif.getFloatLocationByExif(res.exif))
+          }).catch(e=>{
+            console.log(e)
+          })
+
 ```
 
 ## 程序更新日志
@@ -237,3 +252,8 @@ UtilTools.random(2,10)  //8
 > ### 0.0.15-beta.22 更新时间：2022-12-23
 
 1. streamToFile 方法调用报错修复
+
+> ### 0.0.15-beta.23 更新时间：2023-3-17
+
+1. 新增解析、获取图片信息方法 getImageData getFloatLocationByExif
+2. formatDateTime 方法修改,date 传入值检测，无效时间默认返回空
