@@ -4,9 +4,9 @@
 
 ### _使用方法_
 
-- npm i better-util-tools
-- or
-- yarn add better-util-tools
+-   npm i better-util-tools
+-   or
+-   yarn add better-util-tools
 
 #### way1：
 
@@ -24,7 +24,7 @@ or
 <script src="xxx/xxx/better-util-tools.min.js"></script>
 ```
 
-- 具体使用
+-   具体使用
 
 ```
 const UtilTools = new BetterUtilTools()
@@ -172,7 +172,7 @@ UtilTools.random(2,10)  //8
   download(url)
 * 文件操作
   file:{
-    fileToBase64(file),
+    fileToBase64(file):Promise<any>,
     blobToFile(blob, fileName),
     base64ToFile(base64, filename),
     base64ToBlob(base64),
