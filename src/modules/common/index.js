@@ -548,7 +548,10 @@ export default class ICommon {
   }
   //时间格式化
   formatDateTime({ date, type = 'YYYY/MM/DD hh:mm:ss', timeZoneBJ = true, log = true }) {
-    if(date && this.typeIs(date)==='string'){ date = date.replace(/-/g,'/'); }
+    var replaceReg = /\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}/g
+    if (date && this.typeIs(date) === 'string') {
+      date = date.replace(replaceReg, '$1/$2/$3 $4:$5:$6');
+    }
     let now = new Date(date || Date.now());
     const debug = date!==undefined && !date;
     const isDate = this.isDate(now) && this.typeIs(now) === 'date';
