@@ -257,3 +257,8 @@ UtilTools.random(2,10)  //8
 
 1. 新增解析、获取图片信息方法 getImageData getFloatLocationByExif
 2. formatDateTime 方法修改,date 传入值检测，无效时间默认返回空
+
+> ### 0.0.15-beta.24 更新时间：2023-4-27
+
+1. 修复手机号校验包含不全问题
+2. fileToBase64 返回 promise
