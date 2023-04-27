@@ -7,7 +7,7 @@ import izExif from './modules/izExif';
 class BetterUtilTools extends Common {
   constructor(options) {
     super(options);
-    console.log('better-util-tools is ok');
+    // console.log('better-util-tools is ok');
     this.EventEmitter = EventEmitter;
     this.options = options || {};
     //文件操作
