@@ -1,6 +1,6 @@
 {
   "name": "better-util-tools",
-  "version": "0.0.15-beta.25",
+  "version": "0.0.15-beta.26",
   "description": "一个简单的工具集",
   "main": "dist/better-util-tools.min.js",
   "files": [
