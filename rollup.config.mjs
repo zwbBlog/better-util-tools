@@ -21,7 +21,12 @@ export default {
     babel({
       exclude: 'node_modules/**'
     }),
-    uglify(),
+    uglify({
+      compress: {
+        'drop_console': true, // 过滤 console
+        'drop_debugger': true // 过滤 debugger
+      }
+    }),
     terser(),
     // copy({
     //   targets: [

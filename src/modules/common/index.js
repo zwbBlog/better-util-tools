@@ -552,7 +552,6 @@ export default class ICommon {
     if (date && this.typeIs(date) === 'string') {
       date = date.replace(replaceReg, '$1/$2/$3 $4:$5:$6');
     }
-    console.log(date)
     let now = new Date(date || Date.now());
     const debug = date!==undefined && !date;
     const isDate = this.isDate(now) && this.typeIs(now) === 'date';
