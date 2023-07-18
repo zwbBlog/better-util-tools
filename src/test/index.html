@@ -38,7 +38,7 @@
             console.log(UtilTools.izExif.getImageData);
             console.log(
                 UtilTools.formatDateTime({
-                    date: '2023-04-15 13:47:11',
+                    date: "2023-04-15 13:47:11",
                 })
             );
             console.log(
@@ -214,6 +214,9 @@
             console.log(a);
             console.log("UtilTools.jsonHasKey(obj,c)");
             console.log(UtilTools.jsonHasKey(obj, "d"));
+            console.log(UtilTools.formatDecimals(false));
+            console.log(UtilTools.formatDecimals("我不是一个数字"));
+            console.log(UtilTools.formatDecimals("混合数字6789.35哈哈哈"));
             console.log(UtilTools.formatDecimals(-1295.638));
             console.log(UtilTools.formatDecimals(36897265945.638));
             console.log(UtilTools.formatDecimals(0));
