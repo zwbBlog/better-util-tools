@@ -1,6 +1,6 @@
 
 import ICommon from '../common';
-class IFile extends ICommon{
+class IFile extends ICommon {
   constructor() {
     super();
   }
@@ -18,13 +18,22 @@ class IFile extends ICommon{
       reader.onerror = error => reject(error);
     });
   }
-  //blob转file
-  blobToFile(blob, fileName) {
-    blob.lastModifiedDate = new Date();
-    blob.name = fileName;
-    return blob;
+  /**
+   * blob转file
+   * @param blob       {Blob}   blob
+   * @param fileName   {String} 文件名
+   * @param mimeType   {String} 文件类型
+   * @returns file     {File}   文件
+   */
+  blobToFile(blob, fileName, mimeType) {
+    new File([blob], fileName, { type: mimeType })
   }
-  //base64转file
+  /**
+   * base64转file
+   * @param base64     {String} base64
+   * @param fileName   {String} 文件名 
+   * @returns file     {File}   文件
+  */
   base64ToFile(base64, filename) {
     let arr = base64.split(',');
     let mime = arr[0].match(/:(.*?);/)[1];
