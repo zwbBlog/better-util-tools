@@ -26,7 +26,7 @@ class IFile extends ICommon {
    * @returns file     {File}   文件
    */
   blobToFile(blob, fileName, mimeType) {
-    new File([blob], fileName, { type: mimeType })
+    return new File([blob], fileName, { type: mimeType })
   }
   /**
    * base64转file
