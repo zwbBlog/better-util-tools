@@ -173,11 +173,11 @@ UtilTools.random(2,10)  //8
 * 文件操作
   file:{
     fileToBase64(file):Promise<any>,
-    blobToFile(blob, fileName),
+    blobToFile(blob, fileName, mimeType),
     base64ToFile(base64, filename),
     base64ToBlob(base64),
     *根据文件file创建url
-    getObjectURL:(file),
+    getObjectURL(file),
     *文件流下载 res:原始response对象(含有res.headers) preview:是否新开窗口预览(非必传) success:成功回调(非必传) fail:失败回调(非必传)
     res:{
       data:Blob,
