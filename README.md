@@ -33,7 +33,7 @@ UtilTools.random(2,10)  //8
 
 ##### 方法集合如下：
 
-```
+``` js
 * 判断两个数组是否相等
   arrayEqual(arr1, arr2),
 * 判断该属性是否在json中的key存在
@@ -226,7 +226,20 @@ UtilTools.random(2,10)  //8
           }).catch(e=>{
             console.log(e)
           })
-
+* 异步并发调度
+  scheduler:{
+    add
+  }
+  const timeout = time => new Promise(resolve => {
+    setTimeout(resolve, time);
+  })
+  //传入并发数量最多2个
+  const scheduler = new UtilTools.scheduler(2);
+  for (let index = 0; index < 10; index++) {
+      scheduler.add(()=>fetch('https://dog.ceo/api/breeds/image/random')).then(()=>{
+          console.log(index);
+      })
+  }
 ```
 
 ## 程序更新日志
@@ -274,3 +287,6 @@ UtilTools.random(2,10)  //8
 > ### 0.0.15-beta.27 更新时间：2023-4-28
 
 1. 配置生产环境去除 console、debugger
+> ### 0.0.15-beta.28 更新时间：2023-9-23
+
+1. 新增异步并发调度类

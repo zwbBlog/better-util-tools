@@ -373,6 +373,10 @@
                     UtilTools.file.streamToFile({ res, preview: true });
                 });
             });
+            const scheduler = new UtilTools.scheduler(2);
+            for (let index = 0; index < 10; index++) {
+                scheduler.add(()=>fetch('https://dog.ceo/api/breeds/image/random'))
+            }
         } catch (err) {
             console.warn(err);
         }

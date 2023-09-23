@@ -3,6 +3,7 @@ import Common from './modules/common';
 import EventEmitter from './modules/eventEmitter';
 import file from './modules/file';
 import izExif from './modules/izExif';
+import task from './modules/task';
 
 class BetterUtilTools extends Common {
   constructor(options) {
@@ -14,6 +15,8 @@ class BetterUtilTools extends Common {
     this.file = file;
     //获取文件属性（经纬度...）
     this.izExif = izExif;
+    //任务队列
+    this.scheduler = task;
   }
 }
 export default BetterUtilTools;
