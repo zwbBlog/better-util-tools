@@ -240,6 +240,7 @@ UtilTools.random(2,10)  //8
           console.log(index);
       })
   }
+
 ```
 
 ## 程序更新日志
