@@ -230,9 +230,6 @@ UtilTools.random(2,10)  //8
   scheduler:{
     add
   }
-  const timeout = time => new Promise(resolve => {
-    setTimeout(resolve, time);
-  })
   //传入并发数量最多2个
   const scheduler = new UtilTools.scheduler(2);
   for (let index = 0; index < 10; index++) {
