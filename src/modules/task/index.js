@@ -1,5 +1,5 @@
 export default class Scheduler {
-    constructor(max) {
+    constructor(max = 2) {
         this.max = max;
         this.count = 0;//用来记录当前正在执行的异步函数
         this.queue = [];//表示等待队列
