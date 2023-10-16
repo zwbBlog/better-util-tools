@@ -106,11 +106,13 @@ export default class ICommon {
   //获取微信环境
   getWechatEnv() {
     const userAgent = 'navigator' in window && 'userAgent' in navigator && navigator.userAgent.toLowerCase() || '';
-    if (userAgent.match(/MicroMessenger/i) === 'micromessenger' && userAgent.match(/wxwork/i) === 'wxwork') {
-      return 'enterprise';
-    } else if (userAgent.match(/micromessenger/i) === 'micromessenger') {
+    if (~userAgent.search(/micromessenger/i)) {
+      if (~userAgent.search(/wxwork/i)) {
+        return 'enterprise';
+      }
       return 'wechat';
     }
+    return null;
   }
   // 判断终端（pc/mobile）
   getClient() {
@@ -148,7 +150,7 @@ export default class ICommon {
   random(low, high) {
     let a = high - low + 1;
     return Math.floor(Math.random() * a + low);
-  //return Math.round(Math.random()*a+low)  [low,high+1]
+    //return Math.round(Math.random()*a+low)  [low,high+1]
   }
   // 范围内随机字符串
   randomName(randomFlag, min, max) {
@@ -183,7 +185,7 @@ export default class ICommon {
   }
   //判断是否含有中文
   isChineseName(str) {
-  // return /^([\u4E00-\u9FFF]|\w){2,11}$/.test(str);
+    // return /^([\u4E00-\u9FFF]|\w){2,11}$/.test(str);
     return /^([\u4E00-\u9FFF]|\w)$/.test(str);
   }
   //是否为时间
@@ -242,7 +244,7 @@ export default class ICommon {
     }
     /*文件是否已加载*/
     function FileIsExt(_url) {
-      return SourceMap.get('zlgb'+_url ) === _url;
+      return SourceMap.get('zlgb' + _url) === _url;
     }
     /*加载JS文件,url:文件路径,success:加载成功回调函数*/
     function loadFile(url, success) {
@@ -263,10 +265,10 @@ export default class ICommon {
           fileObj.type = 'text/css';
           fileObj.rel = 'stylesheet/less';
         }
-        success = success || function () {};
+        success = success || function () { };
         fileObj.onload = fileObj.onreadystatechange = function () {
           if (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete') {
-            SourceMap.set('zlgb'+url ,url);
+            SourceMap.set('zlgb' + url, url);
             success();
           }
         };
@@ -350,27 +352,27 @@ export default class ICommon {
     const digit = Math.max(r1, r2);
     m = Math.pow(10, digit);
     const tempNum = Number(((arg1 * m + arg2 * m) / m).toFixed(digit));
-    if (fixed>=0) { return this.toFixed(tempNum,fixed); }
+    if (fixed >= 0) { return this.toFixed(tempNum, fixed); }
     return tempNum;
   }
   //减
-  cut(arg1, arg2,fixed) {
+  cut(arg1, arg2, fixed) {
     let r1, r2, m;
     try { r1 = arg1.toString().split('.')[1].length; } catch (e) { r1 = 0; }
     try { r2 = arg2.toString().split('.')[1].length; } catch (e) { r2 = 0; }
     const digit = Math.max(r1, r2);
     m = Math.pow(10, digit);
     const tempNum = Number(((arg1 * m - arg2 * m) / m).toFixed(digit));
-    if (fixed>=0) { return this.toFixed(tempNum,fixed); }
+    if (fixed >= 0) { return this.toFixed(tempNum, fixed); }
     return tempNum;
   }
   //乘
-  mul(arg1, arg2,fixed) {
+  mul(arg1, arg2, fixed) {
     let m = 0, s1 = arg1.toString(), s2 = arg2.toString();
     try { m += s1.split('.')[1].length; } catch (e) { }
     try { m += s2.split('.')[1].length; } catch (e) { }
     const tempNum = Number(s1.replace('.', '')) * Number(s2.replace('.', '')) / Math.pow(10, m);
-    if (fixed>=0) { return this.toFixed(tempNum,fixed); }
+    if (fixed >= 0) { return this.toFixed(tempNum, fixed); }
     return tempNum;
   }
   //除
@@ -381,15 +383,15 @@ export default class ICommon {
     r1 = Number(arg1.toString().replace('.', ''));
     r2 = Number(arg2.toString().replace('.', ''));
     const tempNum = r1 / r2 * Math.pow(10, t2 - t1);
-    if (fixed>=0) { return this.toFixed(tempNum,fixed); }
+    if (fixed >= 0) { return this.toFixed(tempNum, fixed); }
     return tempNum;
   }
   //连续加
-  continuityAdd(numbers=[], fixed) {
+  continuityAdd(numbers = [], fixed) {
     let rs = 0;
     numbers.forEach(n => {
       try {
-        rs =this.add(rs,n,fixed);
+        rs = this.add(rs, n, fixed);
       } catch (e) {
         new Error(n + '不是合法的');
       }
@@ -397,14 +399,14 @@ export default class ICommon {
     return rs;
   }
   //连续减
-  continuityCut(numbers=[], fixed) {
+  continuityCut(numbers = [], fixed) {
     let rs = 0;
-    numbers.forEach((n,i) => {
+    numbers.forEach((n, i) => {
       try {
         if (i === 0) {
           rs = n;
         } else {
-          rs =this.cut(rs,n,fixed);
+          rs = this.cut(rs, n, fixed);
         }
       } catch (e) {
         new Error(n + '不是合法的');
@@ -413,14 +415,14 @@ export default class ICommon {
     return rs;
   }
   //连续乘
-  continuityMul(numbers=[], fixed) {
+  continuityMul(numbers = [], fixed) {
     let rs = 0;
-    numbers.forEach((n,i) => {
+    numbers.forEach((n, i) => {
       try {
         if (i === 0) {
           rs = n;
         } else {
-          rs =this.mul(rs,n,fixed);
+          rs = this.mul(rs, n, fixed);
         }
       } catch (e) {
         new Error(n + '不是合法的');
@@ -429,14 +431,14 @@ export default class ICommon {
     return rs;
   }
   //连续除
-  continuityDiv(numbers=[], fixed) {
+  continuityDiv(numbers = [], fixed) {
     let rs = 0;
-    numbers.forEach((n,i) => {
+    numbers.forEach((n, i) => {
       try {
         if (i === 0) {
           rs = n;
         } else {
-          rs =this.div(rs,n,fixed);
+          rs = this.div(rs, n, fixed);
         }
       } catch (e) {
         new Error(n + '不是合法的');
@@ -519,8 +521,8 @@ export default class ICommon {
     return d + '天 ' + h + '小时 ' + m + '分钟 ' + s + '秒';
   }
   //获取北京时间
-  getBJDate (date) {
-  //获得当前运行环境时间
+  getBJDate(date) {
+    //获得当前运行环境时间
     let d = date && this.typeIs(new Date(date)) === 'date' ? new Date(date) : new Date(),
       currentDate = date && this.typeIs(new Date(date)) === 'date' ? new Date(date) : new Date(),
       tmpHours = currentDate.getHours();
@@ -531,13 +533,13 @@ export default class ICommon {
       time_zone = Math.abs(time_zone) + 8; currentDate.setHours(tmpHours + time_zone);
     } else {
       //大于0的是东区  东区时间直接跟京八区相减
-      time_zone -= 8;currentDate.setHours(tmpHours - time_zone);
+      time_zone -= 8; currentDate.setHours(tmpHours - time_zone);
     }
     return currentDate;
   }
   //时间时区转换
   transformTimeZone({ timezone = 8, date }) {
-  // 本地时间和格林威治的时间差，单位为分钟
+    // 本地时间和格林威治的时间差，单位为分钟
     let offsetGMT = new Date(date).getTimezoneOffset();
     // 本地时间距 1970 年 1 月 1 日午夜（GMT 时间）之间的毫秒数
     let nowDate = new Date(date).getTime();
@@ -550,7 +552,7 @@ export default class ICommon {
       date = date.replace(replaceReg, '$1/$2/$3 $4:$5:$6');
     }
     let now = new Date(date || Date.now());
-    const debug = date!==undefined && !date;
+    const debug = date !== undefined && !date;
     const isDate = this.isDate(now) && this.typeIs(now) === 'date';
     if (debug || !isDate) {
       if (log) { console.error(`Invalid Date ${date}`); }
@@ -572,7 +574,7 @@ export default class ICommon {
     for (let k in o) {
       if (new RegExp('(' + k + ')').test(type)) {
         type = type.replace(RegExp.$1, (a, b) => {
-          if ( (b !== 0 || b< 10) && String(o[k]).length < 2 && a.length === 2) { return `0${o[k]}`; }
+          if ((b !== 0 || b < 10) && String(o[k]).length < 2 && a.length === 2) { return `0${o[k]}`; }
           return o[k];
         });
       }
@@ -643,7 +645,7 @@ export default class ICommon {
     let querys = {}, keys = [], values = [];
     if (this.isUrl(url)) {
       if (url.indexOf('?') !== -1) {
-        let queryString = url.substr(url.indexOf('?')+1);
+        let queryString = url.substr(url.indexOf('?') + 1);
         const query = queryString.split('&');
         for (let i = 0; i < query.length; i++) {
           const key = query[i].split('=')[0];
@@ -673,7 +675,7 @@ export default class ICommon {
   }
   //节流函数--规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。
   throttle(fn, wait = 50) {
-  // 上一次执行 fn 的时间
+    // 上一次执行 fn 的时间
     let previous = 0;
     // 将 throttle 处理结果当作函数返回
     return function (...args) {
@@ -689,7 +691,7 @@ export default class ICommon {
   }
   // 防抖函数--在事件被触发n秒后再执行回调，如果在这n秒内又被触发，则重新计时
   debounce(fn, wait = 50) {
-  // 通过闭包缓存一个定时器 id
+    // 通过闭包缓存一个定时器 id
     let timer = null;
     // 将 debounce 处理结果当作函数返回
     // 触发事件回调时执行这个返回函数
@@ -714,7 +716,7 @@ export default class ICommon {
   }
   // 图片上传转base64
   imgChange(file, cb) {
-  // 生成一个文件读取的对象
+    // 生成一个文件读取的对象
     let reader = new FileReader();
     reader.onload = function (ev) {
       // base64码
@@ -728,7 +730,7 @@ export default class ICommon {
   deepCopy(obj) {
     const clone = this.typeIs(obj) === 'array' ? [] : {};
     const types = ['array', 'object'];
-    if (!types.includes(this.typeIs(obj) )){
+    if (!types.includes(this.typeIs(obj))) {
       return obj;
     }
     const copy = objClone => {
@@ -788,7 +790,7 @@ export default class ICommon {
     a = this.unique(a);
     const newArr = a.map(function (o) {
       return _this.contains(b, o) ? o : null;
-    }).filter(f=>f);
+    }).filter(f => f);
     for (let i = 0, len = newArr.length; i < len; i++) {
       if (newArr[i] === null) {
         newArr.splice(i, 1);
