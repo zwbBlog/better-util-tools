@@ -214,7 +214,7 @@ export default class ICommon {
     if (url.indexOf('?') === -1) {
       url += '?download';
     }
-    window.open(url, '_self');
+    window.open(url, '_blank');
     return true;
   }
   //el是否在视口范围内

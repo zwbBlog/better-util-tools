@@ -122,7 +122,7 @@ class IFile extends ICommon {
                 window.URL.revokeObjectURL(ObjectURL);
             }
             if (success) {
-                success();
+                success(ObjectURL);
             }
         } else if (fail) {
             fail(decodeURIComponent(msg));
