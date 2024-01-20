@@ -189,6 +189,22 @@ UtilTools.random(2,10)  //8
     streamToFile: ({ res={}, preview = false, success, fail })
   }
 * 订阅观察者模式
+/**
+ *example:
+  let em = UtilTools.EventEmitter;
+  let w = 0;
+  let timer = setInterval(() => {
+    em.emit('work', { a: Date.now() });
+    if (w == 5) {
+        console.log('w>=5');
+        clearInterval(timer)
+    }
+    w++;
+  }, 20);
+  em.on('work', (args) => {
+      console.log(args)
+  });
+ */
   EventEmitter:{
     //订阅事件的方法
     on(eventName, cb)
@@ -199,44 +215,39 @@ UtilTools.random(2,10)  //8
     //只执行一次订阅
     once(eventName, cb)
   }
-  example:let em = UtilTools.EventEmitter;
-          let w = 0;
-          let timer = setInterval(() => {
-              em.emit('work', { a: Date.now() });
-              if (w == 5) {
-                  console.log('w>=5');
-                  clearInterval(timer)
-              }
-              w++;
-          }, 20);
-          em.on('work', (args) => {
-              console.log(args)
-          });
 * 获取图片信息
+/**
+ *example:
+ *let izExif = UtilTools.izExif;
+  izExif.getImageData(src).then(res=>{
+    console.log(res)
+    console.log(izExif.getFloatLocationByExif(res.exif))
+  }).catch(e=>{
+    console.log(e)
+  })
+ */
   izExif:{
     解析图片  url地址/base64/blob
     getImageData(src)
     获取图片信息
     getFloatLocationByExif(res.exif)
   }
-  example:let izExif = UtilTools.izExif;
-          izExif.getImageData(src).then(res=>{
-            console.log(res)
-            console.log(izExif.getFloatLocationByExif(res.exif))
-          }).catch(e=>{
-            console.log(e)
-          })
+  
 * 异步并发调度
+/**
+ *example:
+ *传入并发数量最多2个
+  const scheduler = new UtilTools.scheduler(2);
+  for (let index = 0; index < 10; index++) {
+    scheduler.add(()=>fetch('https://xxx.xx.com')).then(()=>{
+      console.log(index);
+    })
+  }
+ */
   scheduler:{
     add
   }
-  //传入并发数量最多2个
-  const scheduler = new UtilTools.scheduler(2);
-  for (let index = 0; index < 10; index++) {
-      scheduler.add(()=>fetch('https://dog.ceo/api/breeds/image/random')).then(()=>{
-          console.log(index);
-      })
-  }
+ 
 * retry异步重试
 /**
  * promise重试方法
@@ -264,55 +275,54 @@ UtilTools.random(2,10)  //8
 ```
 
 ## 程序更新日志
-
-> ### 0.0.15-beta.18 更新时间：2022-07-08
-
-1. deepCopy 方法传入参数由两个(空值,克隆对象)改为一个(克隆对象),方法自动推导
-
-> ### 0.0.15-beta.19 更新时间：2022-11-12
-
-1. formatDateTime 方法修改,date 传入值检测，无效时间默认使用系统当前时间，抛出错误提示(log 参数可关闭提示)
-2. 新增 isDate 方法判断是否为有效时间
-
-> ### 0.0.15-beta.20 更新时间：2022-11-19
-
-1. 修复 intersect 交集方法没有交集时返回[null],改为返回[]
-
-> ### 0.0.15-beta.21 更新时间：2022-12-22
-
-1. 文件操作新增根据文件 file 创建 url 方法：getObjectURL
-2. 文件操作新增文件流下载方法：streamToFile
-
-> ### 0.0.15-beta.22 更新时间：2022-12-23
-
-1. streamToFile 方法调用报错修复
-
-> ### 0.0.15-beta.23 更新时间：2023-3-17
-
-1. 新增解析、获取图片信息方法 getImageData getFloatLocationByExif
-2. formatDateTime 方法修改,date 传入值检测，无效时间默认返回空
-
-> ### 0.0.15-beta.24 更新时间：2023-4-27
-
-1. 修复手机号校验包含不全问题
-2. fileToBase64 返回 promise
-
-> ### 0.0.15-beta.25 更新时间：2023-4-27
-
-1. 修复格式化 iso 时间异常问题
-
-> ### 0.0.15-beta.26 更新时间：2023-4-28
-
-1. 修复格式化时间打包异常问题
-
-> ### 0.0.15-beta.27 更新时间：2023-4-28
-
-1. 配置生产环境去除 console、debugger
-> ### 0.0.15-beta.28 更新时间：2023-9-23
-
-1. 新增异步并发调度类
-> ### 0.0.15-beta.29 更新时间：2023-10-16
-
-1. 修复getWechatEnv获取微信环境异常问题
 > ### 0.0.15-beta.30 更新时间：2024-01-20
 1. 新增retry异步重试方法
+> ### 0.0.15-beta.29 更新时间：2023-10-16
+1. 修复getWechatEnv获取微信环境异常问题
+
+> ### 0.0.15-beta.28 更新时间：2023-09-23
+1. 新增异步并发调度类
+> ### 0.0.15-beta.27 更新时间：2023-4-28
+1. 配置生产环境去除 console、debugger
+> ### 0.0.15-beta.26 更新时间：2023-4-28
+1. 修复格式化时间打包异常问题
+> ### 0.0.15-beta.25 更新时间：2023-4-27
+1. 修复格式化 iso 时间异常问题
+> ### 0.0.15-beta.24 更新时间：2023-4-27
+1. 修复手机号校验包含不全问题
+2. fileToBase64 返回 promise
+> ### 0.0.15-beta.23 更新时间：2023-3-17
+1. 新增解析、获取图片信息方法 getImageData getFloatLocationByExif
+2. formatDateTime 方法修改,date 传入值检测，无效时间默认返回空
+> ### 0.0.15-beta.22 更新时间：2022-12-23
+1. streamToFile 方法调用报错修复
+> ### 0.0.15-beta.21 更新时间：2022-12-22
+1. 文件操作新增根据文件 file 创建 url 方法：getObjectURL
+2. 文件操作新增文件流下载方法：streamToFile
+> ### 0.0.15-beta.20 更新时间：2022-11-19
+1. 修复 intersect 交集方法没有交集时返回[null],改为返回[]
+> ### 0.0.15-beta.19 更新时间：2022-11-12
+1. formatDateTime 方法修改,date 传入值检测，无效时间默认使用系统当前时间，抛出错误提示(log 参数可关闭提示)
+2. 新增 isDate 方法判断是否为有效时间
+> ### 0.0.15-beta.18 更新时间：2022-07-08
+1. deepCopy 方法传入参数由两个(空值,克隆对象)改为一个(克隆对象),方法自动推导
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
