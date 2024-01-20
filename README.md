@@ -237,7 +237,30 @@ UtilTools.random(2,10)  //8
           console.log(index);
       })
   }
-
+* retry异步重试
+/**
+ * promise重试方法
+ * options:{
+ *   fn:返回异步方法
+ *   max:最大重试次数，默认3次
+ *   flag:{
+ *      key:'status' 调用成功标志key 默认status
+ *      value:200  调用成功标志value 默认200
+ *   }
+ * }
+ *  example:
+    const fn = axios.get('http://xxx.xx.com')
+    UtilTools.retry({fn}).then(result=>{
+        console.log('result!!!!');
+        console.log(result);
+    }).catch(e=>{
+      console.log(e)
+    })
+*/
+ retry(options).then(result=>{
+      console.log('result!!!!');
+      console.log(result);
+  })
 ```
 
 ## 程序更新日志
@@ -291,3 +314,5 @@ UtilTools.random(2,10)  //8
 > ### 0.0.15-beta.29 更新时间：2023-10-16
 
 1. 修复getWechatEnv获取微信环境异常问题
+> ### 0.0.15-beta.30 更新时间：2024-01-20
+1. 新增retry异步重试方法

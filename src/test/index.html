@@ -10,7 +10,7 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         ></script>
-        <script src="/dist/better-util-tools.min.js"></script>
+        <script src="/dist/better-util-tools.min.js?t=1"></script>
         <style>
             .t {
                 height: 5000px;
@@ -31,12 +31,22 @@
         </div>
     </body>
     <script>
+        const fn = ()=> axios.get('https://dog.ceo/api/breeds/image/random');
+        // const fn = ()=>fetch('https://dog.ceo/api/breeds/image/random');
+        // const fn = async () => {
+        //     return await axios.get('https://dog.ceo/api/breeds/image/random123');
+        // };
         try {
             const UtilTools = new BetterUtilTools();
-            console.log(UtilTools);
-            console.log(UtilTools.getWechatEnv());
-            console.log(UtilTools.file.fileToBase64);
-            console.log(UtilTools.izExif.getImageData);
+            console.log(UtilTools.typeIs(fn));
+            // console.log(UtilTools);
+            // console.log(UtilTools.getWechatEnv());
+            // console.log(UtilTools.file.fileToBase64);
+            // console.log(UtilTools.izExif.getImageData);
+            UtilTools.retry({fn}).then(result=>{
+                console.log('result!!!!');
+                console.log(result);
+            })
             console.log(
                 UtilTools.formatDateTime({
                     date: "2023-04-15 13:47:11",
@@ -376,7 +386,7 @@
             });
             const scheduler = new UtilTools.scheduler(2);
             for (let index = 0; index < 10; index++) {
-                scheduler.add(()=>fetch('https://dog.ceo/api/breeds/image/random'))
+                // scheduler.add(()=>fetch('https://dog.ceo/api/breeds/image/random'))
             }
         } catch (err) {
             console.warn(err);

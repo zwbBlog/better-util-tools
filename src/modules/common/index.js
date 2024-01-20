@@ -832,4 +832,37 @@ export default class ICommon {
     }
     return extended;
   }
+  /**
+   * promise重试方法
+   * options:{
+   *   fn:返回异步方法
+   *   max:最大重试次数
+   *   flag:{
+   *      key:'status' 调用成功标志key
+   *      value:200  调用成功标志value
+   *   }
+   * }
+  */
+  retry(options = {}) {
+    const { fn, max = 3, flag } = options;
+    let retryCount = max - 1;
+    const f = flag || { key: 'status', value: 200 }
+    const fnType = this.typeIs(fn);
+    const _run = (fn, retryCount) => {
+      return new Promise((resolve, reject) => {
+        if (!['function', 'asyncfunction'].includes(fnType)) {
+          return reject(`${fnType} is not function`)
+        }
+        fn().then(result => {
+          if (result[f.key] === f.value) { return resolve(result) }
+          if (retryCount > 0) { return _run(fn, retryCount - 1); }
+          return reject(`Sorry, failed to retry ${max} times`)
+        }).catch(e => {
+          if (retryCount > 0) { return _run(fn, retryCount - 1); }
+          return reject(JSON.stringify(e))
+        })
+      })
+    }
+    return _run(fn, retryCount);
+  }
 }
