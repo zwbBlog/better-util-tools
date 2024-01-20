@@ -249,7 +249,7 @@ UtilTools.random(2,10)  //8
  *   }
  * }
  *  example:
-    const fn = axios.get('http://xxx.xx.com')
+    const fn = () => axios.get('http://xxx.xx.com')
     UtilTools.retry({fn}).then(result=>{
         console.log('result!!!!');
         console.log(result);
