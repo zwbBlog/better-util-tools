@@ -31,11 +31,20 @@
         </div>
     </body>
     <script>
-        const fn = ()=> axios.get('https://dog.ceo/api/breeds/image/random');
+        // const fn = ()=> axios.get('https://dog.ceo/api/breeds/image/random');
         // const fn = ()=>fetch('https://dog.ceo/api/breeds/image/random');
-        // const fn = async () => {
-        //     return await axios.get('https://dog.ceo/api/breeds/image/random123');
-        // };
+        const fn = async () => {
+            return await axios.get('https://dog.ceo/api/breeds/image/random');
+        };
+
+        // const fn = ()=> axios({
+        //     url: 'https://vsi-api.shouqianba.com/terminal/activate',
+        //     method: 'POST',
+        //     data: {"app_id":"2020090700003095","code":"40204224","device_id":"C00022b2c20240228134840459"},
+        //     timeout: 5000,
+        //     headers: {"content-type":"application/json","Authorization":"91801127 4a4fcff273b19bf70aabbe1489fbfd9a"}
+        // });
+        
         try {
             const UtilTools = new BetterUtilTools();
             console.log(UtilTools.typeIs(fn));
