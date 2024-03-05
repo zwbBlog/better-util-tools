@@ -848,21 +848,19 @@ export default class ICommon {
     let retryCount = max - 1;
     const mFlag = flag || { key: 'status', value: 200 }
     const fnType = this.typeIs(fn);
-    const _run = (f,r) => {
+    const _run = f => {
       return new Promise((resolve, reject) => {
-        if (!['function', 'asyncfunction'].includes(fnType)) {
-          return reject(`${fnType} is not function`)
-        }
+        if (!['function', 'asyncfunction'].includes(fnType)) { return reject(`${fnType} is not function`); }
         f().then(result => {
-          if (result[mFlag.key] === mFlag.value) { resolve(result); return; }
-          if (r > 0) { return _run(fn, r - 1) ;}
-          reject(`Sorry, failed to retry ${max} times`)
+          if (result[mFlag.key] === mFlag.value) { return resolve(result); }
+          if (retryCount > 0) { retryCount--; return _run(f); }
+          reject({ code: '-1', success: false, msg: `Sorry, failed to retry ${max} times` })
         }).catch(e => {
-          if (r > 0) { return _run(fn, r - 1); }
-          reject(JSON.stringify(e))
+          if (retryCount > 0) { retryCount--; return _run(f); }
+          reject(e)
         })
       })
     }
-    return _run(fn,retryCount);
+    return _run(fn);
   }
 }

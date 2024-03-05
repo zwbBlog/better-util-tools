@@ -271,7 +271,15 @@ UtilTools.random(2,10)  //8
  retry(options).then(result=>{
       console.log('result!!!!');
       console.log(result);
-  })
+  }).catch(e=>{
+    /* {
+          "code": "-1",
+          "success": false,
+          "msg": "Sorry, failed to retry 3 times"
+        }
+    */
+    console.log(e)
+  }
 ```
 
 ## 程序更新日志

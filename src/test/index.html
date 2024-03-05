@@ -32,10 +32,11 @@
     </body>
     <script>
         // const fn = ()=> axios.get('https://dog.ceo/api/breeds/image/random');
-        // const fn = ()=>fetch('https://dog.ceo/api/breeds/image/random');
-        const fn = async () => {
-            return await axios.get('https://dog.ceo/api/breeds/image/random');
-        };
+        const fn = ()=>fetch('https://dog.ceo/api/breeds/image/random98');
+        // const fn = 888;
+        // const fn = async () => {
+        //     return await axios.get('https://dog.ceo/api/breeds/image/random');
+        // };
 
         // const fn = ()=> axios({
         //     url: 'https://vsi-api.shouqianba.com/terminal/activate',
@@ -55,6 +56,8 @@
             UtilTools.retry({fn}).then(result=>{
                 console.log('result!!!!');
                 console.log(result);
+            }).catch(e=>{
+                console.log(e);
             })
             console.log(
                 UtilTools.formatDateTime({
