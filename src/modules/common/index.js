@@ -499,9 +499,18 @@ export default class ICommon {
   }
   // 千分位逗号格式化
   formatDecimals(num) {
-    let source = String(num).split('.');//按小数点分成2部分
-    source[0] = source[0].replace(new RegExp('(\\d)(?=(\\d{3})+$)', 'ig'), '$1,');//只将整数部分进行都好分割
-    return source.join('.');//再将小数部分合并进来
+    //按小数点分成2部分
+    const source = String(num).split('.');
+    let result = [];
+    for (let s of source) {
+      result.push(s.replace(new RegExp('(\\d)(?=(\\d{3})+$)', 'ig'), '$1,'));//只将整数部分进行都好分割
+    }
+    //再将小数部分合并进来
+    return result.join('.');
+  }
+  //字符文本集数值转换
+  textDecimalsNum(t) {
+    return t.replace(/(\d+)\.?(\d{0,})/g, arg => this.formatDecimals(arg));
   }
   //倒计时
   formatRemainTime(endTime) {

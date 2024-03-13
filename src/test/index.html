@@ -31,8 +31,12 @@
         </div>
     </body>
     <script>
+        
+
+       
+        // console.log(formatDecimals(text));
         // const fn = ()=> axios.get('https://dog.ceo/api/breeds/image/random');
-        const fn = ()=>fetch('https://dog.ceo/api/breeds/image/random98');
+        const fn = ()=>fetch('https://dog.ceo/api/breeds/image/random');
         // const fn = 888;
         // const fn = async () => {
         //     return await axios.get('https://dog.ceo/api/breeds/image/random');
@@ -53,6 +57,19 @@
             // console.log(UtilTools.getWechatEnv());
             // console.log(UtilTools.file.fileToBase64);
             // console.log(UtilTools.izExif.getImageData);
+
+            const text = 'xx有限公司1已付款10086.6.846未到1303820元,采购6162108.18元';
+            function formatDecimals(num) {
+                const source = String(num).split('.');//按小数点分成2部分
+                let result = [];
+                for (let s of source) {
+                    result.push(s.replace(new RegExp('(\\d)(?=(\\d{3})+$)', 'ig'), '$1,'));//只将整数部分进行都好分割
+                }
+                return result.join('.');//再将小数部分合并进来
+            }
+            console.log(UtilTools.textDecimalsNum(text));
+            console.log(UtilTools.textDecimalsNum('text64389.29,138.759,66897'));
+
             UtilTools.retry({fn}).then(result=>{
                 console.log('result!!!!');
                 console.log(result);
