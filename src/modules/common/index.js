@@ -510,7 +510,7 @@ export default class ICommon {
   }
   //字符文本集数值转换
   textDecimalsNum(t) {
-    return t.replace(/(\d+)\.?(\d{0,})/g, arg => this.formatDecimals(arg));
+    return String(t).replace(/(\d+)\.?(\d{0,})/g, arg => this.formatDecimals(arg));
   }
   //倒计时
   formatRemainTime(endTime) {
