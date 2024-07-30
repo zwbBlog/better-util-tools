@@ -1,424 +1,449 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Title</title>
-        <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"
-            integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-        ></script>
-        <script src="/dist/better-util-tools.min.js?t=1"></script>
-        <style>
-            .t {
-                height: 5000px;
-                width: 100%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-        </style>
-    </head>
 
-    <body>
-        <button id="fileDown">下载文件</button>
-        <div class="t">
-            <button class="throttleFn">throttleFn</button>
-            <button class="debounceFn">debounceFn</button>
-            <button class="copyTextToClipboard">copyTextToClipboard</button>
-        </div>
-    </body>
-    <script>
-        
-
-       
-        // console.log(formatDecimals(text));
-        // const fn = ()=> axios.get('https://dog.ceo/api/breeds/image/random');
-        const fn = ()=>fetch('https://dog.ceo/api/breeds/image/random');
-        // const fn = 888;
-        // const fn = async () => {
-        //     return await axios.get('https://dog.ceo/api/breeds/image/random');
-        // };
-
-        // const fn = ()=> axios({
-        //     url: 'https://vsi-api.shouqianba.com/terminal/activate',
-        //     method: 'POST',
-        //     data: {"app_id":"2020090700003095","code":"40204224","device_id":"C00022b2c20240228134840459"},
-        //     timeout: 5000,
-        //     headers: {"content-type":"application/json","Authorization":"91801127 4a4fcff273b19bf70aabbe1489fbfd9a"}
-        // });
-        
-        try {
-            const UtilTools = new BetterUtilTools();
-            console.log(UtilTools.typeIs(fn));
-            // console.log(UtilTools);
-            // console.log(UtilTools.getWechatEnv());
-            // console.log(UtilTools.file.fileToBase64);
-            // console.log(UtilTools.izExif.getImageData);
-
-            const text = 'xx有限公司1已付款10086.6.846未到1303820元,采购6162108.18元';
-            function formatDecimals(num) {
-                const source = String(num).split('.');//按小数点分成2部分
-                let result = [];
-                for (let s of source) {
-                    result.push(s.replace(new RegExp('(\\d)(?=(\\d{3})+$)', 'ig'), '$1,'));//只将整数部分进行都好分割
-                }
-                return result.join('.');//再将小数部分合并进来
-            }
-            console.log(UtilTools.textDecimalsNum(text));
-            console.log(UtilTools.textDecimalsNum('text64389.29,138.759,66897'));
-
-            UtilTools.retry({fn}).then(result=>{
-                console.log('result!!!!');
-                console.log(result);
-            }).catch(e=>{
-                console.log(e);
-            })
-            console.log(
-                UtilTools.formatDateTime({
-                    date: "2023-04-15 13:47:11",
-                })
-            );
-            console.log(
-                UtilTools.formatDateTime({
-                    date: "2022-07-02T02:32:57.194Z",
-                })
-            );
-            console.log(
-                UtilTools.formatDateTime({
-                    date: undefined,
-                })
-            );
-            console.log(
-                UtilTools.formatDateTime({
-                    date: 0,
-                })
-            );
-            console.log(
-                UtilTools.formatDateTime({
-                    date: "",
-                })
-            );
-            console.log(UtilTools.formatDateTime({}));
-            console.log(
-                UtilTools.formatDateTime({
-                    date: "new Date()",
-                    log: false,
-                })
-            );
-            console.log(
-                UtilTools.formatDateTime({
-                    date: new Date(),
-                })
-            );
-            console.log("testtesttesttesttesttesttesttesttest");
-            console.log(
-                UtilTools.formatDateTime({
-                    date: 1654012800000,
-                    type: "YYYY/MM/DD",
-                })
-            );
-            console.log(
-                UtilTools.formatDateTime({
-                    date: 1656518400000,
-                    type: "YYYY/MM/DD",
-                })
-            );
-            console.log(UtilTools.getClient());
-            console.log(
-                UtilTools.formatDateTime({
-                    type: "hh:mm:ss:S YYYY/MM/DD",
-                })
-            );
-            console.log(
-                UtilTools.formatDateTime({
-                    date: "2022-05-21",
-                    type: "YYYY/MM/DD",
-                })
-            );
-            console.log(
-                UtilTools.formatDateTime({
-                    date: Date.now() - 7 * 24 * 60 * 60 * 1000,
-                    type: "YYYY/MM/DD hh:mm:ss:S",
-                })
-            );
-            console.log(
-                UtilTools.formatDateTime({
-                    date: "2022-01-08 01:07:01",
-                    timezone: "hh",
-                })
-            );
-            console.log(
-                UtilTools.transformTimeZone({
-                    date: "2022-01-08 01:07:01",
-                    timezone: 5.5,
-                })
-            );
-            console.log(UtilTools.isIdCard("362202197009020024"));
-
-            console.log(UtilTools.getAbsoluteDay(-5));
-            console.log(UtilTools.getMonthData(-1, 3));
-            console.log(UtilTools.getMonthMaxDay(2021, "02"));
-            console.log(UtilTools.getExplore());
-            console.log(UtilTools.getOS());
-            const color = UtilTools.randomColor();
-            console.log(color);
-            console.log(UtilTools.colorToRGB(color, 0.8));
-            console.log(
-                UtilTools.getUrlParams("https://www.baidu.com#test?a=6&b=8")
-            );
-            console.log(
-                UtilTools.getUrlParams(
-                    "http://localhost:8117/viewcontroller/subscribeaudit?id=4074A0E3-42AE-4F81-BF25-919760D3B948"
-                )
-            );
-            console.log(
-                UtilTools.getUrlParams(
-                    "viewcontroller/subscribeaudit?id=4074A0E3-42AE-4F81-BF25-919760D3B948"
-                )
-            );
-            var qStr = UtilTools.queryString({
-                a: 666,
-                b: {
-                    c: 8,
-                },
-                d: true,
-            });
-            console.log(qStr);
-            console.log(
-                UtilTools.getUrlParams(`https://www.baidu.com#test?${qStr}`)
-            );
-            console.log(
-                UtilTools.getUrlParams(
-                    `http://192.168.22.131:8117/viewcontroller/subscribeaudit?id=58A73005-ACA1-4B96-91B7-B4E879054BB5&em_auth_userid=6413&outsysid=48fcecb3d9164c19ad3e9bf9b5c76b4b&em_client_lang=zh&em_client_type=mobile&em_auth_code=d3d10b27-5a77-497d-a8f6-eef74f90399a`
-                )
-            );
-            const o1 = {
-                    a: 1,
-                    c: 11,
-                },
-                o2 = {
-                    a: 2,
-                    d: {
-                        e: 6,
-                        d: [123],
-                    },
-                },
-                o3 = {
-                    a: 3,
-                    b: 6,
-                    d: {
-                        e: 6,
-                        d: [6, 7, 8],
-                    },
-                };
-            const o = UtilTools.extend(true, o1, o2, o3);
-            o.d.e = 88;
-            o.d.d = [];
-            console.log("extend");
-            console.log(o);
-            console.log(o3);
-            console.log(UtilTools.digitUppercase(120800));
-            console.log(UtilTools.toFixed(120800.668796, 3));
-            console.log(UtilTools.toFixed(120800.668796, 6));
-            console.log(UtilTools.toFixed("120800", 6));
-            console.log(UtilTools.toFixed("120800xx3w3r", 2));
-            console.log("UtilTools.toFixed(120800, 2)");
-            console.log(UtilTools.toFixed(120800, 2));
-            console.log(
-                UtilTools.getStyle(document.querySelector("html"), [
-                    "width",
-                    "height",
-                ])
-            );
-            var obj = {
-                a: 6,
-                b: [1, 2, 3],
-                c: {
-                    d: 4,
-                },
-                e: new Date(),
-            };
-            console.log("deepCopy!!!!!!!!!!!");
-            var obj2 = UtilTools.deepCopy(obj);
-            obj2.c.d = 666;
-            obj2.b.push(666);
-            console.log(obj);
-            console.log(obj2);
-            var a = "6";
-            var copyA = UtilTools.deepCopy(a);
-            copyA = { a: 666 };
-            console.log(copyA);
-            console.log(a);
-            console.log("UtilTools.jsonHasKey(obj,c)");
-            console.log(UtilTools.jsonHasKey(obj, "d"));
-            console.log(UtilTools.formatDecimals(false));
-            console.log(UtilTools.formatDecimals("我不是一个数字"));
-            console.log(UtilTools.formatDecimals("混合数字6789.35哈哈哈"));
-            console.log(UtilTools.formatDecimals(-1295.638));
-            console.log(UtilTools.formatDecimals(36897265945.638));
-            console.log(UtilTools.formatDecimals(0));
-            console.log(UtilTools.formatDecimals("123385.668"));
-            console.log(
-                UtilTools.unique([
-                    "15e18b888ff2469b966017e175e8df37",
-                    "9433feeb9c194ce4906fff2049d255ab",
-                    "efa9ace7e0584d309dee8c04897d474b",
-                    "8fbf737fbdad4efbb4665bc347159cc5",
-                    "799f357b966c4ff4b0d4909c3366daed",
-                    "a8500e9b464c424ba64874067c0eb0e9",
-                    "15e18b888ff2469b966017e175e8df37",
-                    "799f357b966c4ff4b0d4909c3366daed",
-                    "9433feeb9c194ce4906fff2049d255ab",
-                ])
-            );
-            console.log(
-                UtilTools.unique(
-                    [
-                        {
-                            name: "1",
-                            age: 666,
-                        },
-                        {
-                            name: "2",
-                        },
-                        {
-                            name: "3",
-                        },
-                        {
-                            name: "1",
-                        },
-                    ],
-                    true,
-                    "name"
-                )
-            );
-            console.log(
-                UtilTools.typeIs(
-                    '{"dateTime":1583746020232,"orderNo":46724132019635,"enableDelivery":0,"orderStatus":9}'
-                )
-            );
-            console.log(
-                UtilTools.typeIs({
-                    rightsId: 8443522,
-                    orderNo: 2881201692,
-                    storeId: 1180222,
-                })
-            );
-            console.log(UtilTools.intersect([1, 2], [4, 5, 1, 6, 8]));
-            console.log(UtilTools.intersect([1, 2], [6, 8]));
-            console.log(UtilTools.union([1, 2], [4, 5, 1]));
-            console.log("~~~~~");
-            console.log(UtilTools.digitUppercase(1268754.38));
-            console.log("UtilTools.div(2000, 0.128,3)");
-            console.log(UtilTools.div(2000, 0.128456, 3));
-            console.log(UtilTools.div("29", 50, 4));
-            console.log(UtilTools.div(-20, "80", 4));
-            console.log(UtilTools.numberToChinese(213805.128));
-            console.log(
-                UtilTools.queryString({
-                    a: 1,
-                    b: 2,
-                })
-            );
-            console.log(
-                UtilTools.removeHtmlTag(
-                    `<span>123</span><img src="https://www.baidu.com" />666`
-                )
-            );
-            console.log(UtilTools.typeIs(new Promise((resolve, reject) => {})));
-            var debounceFn = UtilTools.debounce(() => {
-                console.log(
-                    UtilTools.elementIsVisibleInViewport(
-                        $(".copyTextToClipboard")[0],
-                        true
-                    )
-                );
-                console.log("debounceFn");
-            }, 1000);
-            var throttleFn = UtilTools.throttle(
-                () =>
-                    console.log(
-                        "throttleFn函数执行了" +
-                            UtilTools.formatDateTime({
-                                type: "hh:mm:ss",
-                            })
-                    ),
-                1000
-            );
-            $(window).scroll(debounceFn);
-            UtilTools.loadResources(
-                ["css/index.css", "js/injectScript.js", "js/injectScript2.js"],
-                () => {
-                    console.log("所有资源引入成功");
-                }
-            );
-            // setInterval(throttleFn, 10)
-            $(".debounceFn").click(debounceFn);
-            $(".copyTextToClipboard").click(() => {
-                UtilTools.copyTextToClipboard("copyTextToClipboard", () => {
-                    alert("复制成功");
-                });
-            });
-            let em = UtilTools.EventEmitter;
-            let w = 0;
-            let timer = setInterval(() => {
-                em.emit("work", { a: Date.now() });
-                if (w == 5) {
-                    console.log("w>=5");
-                    clearInterval(timer);
-                }
-                w++;
-            }, 20);
-            em.on("work", args => {
-                console.log(args);
-            });
-            console.log(UtilTools.add(298.9, 81.7129));
-            console.log(UtilTools.continuityAdd([298.9, 81.7129, 889, 1.2345]));
-            console.log(
-                UtilTools.continuityCut([298.9, 81.7129, 1.2345, 889.74298])
-            );
-            console.log(UtilTools.continuityMul([1, 2, 3, 2.5, 6.876, 1.2345]));
-            console.log(UtilTools.continuityDiv([1, 2, 3, 2.5, 6.876, 1.2345]));
-            var t1 = UtilTools.cut(312534.92, 56217.09);
-            var t2 = UtilTools.cut(t1, 119.7);
-            var t3 = UtilTools.cut(t2, 549.16);
-            var t4 = UtilTools.cut(t3, 0);
-            var t5 = UtilTools.cut(t4, 255643.97);
-            var t6 = UtilTools.cut(t5, 5);
-            console.log(t6);
-            console.log(
-                UtilTools.continuityCut([
-                    "312534.92",
-                    56217.09,
-                    119.7,
-                    549.16,
-                    0,
-                    "255643.97",
-                    5,
-                ])
-            );
-            console.log(
-                312534.92 - 56217.09 - 119.7 - 549.16 - 0 - 255643.97 - 5
-            );
-            $("#fileDown").click(() => {
-                axios({
-                    responseType: "blob",
-                    method: "POST",
-                    data: { test: 123 },
-                    url: "http://localhost:8080/api/api/web/upload/download2",
-                }).then(res => {
-                    UtilTools.file.streamToFile({ res, preview: true });
-                });
-            });
-            const scheduler = new UtilTools.scheduler(2);
-            for (let index = 0; index < 10; index++) {
-                // scheduler.add(()=>fetch('https://dog.ceo/api/breeds/image/random'))
-            }
-        } catch (err) {
-            console.warn(err);
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js" integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/dist/better-util-tools.min.js?t=1"></script>
+    <style>
+        .t {
+            height: 5000px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-    </script>
+    </style>
+</head>
+
+<body>
+    <button id="fileDown">下载文件</button>
+    <div class="t">
+        <button class="throttleFn">throttleFn</button>
+        <button class="debounceFn">debounceFn</button>
+        <button class="copyTextToClipboard">copyTextToClipboard</button>
+    </div>
+</body>
+<script>
+    // console.log(formatDecimals(text));
+    // const fn = ()=> axios.get('https://dog.ceo/api/breeds/image/random');
+    const fn = () => fetch('https://dog.ceo/api/breeds/image/random');
+    // const fn = 888;
+    // const fn = async () => {
+    //     return await axios.get('https://dog.ceo/api/breeds/image/random');
+    // };
+
+    // const fn = ()=> axios({
+    //     url: 'https://vsi-api.shouqianba.com/terminal/activate',
+    //     method: 'POST',
+    //     data: {"app_id":"2020090700003095","code":"40204224","device_id":"C00022b2c20240228134840459"},
+    //     timeout: 5000,
+    //     headers: {"content-type":"application/json","Authorization":"91801127 4a4fcff273b19bf70aabbe1489fbfd9a"}
+    // });
+
+    try {
+        const UtilTools = new BetterUtilTools();
+        console.log(UtilTools.typeIs(fn));
+        // console.log(UtilTools);
+        // console.log(UtilTools.getWechatEnv());
+        // console.log(UtilTools.file.fileToBase64);
+        // console.log(UtilTools.izExif.getImageData);
+
+
+        let deepObj = {
+            name: '我真的很困',
+            like: {
+                type: 'coding',
+                a: undefined,
+                b: null,
+                c: function (name) {
+                    console.log(name + 'hello');
+                },
+                e: Symbol('hello'),
+                // acef都拷贝不了
+            }
+        }
+        let newObj = JSON.parse(JSON.stringify(deepObj))
+        const uObj = UtilTools.deepCopy(deepObj);
+        console.log(newObj);
+        console.log(uObj);
+
+
+        const text = 'xx有限公司1已付款10086.6.846未到1303820元,采购6162108.18元';
+
+        function formatDecimals(num) {
+            const source = String(num).split('.'); //按小数点分成2部分
+            let result = [];
+            for (let s of source) {
+                result.push(s.replace(new RegExp('(\\d)(?=(\\d{3})+$)', 'ig'), '$1,')); //只将整数部分进行都好分割
+            }
+            return result.join('.'); //再将小数部分合并进来
+        }
+        console.log(UtilTools.textDecimalsNum(text));
+        console.log(UtilTools.textDecimalsNum('text64389.29,138.759,66897'));
+
+        UtilTools.retry({
+            fn
+        }).then(result => {
+            console.log('result!!!!');
+            console.log(result);
+        }).catch(e => {
+            console.log(e);
+        })
+        console.log(
+            UtilTools.formatDateTime({
+                date: "2023-04-15 13:47:11",
+            })
+        );
+        console.log(
+            UtilTools.formatDateTime({
+                date: "2022-07-02T02:32:57.194Z",
+            })
+        );
+        console.log(
+            UtilTools.formatDateTime({
+                date: undefined,
+            })
+        );
+        console.log(
+            UtilTools.formatDateTime({
+                date: 0,
+            })
+        );
+        console.log(
+            UtilTools.formatDateTime({
+                date: "",
+            })
+        );
+        console.log(UtilTools.formatDateTime({}));
+        console.log(
+            UtilTools.formatDateTime({
+                date: "new Date()",
+                log: false,
+            })
+        );
+        console.log(
+            UtilTools.formatDateTime({
+                date: new Date(),
+            })
+        );
+        console.log("testtesttesttesttesttesttesttesttest");
+        console.log(
+            UtilTools.formatDateTime({
+                date: 1654012800000,
+                type: "YYYY/MM/DD",
+            })
+        );
+        console.log(
+            UtilTools.formatDateTime({
+                date: 1656518400000,
+                type: "YYYY/MM/DD",
+            })
+        );
+        console.log(UtilTools.getClient());
+        console.log(
+            UtilTools.formatDateTime({
+                type: "hh:mm:ss:S YYYY/MM/DD",
+            })
+        );
+        console.log(
+            UtilTools.formatDateTime({
+                date: "2022-05-21",
+                type: "YYYY/MM/DD",
+            })
+        );
+        console.log(
+            UtilTools.formatDateTime({
+                date: Date.now() - 7 * 24 * 60 * 60 * 1000,
+                type: "YYYY/MM/DD hh:mm:ss:S",
+            })
+        );
+        console.log(
+            UtilTools.formatDateTime({
+                date: "2022-01-08 01:07:01",
+                timezone: "hh",
+            })
+        );
+        console.log(
+            UtilTools.transformTimeZone({
+                date: "2022-01-08 01:07:01",
+                timezone: 5.5,
+            })
+        );
+        console.log(UtilTools.isIdCard("362202197009020024"));
+
+        console.log(UtilTools.getAbsoluteDay(-5));
+        console.log(UtilTools.getMonthData(-1, 3));
+        console.log(UtilTools.getMonthMaxDay(2021, "02"));
+        console.log(UtilTools.getExplore());
+        console.log(UtilTools.getOS());
+        const color = UtilTools.randomColor();
+        console.log(color);
+        console.log(UtilTools.colorToRGB(color, 0.8));
+        console.log(
+            UtilTools.getUrlParams("https://www.baidu.com#test?a=6&b=8")
+        );
+        console.log(
+            UtilTools.getUrlParams(
+                "http://localhost:8117/viewcontroller/subscribeaudit?id=4074A0E3-42AE-4F81-BF25-919760D3B948"
+            )
+        );
+        console.log(
+            UtilTools.getUrlParams(
+                "viewcontroller/subscribeaudit?id=4074A0E3-42AE-4F81-BF25-919760D3B948"
+            )
+        );
+        var qStr = UtilTools.queryString({
+            a: 666,
+            b: {
+                c: 8,
+            },
+            d: true,
+        });
+        console.log(qStr);
+        console.log(
+            UtilTools.getUrlParams(`https://www.baidu.com#test?${qStr}`)
+        );
+        console.log(
+            UtilTools.getUrlParams(
+                `http://192.168.22.131:8117/viewcontroller/subscribeaudit?id=58A73005-ACA1-4B96-91B7-B4E879054BB5&em_auth_userid=6413&outsysid=48fcecb3d9164c19ad3e9bf9b5c76b4b&em_client_lang=zh&em_client_type=mobile&em_auth_code=d3d10b27-5a77-497d-a8f6-eef74f90399a`
+            )
+        );
+        const o1 = {
+                a: 1,
+                c: 11,
+            },
+            o2 = {
+                a: 2,
+                d: {
+                    e: 6,
+                    d: [123],
+                },
+            },
+            o3 = {
+                a: 3,
+                b: 6,
+                d: {
+                    e: 6,
+                    d: [6, 7, 8],
+                },
+            };
+        const o = UtilTools.extend(true, o1, o2, o3);
+        o.d.e = 88;
+        o.d.d = [];
+        console.log("extend");
+        console.log(o);
+        console.log(o3);
+        console.log(UtilTools.digitUppercase(120800));
+        console.log(UtilTools.toFixed(120800.668796, 3));
+        console.log(UtilTools.toFixed(120800.668796, 6));
+        console.log(UtilTools.toFixed("120800", 6));
+        console.log(UtilTools.toFixed("120800xx3w3r", 2));
+        console.log("UtilTools.toFixed(120800, 2)");
+        console.log(UtilTools.toFixed(120800, 2));
+        console.log(
+            UtilTools.getStyle(document.querySelector("html"), [
+                "width",
+                "height",
+            ])
+        );
+        var obj = {
+            a: 6,
+            b: [1, 2, 3],
+            c: {
+                d: 4,
+            },
+            e: new Date(),
+        };
+        console.log("deepCopy!!!!!!!!!!!");
+        var obj2 = UtilTools.deepCopy(obj);
+        obj2.c.d = 666;
+        obj2.b.push(666);
+        console.log(obj);
+        console.log(obj2);
+        var a = "6";
+        var copyA = UtilTools.deepCopy(a);
+        copyA = {
+            a: 666
+        };
+        console.log(copyA);
+        console.log(a);
+        console.log("UtilTools.jsonHasKey(obj,c)");
+        console.log(UtilTools.jsonHasKey(obj, "d"));
+        console.log(UtilTools.formatDecimals(false));
+        console.log(UtilTools.formatDecimals("我不是一个数字"));
+        console.log(UtilTools.formatDecimals("混合数字6789.35哈哈哈"));
+        console.log(UtilTools.formatDecimals(-1295.638));
+        console.log(UtilTools.formatDecimals(36897265945.638));
+        console.log(UtilTools.formatDecimals(0));
+        console.log(UtilTools.formatDecimals("123385.668"));
+        console.log(
+            UtilTools.unique([
+                "15e18b888ff2469b966017e175e8df37",
+                "9433feeb9c194ce4906fff2049d255ab",
+                "efa9ace7e0584d309dee8c04897d474b",
+                "8fbf737fbdad4efbb4665bc347159cc5",
+                "799f357b966c4ff4b0d4909c3366daed",
+                "a8500e9b464c424ba64874067c0eb0e9",
+                "15e18b888ff2469b966017e175e8df37",
+                "799f357b966c4ff4b0d4909c3366daed",
+                "9433feeb9c194ce4906fff2049d255ab",
+            ])
+        );
+        console.log(
+            UtilTools.unique(
+                [{
+                        name: "1",
+                        age: 666,
+                    },
+                    {
+                        name: "2",
+                    },
+                    {
+                        name: "3",
+                    },
+                    {
+                        name: "1",
+                    },
+                ],
+                true,
+                "name"
+            )
+        );
+        console.log(
+            UtilTools.typeIs(
+                '{"dateTime":1583746020232,"orderNo":46724132019635,"enableDelivery":0,"orderStatus":9}'
+            )
+        );
+        console.log(
+            UtilTools.typeIs({
+                rightsId: 8443522,
+                orderNo: 2881201692,
+                storeId: 1180222,
+            })
+        );
+        console.log(UtilTools.intersect([1, 2], [4, 5, 1, 6, 8]));
+        console.log(UtilTools.intersect([1, 2], [6, 8]));
+        console.log(UtilTools.union([1, 2], [4, 5, 1]));
+        console.log("~~~~~");
+        console.log(UtilTools.digitUppercase(1268754.38));
+        console.log("UtilTools.div(2000, 0.128,3)");
+        console.log(UtilTools.div(2000, 0.128456, 3));
+        console.log(UtilTools.div("29", 50, 4));
+        console.log(UtilTools.div(-20, "80", 4));
+        console.log(UtilTools.numberToChinese(213805.128));
+        console.log(
+            UtilTools.queryString({
+                a: 1,
+                b: 2,
+            })
+        );
+        console.log(
+            UtilTools.removeHtmlTag(
+                `<span>123</span><img src="https://www.baidu.com" />666`
+            )
+        );
+        console.log(UtilTools.typeIs(new Promise((resolve, reject) => {})));
+        var debounceFn = UtilTools.debounce(() => {
+            console.log(
+                UtilTools.elementIsVisibleInViewport(
+                    $(".copyTextToClipboard")[0],
+                    true
+                )
+            );
+            console.log("debounceFn");
+        }, 1000);
+        var throttleFn = UtilTools.throttle(
+            () =>
+            console.log(
+                "throttleFn函数执行了" +
+                UtilTools.formatDateTime({
+                    type: "hh:mm:ss",
+                })
+            ),
+            1000
+        );
+        $(window).scroll(debounceFn);
+        UtilTools.loadResources(
+            ["css/index.css", "js/injectScript.js", "js/injectScript2.js"],
+            () => {
+                console.log("所有资源引入成功");
+            }
+        );
+        // setInterval(throttleFn, 10)
+        $(".debounceFn").click(debounceFn);
+        $(".copyTextToClipboard").click(() => {
+            UtilTools.copyTextToClipboard("copyTextToClipboard", () => {
+                alert("复制成功");
+            });
+        });
+        let em = UtilTools.EventEmitter;
+        let w = 0;
+        let timer = setInterval(() => {
+            em.emit("work", {
+                a: Date.now()
+            });
+            if (w == 5) {
+                console.log("w>=5");
+                clearInterval(timer);
+            }
+            w++;
+        }, 20);
+        em.on("work", args => {
+            console.log(args);
+        });
+        console.log(UtilTools.add(298.9, 81.7129));
+        console.log(UtilTools.continuityAdd([298.9, 81.7129, 889, 1.2345]));
+        console.log(
+            UtilTools.continuityCut([298.9, 81.7129, 1.2345, 889.74298])
+        );
+        console.log(UtilTools.continuityMul([1, 2, 3, 2.5, 6.876, 1.2345]));
+        console.log(UtilTools.continuityDiv([1, 2, 3, 2.5, 6.876, 1.2345]));
+        var t1 = UtilTools.cut(312534.92, 56217.09);
+        var t2 = UtilTools.cut(t1, 119.7);
+        var t3 = UtilTools.cut(t2, 549.16);
+        var t4 = UtilTools.cut(t3, 0);
+        var t5 = UtilTools.cut(t4, 255643.97);
+        var t6 = UtilTools.cut(t5, 5);
+        console.log(t6);
+        console.log(
+            UtilTools.continuityCut([
+                "312534.92",
+                56217.09,
+                119.7,
+                549.16,
+                0,
+                "255643.97",
+                5,
+            ])
+        );
+        console.log(
+            312534.92 - 56217.09 - 119.7 - 549.16 - 0 - 255643.97 - 5
+        );
+        $("#fileDown").click(() => {
+            axios({
+                responseType: "blob",
+                method: "POST",
+                data: {
+                    test: 123
+                },
+                url: "http://localhost:8080/api/api/web/upload/download2",
+            }).then(res => {
+                UtilTools.file.streamToFile({
+                    res,
+                    preview: true
+                });
+            });
+        });
+        const scheduler = new UtilTools.scheduler(2);
+        for (let index = 0; index < 10; index++) {
+            // scheduler.add(()=>fetch('https://dog.ceo/api/breeds/image/random'))
+        }
+    } catch (err) {
+        console.warn(err);
+    }
+</script>
+
 </html>

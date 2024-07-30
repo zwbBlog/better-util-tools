@@ -723,18 +723,6 @@ export default class ICommon {
   toLine(name) {
     return name.replace(/([A-Z])/g, '_$1').toLowerCase();
   }
-  // 图片上传转base64
-  imgChange(file, cb) {
-    // 生成一个文件读取的对象
-    let reader = new FileReader();
-    reader.onload = function (ev) {
-      // base64码
-      let imgFile = ev.target.result;//或e.target都是一样的
-      if (cb) { cb(imgFile); }
-    };
-    //发起异步读取文件请求，读取结果为data:url的字符串形式，
-    reader.readAsDataURL(file.files[0]);
-  }
   // 深克隆
   deepCopy(obj) {
     const clone = this.typeIs(obj) === 'array' ? [] : {};

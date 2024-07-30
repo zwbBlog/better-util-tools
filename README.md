@@ -122,8 +122,6 @@ UtilTools.random(2,10)  //8
   toHump(name),
 * 驼峰转换下划线
   toLine(name),
-* 图片上传转base64
-  imgChange(file,cb),
 * 深克隆
   deepCopy(copyObj)
 * 数组去重合并
