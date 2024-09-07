@@ -657,11 +657,10 @@ export default class ICommon {
         let queryString = url.substr(url.indexOf('?') + 1);
         const query = queryString.split('&');
         for (let i = 0; i < query.length; i++) {
-          const key = query[i].split('=')[0];
-          const value = unescape(query[i].split('=')[1]);
-          querys[key] = value;
+          const [key, value] = query[i].split('=');
+          querys[key] = decodeURIComponent(value);
           keys.push(key);
-          values.push(value);
+          values.push(decodeURIComponent(value));
         }
         querys['$#key'] = keys;
         querys['$#value'] = values;

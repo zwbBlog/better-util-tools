@@ -51,7 +51,6 @@
         // console.log(UtilTools.file.fileToBase64);
         // console.log(UtilTools.izExif.getImageData);
 
-
         let deepObj = {
             name: '我真的很困',
             like: {
@@ -195,6 +194,9 @@
                 "viewcontroller/subscribeaudit?id=4074A0E3-42AE-4F81-BF25-919760D3B948"
             )
         );
+        const urlSearch = 'http://localhost:8117/api/emoblieOperatingreportMessageController/commomMessageView?msgId=2E8BDF4D8BDA444E9F274BCE90ECD148&emnumber=EM000201&today=2024-09-07&title=%E9%B2%9C%E6%8B%8C%E8%8F%9C%E6%AF%8F%E6%97%A5%E9%94%80%E5%94%AE%E6%B1%87%E6%80%BB&time=2024-09-06&em_auth_userid=6419&outsysid=48fcecb3d9164c19ad3e9bf9b5c76b4b&em_client_lang=zh&em_client_type=pc&em_auth_code=d3485d4d-1d24-47af-8b42-7b61cda35892';
+        console.log('urlSearch', UtilTools.getUrlParams(urlSearch));
+
         var qStr = UtilTools.queryString({
             a: 666,
             b: {
