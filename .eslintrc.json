@@ -24,8 +24,8 @@
             }
         ], //单上最长
         "indent": [
+            0,
             2,
-            4,
             {
                 "SwitchCase": 1
             }
@@ -71,7 +71,7 @@
             "functions"
         ], //禁止在块语句中使用声明（变量或函数）
         "no-invalid-regexp": 2, //禁止无效的正则表达式
-        "no-invalid-this": 2, //禁止无效的this，只能用在构造器，类，对象字面量
+        "no-invalid-this": 1, //禁止无效的this，只能用在构造器，类，对象字面量
         "no-irregular-whitespace": 2, //不能有不规则的空格
         "no-iterator": 2, //禁止使用__iterator__ 属性
         "no-label-var": 2, //label名不能与var声明的变量名相同
