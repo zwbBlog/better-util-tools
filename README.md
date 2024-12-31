@@ -162,6 +162,8 @@ UtilTools.random(2,10)  //8
   continuityDiv(numbers,fixed)
 * 指定小数点位数取值,非四舍五入
   toFixed(n=12.681, fixed=2)
+* 指定小数点位数取值,四舍五入
+  round(n=12.681, fixed=2)
 * 劫持粘贴板
   copyTextToClipboard(value,cb)
 * 动态引入资源文件
@@ -285,6 +287,8 @@ UtilTools.random(2,10)  //8
 ```
 
 ## 程序更新日志
+> ### 0.0.15-beta.34 更新时间：2024-12-31
+1. round方法，数值四舍五入
 > ### 0.0.15-beta.33 更新时间：2024-09-07
 1. 优化getUrlParams方法，解决中文解析异常问题
 > ### 0.0.15-beta.32 更新时间：2024-03-13

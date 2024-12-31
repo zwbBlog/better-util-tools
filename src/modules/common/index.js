@@ -2,10 +2,16 @@
 export default class ICommon {
   //判断两个数组是否相等
   arrayEqual(arr1, arr2) {
-    if (arr1 === arr2) { return true; }
-    if (arr1.length !== arr2.length) { return false; }
+    if (arr1 === arr2) {
+      return true;
+    }
+    if (arr1.length !== arr2.length) {
+      return false;
+    }
     for (let i = 0; i < arr1.length; ++i) {
-      if (arr1[i] !== arr2[i]) { return false; }
+      if (arr1[i] !== arr2[i]) {
+        return false;
+      }
     }
     return true;
   }
@@ -40,20 +46,20 @@ export default class ICommon {
     let ua = navigator.userAgent.toLowerCase();
     let s;
     (s = ua.match(/rv:([\d.]+)\) like gecko/)) ?
-      sys.ie = s[1] :
+    sys.ie = s[1]:
       (s = ua.match(/msie ([\d\.]+)/)) ?
-        sys.ie = s[1] :
-        (s = ua.match(/edge\/([\d\.]+)/)) ?
-          sys.edge = s[1] :
-          (s = ua.match(/firefox\/([\d\.]+)/)) ?
-            sys.firefox = s[1] :
-            (s = ua.match(/(?:opera|opr).([\d\.]+)/)) ?
-              sys.opera = s[1] :
-              (s = ua.match(/chrome\/([\d\.]+)/)) ?
-                sys.chrome = s[1] :
-                (s = ua.match(/version\/([\d\.]+).*safari/)) ?
-                  sys.safari = s[1] :
-                  0;
+      sys.ie = s[1] :
+      (s = ua.match(/edge\/([\d\.]+)/)) ?
+      sys.edge = s[1] :
+      (s = ua.match(/firefox\/([\d\.]+)/)) ?
+      sys.firefox = s[1] :
+      (s = ua.match(/(?:opera|opr).([\d\.]+)/)) ?
+      sys.opera = s[1] :
+      (s = ua.match(/chrome\/([\d\.]+)/)) ?
+      sys.chrome = s[1] :
+      (s = ua.match(/version\/([\d\.]+).*safari/)) ?
+      sys.safari = s[1] :
+      0;
     // 根据关系进行判断
     if (sys.ie) {
       return 'IE: ' + sys.ie;
@@ -219,8 +225,16 @@ export default class ICommon {
   }
   //el是否在视口范围内
   elementIsVisibleInViewport(el, partiallyVisible = false) {
-    const { top, left, bottom, right } = el.getBoundingClientRect();
-    const { innerHeight, innerWidth } = window;
+    const {
+      top,
+      left,
+      bottom,
+      right
+    } = el.getBoundingClientRect();
+    const {
+      innerHeight,
+      innerWidth
+    } = window;
     return partiallyVisible ?
       (top > 0 && top < innerHeight || bottom > 0 && bottom < innerHeight) &&
       (left > 0 && left < innerWidth || right > 0 && right < innerWidth) :
@@ -265,7 +279,7 @@ export default class ICommon {
           fileObj.type = 'text/css';
           fileObj.rel = 'stylesheet/less';
         }
-        success = success || function () { };
+        success = success || function () {};
         fileObj.onload = fileObj.onreadystatechange = function () {
           if (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete') {
             SourceMap.set('zlgb' + url, url);
@@ -278,8 +292,12 @@ export default class ICommon {
       }
     }
     if (['string', 'array'].includes(type)) {
-      if (type === 'string') { FileArray = _files.split(','); }
-      if (type === 'array') { FileArray = this.deepCopy(_files); }
+      if (type === 'string') {
+        FileArray = _files.split(',');
+      }
+      if (type === 'array') {
+        FileArray = this.deepCopy(_files);
+      }
       let LoadedCount = 0;
       for (let i = 0; i < FileArray.length; i++) {
         loadFile(FileArray[i], function () {
@@ -303,7 +321,9 @@ export default class ICommon {
     textArea.select();
     try {
       let successful = document.execCommand('copy');
-      if (successful) { cb && cb(); }
+      if (successful) {
+        cb && cb();
+      }
     } catch (err) {
       console.warn('Oops, unable to copy');
     }
@@ -323,7 +343,9 @@ export default class ICommon {
           break;
         case 4:
           if (!new RegExp('0{4}//d{' + (a[0].length - i - 1) + '}$')
-            .test(a[0])) { re = BB[4] + re; }
+            .test(a[0])) {
+            re = BB[4] + re;
+          }
           break;
         case 8:
           re = BB[5] + re;
@@ -331,59 +353,124 @@ export default class ICommon {
           k = 0;
           break;
       }
-      if (k % 4 == 2 && a[0].charAt(i + 2) != 0 && a[0].charAt(i + 1) == 0) { re = AA[0] + re; }
-      if (a[0].charAt(i) != 0) { re = AA[a[0].charAt(i)] + BB[k % 4] + re; }
+      if (k % 4 == 2 && a[0].charAt(i + 2) != 0 && a[0].charAt(i + 1) == 0) {
+        re = AA[0] + re;
+      }
+      if (a[0].charAt(i) != 0) {
+        re = AA[a[0].charAt(i)] + BB[k % 4] + re;
+      }
       k++;
     }
     if (a.length > 1) // 加上小数部分(如果有小数部分)
     {
       re += BB[6];
-      for (var i = 0; i < a[1].length; i++) { re += AA[a[1].charAt(i)]; }
+      for (var i = 0; i < a[1].length; i++) {
+        re += AA[a[1].charAt(i)];
+      }
     }
-    if (re == '一十') { re = '十'; }
-    if (re.match(/^一/) && re.length == 3) { re = re.replace('一', ''); }
+    if (re == '一十') {
+      re = '十';
+    }
+    if (re.match(/^一/) && re.length == 3) {
+      re = re.replace('一', '');
+    }
     return re;
+  }
+  //指定小数点位数取值,非四舍五入
+  toFixed(n, fixed) {
+    const type = this.typeIs(n);
+    if (type === 'number' || type === 'string' && !window.isNaN(Number(n))) {
+      n = String(n);
+      const fixedNum = n.indexOf('.') > -1 ? n.indexOf('.') + fixed + 1 : n.length;
+      return Number(n.substr(0, fixedNum));
+    }
+    return new Error(n + '不是合法的');
+  }
+  //指定小数点位数取值,四舍五入
+  round(n, f) {
+    const type = this.typeIs(n);
+    if (type === 'number' || type === 'string' && !window.isNaN(Number(n))) {
+      const pow = Math.pow(10, f);
+      return Math.round(n * pow) / pow;
+    }
+    return new Error(n + '不是合法的');
   }
   //加
   add(arg1, arg2, fixed) {
     let r1, r2, m;
-    try { r1 = arg1.toString().split('.')[1].length; } catch (e) { r1 = 0; }
-    try { r2 = arg2.toString().split('.')[1].length; } catch (e) { r2 = 0; }
+    try {
+      r1 = arg1.toString().split('.')[1].length;
+    } catch (e) {
+      r1 = 0;
+    }
+    try {
+      r2 = arg2.toString().split('.')[1].length;
+    } catch (e) {
+      r2 = 0;
+    }
     const digit = Math.max(r1, r2);
     m = Math.pow(10, digit);
     const tempNum = Number(((arg1 * m + arg2 * m) / m).toFixed(digit));
-    if (fixed >= 0) { return this.toFixed(tempNum, fixed); }
+    if (fixed >= 0) {
+      return this.toFixed(tempNum, fixed);
+    }
     return tempNum;
   }
   //减
   cut(arg1, arg2, fixed) {
     let r1, r2, m;
-    try { r1 = arg1.toString().split('.')[1].length; } catch (e) { r1 = 0; }
-    try { r2 = arg2.toString().split('.')[1].length; } catch (e) { r2 = 0; }
+    try {
+      r1 = arg1.toString().split('.')[1].length;
+    } catch (e) {
+      r1 = 0;
+    }
+    try {
+      r2 = arg2.toString().split('.')[1].length;
+    } catch (e) {
+      r2 = 0;
+    }
     const digit = Math.max(r1, r2);
     m = Math.pow(10, digit);
     const tempNum = Number(((arg1 * m - arg2 * m) / m).toFixed(digit));
-    if (fixed >= 0) { return this.toFixed(tempNum, fixed); }
+    if (fixed >= 0) {
+      return this.toFixed(tempNum, fixed);
+    }
     return tempNum;
   }
   //乘
   mul(arg1, arg2, fixed) {
-    let m = 0, s1 = arg1.toString(), s2 = arg2.toString();
-    try { m += s1.split('.')[1].length; } catch (e) { }
-    try { m += s2.split('.')[1].length; } catch (e) { }
+    let m = 0,
+      s1 = arg1.toString(),
+      s2 = arg2.toString();
+    try {
+      m += s1.split('.')[1].length;
+    } catch (e) {}
+    try {
+      m += s2.split('.')[1].length;
+    } catch (e) {}
     const tempNum = Number(s1.replace('.', '')) * Number(s2.replace('.', '')) / Math.pow(10, m);
-    if (fixed >= 0) { return this.toFixed(tempNum, fixed); }
+    if (fixed >= 0) {
+      return this.toFixed(tempNum, fixed);
+    }
     return tempNum;
   }
   //除
   div(arg1, arg2, fixed) {
-    let t1 = 0, t2 = 0, r1, r2;
-    try { t1 = arg1.toString().split('.')[1].length; } catch (e) { }
-    try { t2 = arg2.toString().split('.')[1].length; } catch (e) { }
+    let t1 = 0,
+      t2 = 0,
+      r1, r2;
+    try {
+      t1 = arg1.toString().split('.')[1].length;
+    } catch (e) {}
+    try {
+      t2 = arg2.toString().split('.')[1].length;
+    } catch (e) {}
     r1 = Number(arg1.toString().replace('.', ''));
     r2 = Number(arg2.toString().replace('.', ''));
     const tempNum = r1 / r2 * Math.pow(10, t2 - t1);
-    if (fixed >= 0) { return this.toFixed(tempNum, fixed); }
+    if (fixed >= 0) {
+      return this.toFixed(tempNum, fixed);
+    }
     return tempNum;
   }
   //连续加
@@ -446,16 +533,6 @@ export default class ICommon {
     });
     return rs;
   }
-  //指定小数点位数取值,非四舍五入
-  toFixed(n, fixed) {
-    const type = this.typeIs(n);
-    if (type === 'number' || type === 'string' && !window.isNaN(Number(n))) {
-      n = String(n);
-      const fixedNum = n.indexOf('.') > -1 ? n.indexOf('.') + fixed + 1 : n.length;
-      return Number(n.substr(0, fixedNum));
-    }
-    return new Error(n + '不是合法的');
-  }
   //现金额转大写
   digitUppercase(n) {
     let fraction = ['角', '分'];
@@ -503,7 +580,7 @@ export default class ICommon {
     const source = String(num).split('.');
     let result = [];
     for (let s of source) {
-      result.push(s.replace(new RegExp('(\\d)(?=(\\d{3})+$)', 'ig'), '$1,'));//只将整数部分进行都好分割
+      result.push(s.replace(new RegExp('(\\d)(?=(\\d{3})+$)', 'ig'), '$1,')); //只将整数部分进行都好分割
     }
     //再将小数部分合并进来
     return result.join('.');
@@ -539,15 +616,20 @@ export default class ICommon {
     let time_zone = -d.getTimezoneOffset() / 60;
     //少于0的是西区 西区应该用时区绝对值加京八区 重新设置时间（西区时间比东区时间早 所以加时区间隔）
     if (time_zone < 0) {
-      time_zone = Math.abs(time_zone) + 8; currentDate.setHours(tmpHours + time_zone);
+      time_zone = Math.abs(time_zone) + 8;
+      currentDate.setHours(tmpHours + time_zone);
     } else {
       //大于0的是东区  东区时间直接跟京八区相减
-      time_zone -= 8; currentDate.setHours(tmpHours - time_zone);
+      time_zone -= 8;
+      currentDate.setHours(tmpHours - time_zone);
     }
     return currentDate;
   }
   //时间时区转换
-  transformTimeZone({ timezone = 8, date }) {
+  transformTimeZone({
+    timezone = 8,
+    date
+  }) {
     // 本地时间和格林威治的时间差，单位为分钟
     let offsetGMT = new Date(date).getTimezoneOffset();
     // 本地时间距 1970 年 1 月 1 日午夜（GMT 时间）之间的毫秒数
@@ -555,7 +637,12 @@ export default class ICommon {
     return new Date(nowDate + offsetGMT * 60 * 1000 + timezone * 60 * 60 * 1000);
   }
   //时间格式化
-  formatDateTime({ date, type = 'YYYY/MM/DD hh:mm:ss', timeZoneBJ = true, log = true }) {
+  formatDateTime({
+    date,
+    type = 'YYYY/MM/DD hh:mm:ss',
+    timeZoneBJ = true,
+    log = true
+  }) {
     var replaceReg = new RegExp('(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})', 'g');
     if (date && this.typeIs(date) === 'string') {
       date = date.replace(replaceReg, '$1/$2/$3 $4:$5:$6');
@@ -564,7 +651,9 @@ export default class ICommon {
     const debug = date !== undefined && !date;
     const isDate = this.isDate(now) && this.typeIs(now) === 'date';
     if (debug || !isDate) {
-      if (log) { console.error(`Invalid Date ${date}`); }
+      if (log) {
+        console.error(`Invalid Date ${date}`);
+      }
       return '';
     }
     if (timeZoneBJ) {
@@ -583,7 +672,9 @@ export default class ICommon {
     for (let k in o) {
       if (new RegExp('(' + k + ')').test(type)) {
         type = type.replace(RegExp.$1, (a, b) => {
-          if ((b !== 0 || b < 10) && String(o[k]).length < 2 && a.length === 2) { return `0${o[k]}`; }
+          if ((b !== 0 || b < 10) && String(o[k]).length < 2 && a.length === 2) {
+            return `0${o[k]}`;
+          }
           return o[k];
         });
       }
@@ -640,7 +731,9 @@ export default class ICommon {
   isBankCard(axios, bankCard, cb) {
     let url = `https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?_input_charset=utf-8&cardNo=${bankCard}&cardBinCheck=true`;
     if (axios) {
-      axios.get(url).then(({ data }) => {
+      axios.get(url).then(({
+        data
+      }) => {
         cb && cb(data);
       }).catch(err => {
         cb('验证失败');
@@ -651,7 +744,9 @@ export default class ICommon {
   }
   // 获取url参数
   getUrlParams(url) {
-    let querys = {}, keys = [], values = [];
+    let querys = {},
+      keys = [],
+      values = [];
     if (this.isUrl(url)) {
       if (url.indexOf('?') !== -1) {
         let queryString = url.substr(url.indexOf('?') + 1);
@@ -705,7 +800,9 @@ export default class ICommon {
     // 触发事件回调时执行这个返回函数
     return function (...args) {
       // 如果已经设定过定时器就清空上一次的定时器
-      if (timer) { clearTimeout(timer); }
+      if (timer) {
+        clearTimeout(timer);
+      }
       // 开始设定一个新的定时器，定时器结束后执行传入的函数 fn
       timer = setTimeout(() => {
         fn.apply(this, args);
@@ -752,7 +849,9 @@ export default class ICommon {
   }
   //判断该属性是否在json中的key存在
   jsonHasKey(json, key) {
-    if (typeof json !== 'object' || typeof key !== 'string') { return false; }
+    if (typeof json !== 'object' || typeof key !== 'string') {
+      return false;
+    }
     return Object.keys(json).some(k => k === key || this.jsonHasKey(json[k], key));
   }
   // 数组去重合并
@@ -838,21 +937,42 @@ export default class ICommon {
    *      value:200  调用成功标志value
    *   }
    * }
-  */
+   */
   retry(options = {}) {
-    const { fn, max = 3, flag } = options;
+    const {
+      fn,
+      max = 3,
+      flag
+    } = options;
     let retryCount = max - 1;
-    const mFlag = flag || { key: 'status', value: 200 }
+    const mFlag = flag || {
+      key: 'status',
+      value: 200
+    }
     const fnType = this.typeIs(fn);
     const _run = f => {
       return new Promise((resolve, reject) => {
-        if (!['function', 'asyncfunction'].includes(fnType)) { return reject(`${fnType} is not function`); }
+        if (!['function', 'asyncfunction'].includes(fnType)) {
+          return reject(`${fnType} is not function`);
+        }
         f().then(result => {
-          if (result[mFlag.key] === mFlag.value) { return resolve(result); }
-          if (retryCount > 0) { retryCount--; return _run(f); }
-          reject({ code: '-1', success: false, msg: `Sorry, failed to retry ${max} times` })
+          if (result[mFlag.key] === mFlag.value) {
+            return resolve(result);
+          }
+          if (retryCount > 0) {
+            retryCount--;
+            return _run(f);
+          }
+          reject({
+            code: '-1',
+            success: false,
+            msg: `Sorry, failed to retry ${max} times`
+          })
         }).catch(e => {
-          if (retryCount > 0) { retryCount--; return _run(f); }
+          if (retryCount > 0) {
+            retryCount--;
+            return _run(f);
+          }
           reject(e)
         })
       })
