@@ -279,7 +279,7 @@ UtilTools.random(2,10)  //8
     /* {
           "code": "-1",
           "success": false,
-          "msg": "Sorry, failed to retry 3 times"
+          "msg": catchError,
         }
     */
     console.log(e)
@@ -287,6 +287,8 @@ UtilTools.random(2,10)  //8
 ```
 
 ## 程序更新日志
+> ### 0.0.15-beta.35 更新时间：2025-03-15
+1. retry方法优化，重试次数达到后，返回错误信息
 > ### 0.0.15-beta.34 更新时间：2024-12-31
 1. round方法，数值四舍五入
 > ### 0.0.15-beta.33 更新时间：2024-09-07

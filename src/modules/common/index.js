@@ -46,20 +46,20 @@ export default class ICommon {
     let ua = navigator.userAgent.toLowerCase();
     let s;
     (s = ua.match(/rv:([\d.]+)\) like gecko/)) ?
-    sys.ie = s[1]:
-      (s = ua.match(/msie ([\d\.]+)/)) ?
       sys.ie = s[1] :
-      (s = ua.match(/edge\/([\d\.]+)/)) ?
-      sys.edge = s[1] :
-      (s = ua.match(/firefox\/([\d\.]+)/)) ?
-      sys.firefox = s[1] :
-      (s = ua.match(/(?:opera|opr).([\d\.]+)/)) ?
-      sys.opera = s[1] :
-      (s = ua.match(/chrome\/([\d\.]+)/)) ?
-      sys.chrome = s[1] :
-      (s = ua.match(/version\/([\d\.]+).*safari/)) ?
-      sys.safari = s[1] :
-      0;
+      (s = ua.match(/msie ([\d\.]+)/)) ?
+        sys.ie = s[1] :
+        (s = ua.match(/edge\/([\d\.]+)/)) ?
+          sys.edge = s[1] :
+          (s = ua.match(/firefox\/([\d\.]+)/)) ?
+            sys.firefox = s[1] :
+            (s = ua.match(/(?:opera|opr).([\d\.]+)/)) ?
+              sys.opera = s[1] :
+              (s = ua.match(/chrome\/([\d\.]+)/)) ?
+                sys.chrome = s[1] :
+                (s = ua.match(/version\/([\d\.]+).*safari/)) ?
+                  sys.safari = s[1] :
+                  0;
     // 根据关系进行判断
     if (sys.ie) {
       return 'IE: ' + sys.ie;
@@ -279,7 +279,7 @@ export default class ICommon {
           fileObj.type = 'text/css';
           fileObj.rel = 'stylesheet/less';
         }
-        success = success || function () {};
+        success = success || function () { };
         fileObj.onload = fileObj.onreadystatechange = function () {
           if (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete') {
             SourceMap.set('zlgb' + url, url);
@@ -444,10 +444,10 @@ export default class ICommon {
       s2 = arg2.toString();
     try {
       m += s1.split('.')[1].length;
-    } catch (e) {}
+    } catch (e) { }
     try {
       m += s2.split('.')[1].length;
-    } catch (e) {}
+    } catch (e) { }
     const tempNum = Number(s1.replace('.', '')) * Number(s2.replace('.', '')) / Math.pow(10, m);
     if (fixed >= 0) {
       return this.toFixed(tempNum, fixed);
@@ -461,10 +461,10 @@ export default class ICommon {
       r1, r2;
     try {
       t1 = arg1.toString().split('.')[1].length;
-    } catch (e) {}
+    } catch (e) { }
     try {
       t2 = arg2.toString().split('.')[1].length;
-    } catch (e) {}
+    } catch (e) { }
     r1 = Number(arg1.toString().replace('.', ''));
     r2 = Number(arg2.toString().replace('.', ''));
     const tempNum = r1 / r2 * Math.pow(10, t2 - t1);
@@ -963,17 +963,21 @@ export default class ICommon {
             retryCount--;
             return _run(f);
           }
-          reject({
+          return reject({
             code: '-1',
             success: false,
-            msg: `Sorry, failed to retry ${max} times`
+            msg: result
           })
         }).catch(e => {
           if (retryCount > 0) {
             retryCount--;
             return _run(f);
           }
-          reject(e)
+          return reject({
+            code: '-5',
+            success: false,
+            msg: e
+          })
         })
       })
     }
