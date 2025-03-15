@@ -951,19 +951,16 @@ export default class ICommon {
     }
     const fnType = this.typeIs(fn);
     const _run = f => {
-      return new Promise((resolve, reject) => {
-        if (!['function', 'asyncfunction'].includes(fnType)) {
-          return reject(`${fnType} is not function`);
-        }
-        f().then(result => {
+      const doRetry = (retryFn, myResolve, myReject) => {
+        retryFn().then(result => {
           if (result[mFlag.key] === mFlag.value) {
-            return resolve(result);
+            return myResolve(result);
           }
           if (retryCount > 0) {
             retryCount--;
-            return _run(f);
+            return doRetry(retryFn, myResolve, myReject);
           }
-          return reject({
+          myReject({
             code: '-1',
             success: false,
             msg: result
@@ -971,14 +968,20 @@ export default class ICommon {
         }).catch(e => {
           if (retryCount > 0) {
             retryCount--;
-            return _run(f);
+            return doRetry(retryFn, myResolve, myReject);
           }
-          return reject({
+          myReject({
             code: '-5',
             success: false,
             msg: e
           })
         })
+      }
+      return new Promise((resolve, reject) => {
+        if (!['function', 'asyncfunction'].includes(fnType)) {
+          return reject(`${fnType} is not function`);
+        }
+        return doRetry(f, resolve, reject)
       })
     }
     return _run(fn);

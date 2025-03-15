@@ -46,16 +46,13 @@
     try {
         const UtilTools = new BetterUtilTools();
 
-        UtilTools.retry({fn,max:3,flag:{key:'status',value:200 }}).then(result => {
+        UtilTools.retry({fn,max:10,flag:{key:'status',value:203 }}).then(result => {
             console.log('result!!!!');
             console.log(result);
         }).catch(e => {
             console.log(e);
         })
-        /*
-
         console.log(UtilTools.typeIs(fn));
-        console.log(UtilTools);
         console.log(UtilTools.getWechatEnv());
         console.log(UtilTools.file.fileToBase64);
         console.log(UtilTools.izExif.getImageData);
@@ -447,7 +444,6 @@
         for (let index = 0; index < 10; index++) {
             // scheduler.add(()=>fetch('https://dog.ceo/api/breeds/image/random'))
         }
-            */
     } catch (err) {
         console.warn(err);
     }
