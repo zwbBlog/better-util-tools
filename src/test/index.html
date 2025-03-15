@@ -46,7 +46,7 @@
     try {
         const UtilTools = new BetterUtilTools();
 
-        UtilTools.retry({fn,max:10,flag:{key:'status',value:203 }}).then(result => {
+        UtilTools.retry({fn,max:10,flag:{key:'status',value:200 }}).then(result => {
             console.log('result!!!!');
             console.log(result);
         }).catch(e => {
